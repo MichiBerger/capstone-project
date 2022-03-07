@@ -1,11 +1,12 @@
-import styled from 'styled-components';
 
-export default function PhraseCard() {
+
+export default function PhraseCard({date, phraseText}) {
   return (
    <article>
-     <p>22. Feb. 2022</p>
-     <p>Das ist mein Papapa!</p>
+     <time>{date}</time>
+     <p>{phraseText}</p>
    </article>
   );
 }
+
 
