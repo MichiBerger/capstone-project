@@ -40,9 +40,6 @@ export default function PhraseCardList() {
           );
         })}
       </PhrasesList>
-      <ul>
-        <li>Testsdsdsds</li>
-      </ul>
     </section>
   );
 }
