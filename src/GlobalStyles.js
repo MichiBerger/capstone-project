@@ -10,7 +10,7 @@ body {
   font-family: sans-serif;
   font-size: 112.5%;
   line-height: 1.5;
-  background-color: #f1f5f9;
+  background-color: #efefef;
 }
 h1,
 h2,
@@ -27,6 +27,10 @@ a {
 }
 li {
   list-style-type: none;
+}
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 `;
