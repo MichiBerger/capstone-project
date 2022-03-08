@@ -1,9 +1,9 @@
-
+import PhraseCardList from './components/PhraseCardList.js';
 
 function App() {
   return (
     <div>
-      <h1>Hello World</h1>
+      <PhraseCardList />
     </div>
   );
 }
