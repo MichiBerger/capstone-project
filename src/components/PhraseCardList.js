@@ -31,7 +31,7 @@ const phrases = [
 export default function PhraseCardList() {
   return (
     <section>
-      <PhrasesList aria-label='phrases'>
+      <PhrasesList role="list" aria-label="phrases">
         {phrases.map((phrase, index) => {
           return (
             <li aria-label="phrase-item" key={index}>
@@ -40,12 +40,15 @@ export default function PhraseCardList() {
           );
         })}
       </PhrasesList>
+      <ul>
+        <li>Testsdsdsds</li>
+      </ul>
     </section>
   );
 }
 
 const PhrasesList = styled.ul`
-display: flex;
-flex-direction: column;
-gap: 1rem;
-`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;

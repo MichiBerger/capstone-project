@@ -25,12 +25,10 @@ a {
   text-decoration: none;
   color: black;
 }
-li {
-  list-style-type: none;
-}
-ul {
+ul{
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 `;
