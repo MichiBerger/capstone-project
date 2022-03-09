@@ -5,21 +5,27 @@ import PhraseData from './PhraseData.js';
 
 export default function PhraseCardList() {
   const [phrases, setPhrases] = useState(PhraseData);
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
-  function handleIconClick(phraseId, nextBookmarked) {
-    console.log(phrases.map(item => item.phrase));
-
+  function handleIconClick(phraseId) {
+    const nextPhrases = phrases.map(item => {
+      if (item.id === phraseId) {
+        return { ...item, isBookmarked: !item.isBookmarked };
+      } else {
+        return item;
+      }
+    });
+   setPhrases(nextPhrases);
+   console.log("click")
   }
   return (
     <section>
       <PhrasesList role="list" aria-label="phrases">
-        {phrases.map((phrase, index) => {
+        {phrases.map(phrase => {
           return (
-            <li aria-label="phrase-item" key={index}>
+            <li aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
-                onIconClick={handleIconClick}
-                isBookmarked={isBookmarked}
+                onIconClick={() => handleIconClick(phrase.id)}
+                isBookmarked={phrase.isBookmarked}
                 date={phrase.date}
                 phraseText={phrase.phrase}
               />
