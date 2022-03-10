@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import HeartIcon from './HearIcon.js';
+import HeartIcon from './HeartIcon.js';
 
 export default function PhraseCard({ date, phraseText, isBookmarked, onIconClick }) {
   return (
@@ -23,7 +23,7 @@ const PhraseCardWrapper = styled.article`
   padding: 1rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   background-color: #fff;
-  row-gap: 10px;
+  row-gap: 1rem;
 `;
 
 const PhraseCardDate = styled.time`
@@ -35,9 +35,4 @@ const PhraseCardDate = styled.time`
 const PhraseCardText = styled.p`
   grid-area: text;
   word-wrap: break-word;
-`;
-
-const HeartIconButton = styled(HeartIcon)`
-
-
 `;
