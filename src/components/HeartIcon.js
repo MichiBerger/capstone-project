@@ -59,8 +59,8 @@ const IconWrapper = styled.button`
 `;
 
 const HeartFilled = styled.svg`
-  fill: #9d454f ;
+  fill: #F2A122 ;
 `;
 const HeartOutlined = styled.svg`
-  fill: #9d454f ;
+  fill: #F2A122 ;
 `;

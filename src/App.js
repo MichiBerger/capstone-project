@@ -12,7 +12,7 @@ function App() {
   return (
     <AppGrid>
       <Header>
-        <h1>MyLittleSunshine</h1>
+        <h1>header</h1>
       </Header>
 
       <Main>
@@ -51,7 +51,8 @@ const Header = styled.header`
   align-items: center;
   justify-content: center;
   color: white;
-  background-color: #457b9d;
+  background-color: #efefef;
+  color: #2196f3;
 `;
 const Main = styled.main`
   height: 100vh;
@@ -64,6 +65,5 @@ const NavBar = styled(Navigation)`
   bottom: 0;
   z-index: 1;
 `;
-
 
 export default App;
