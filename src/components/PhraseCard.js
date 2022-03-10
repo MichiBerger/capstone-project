@@ -3,11 +3,13 @@ import HeartIcon from './HeartIcon.js';
 
 export default function PhraseCard({ date, phraseText, isBookmarked, onIconClick }) {
   return (
-    <PhraseCardWrapper>
-      <HeartIcon onIconClick={onIconClick} isBookmarked={isBookmarked} />
-      <PhraseCardDate>{date}</PhraseCardDate>
-      <PhraseCardText>{phraseText}</PhraseCardText>
-    </PhraseCardWrapper>
+    <>
+      <PhraseCardWrapper>
+        <HeartIcon onIconClick={onIconClick} isBookmarked={isBookmarked} />
+        <PhraseCardDate>{date}</PhraseCardDate>
+        <PhraseCardText>{phraseText}</PhraseCardText>
+      </PhraseCardWrapper>
+    </>
   );
 }
 
@@ -29,7 +31,7 @@ const PhraseCardWrapper = styled.article`
 const PhraseCardDate = styled.time`
   grid-area: date;
   font-size: 0.75rem;
-  align-self: center ;
+  align-self: center;
 `;
 
 const PhraseCardText = styled.p`
