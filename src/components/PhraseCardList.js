@@ -1,22 +1,7 @@
-import { useState } from 'react';
 import PhraseCard from './PhraseCard.js';
 import styled from 'styled-components';
-import PhraseData from './PhraseData.js';
 
-export default function PhraseCardList() {
-  const [phrases, setPhrases] = useState(PhraseData);
-
-  function handleIconClick(phraseId) {
-    const nextPhrases = phrases.map(item => {
-      if (item.id === phraseId) {
-        return { ...item, isBookmarked: !item.isBookmarked };
-      } else {
-        return item;
-      }
-    });
-   setPhrases(nextPhrases);
-   console.log("click")
-  }
+export default function PhraseCardList({ onIconClick, phrases }) {
   return (
     <section>
       <PhrasesList role="list" aria-label="phrases">
@@ -24,7 +9,7 @@ export default function PhraseCardList() {
           return (
             <li aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
-                onIconClick={() => handleIconClick(phrase.id)}
+                onIconClick={() => onIconClick(phrase.id)}
                 isBookmarked={phrase.isBookmarked}
                 date={phrase.date}
                 phraseText={phrase.phrase}

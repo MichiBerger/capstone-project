@@ -9,13 +9,5 @@ describe('PhraseCardList', () => {
     })
     expect(phraseList).toBeInTheDocument();
   })
-  it('renders listitems', () => {
 
-    render(<PhraseCardList  />)
-
-    const phraseItems = screen.getAllByRole("listitem")
-
-    expect(phraseItems).toBeTruthy()
-
-  })
 })
