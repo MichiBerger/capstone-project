@@ -10,6 +10,7 @@ body {
   font-family: sans-serif;
   font-size: 112.5%;
   line-height: 1.5;
+  color: black;
   background-color: #efefef;
 }
 h1,
@@ -19,7 +20,6 @@ h4,
 h5,
 h6 {
   line-height: 1.2;
-  color: black;
 }
 a {
   text-decoration: none;
