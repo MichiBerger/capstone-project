@@ -1,41 +1,34 @@
+import { useState } from 'react';
 import PhraseCard from './PhraseCard.js';
 import styled from 'styled-components';
-
-const phrases = [
-  {
-    date: '22. Feb. 2022',
-    phrase: 'Das ist mein Papapa!',
-  },
-  {
-    date: '10. Feb. 2022',
-    phrase: 'Ach menno!',
-  },
-  {
-    date: '02. Jan. 2022',
-    phrase: 'Das ist mein Papapa!',
-  },
-  {
-    date: '23. Dez. 2021',
-    phrase: 'Nochmal Dosinen, Nüsse und Haferflocken! Ja...das wars!',
-  },
-  {
-    date: '06. Jun. 2021',
-    phrase: 'Badebanne',
-  },
-  {
-    date: '06. Jun. 2021',
-    phrase: 'DasIstDASLängsteWortUmZuÜberprüfenObDasWord',
-  },
-];
+import PhraseData from './PhraseData.js';
 
 export default function PhraseCardList() {
+  const [phrases, setPhrases] = useState(PhraseData);
+
+  function handleIconClick(phraseId) {
+    const nextPhrases = phrases.map(item => {
+      if (item.id === phraseId) {
+        return { ...item, isBookmarked: !item.isBookmarked };
+      } else {
+        return item;
+      }
+    });
+   setPhrases(nextPhrases);
+   console.log("click")
+  }
   return (
     <section>
       <PhrasesList role="list" aria-label="phrases">
-        {phrases.map((phrase, index) => {
+        {phrases.map(phrase => {
           return (
-            <li aria-label="phrase-item" key={index}>
-              <PhraseCard date={phrase.date} phraseText={phrase.phrase} />
+            <li aria-label="phrase-item" key={phrase.id}>
+              <PhraseCard
+                onIconClick={() => handleIconClick(phrase.id)}
+                isBookmarked={phrase.isBookmarked}
+                date={phrase.date}
+                phraseText={phrase.phrase}
+              />
             </li>
           );
         })}
