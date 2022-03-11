@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import PhraseCard from '../PhraseCard.js';
-import FavoriteEmptyPhraseMessage from '../FavoriteEmptyPhraseMessage.js';
+import EmptyPhraseMessage from '../FavoriteEmptyPhraseMessage.js';
 
 export default function FavoritePhrases({ onIconClick, phrases }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
 
   const emptyPhrasesMessage =
     emptyPhrases.length === 0 ? (
-      <FavoriteEmptyPhraseMessage
+      <EmptyPhraseMessage
         emptyPhrasetext="Gehe zurück und markiere deine Lieblingsprüche einfach durch anklicken auf das Herzsymbol!"
         titleText="Upps...da fehlt noch was!"
       />
