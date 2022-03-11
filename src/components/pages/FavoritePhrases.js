@@ -1,15 +1,16 @@
-import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import PhraseCard from '../PhraseCard.js';
-import FavoriteEmptyPhraseMessage from "./FavoriteEmptyPhraseMessage.js";
-
-
+import FavoriteEmptyPhraseMessage from '../FavoriteEmptyPhraseMessage.js';
 
 export default function FavoritePhrases({ onIconClick, phrases }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
+
   const emptyPhrasesMessage =
     emptyPhrases.length === 0 ? (
-      <FavoriteEmptyPhraseMessage />
+      <FavoriteEmptyPhraseMessage
+        emptyPhrasetext="Gehe zurück und markiere deine Lieblingsprüche einfach durch anklicken auf das Herzsymbol!"
+        titleText="Upps...da fehlt noch was!"
+      />
     ) : null;
 
   return (
@@ -17,7 +18,7 @@ export default function FavoritePhrases({ onIconClick, phrases }) {
       {emptyPhrasesMessage}
       <PhrasesList role="list" aria-label="phrases">
         {phrases
-          .filter(phrase => phrase.isBookmarked === true)
+          .filter(phrase => phrase.isBookmarked)
           .map(phrase => {
             return (
               <li aria-label="phrase-item" key={phrase.id}>
@@ -40,7 +41,3 @@ const PhrasesList = styled.ul`
   flex-direction: column;
   gap: 1rem;
 `;
-
-
-
-
