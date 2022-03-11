@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PhraseCard from '../PhraseCard.js';
-import EmptyPhraseMessage from '../FavoriteEmptyPhraseMessage.js';
+import EmptyPhraseMessage from '../EmptyPhraseMessage.js';
 
 export default function FavoritePhrases({ onIconClick, phrases }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
