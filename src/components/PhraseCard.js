@@ -25,6 +25,7 @@ const PhraseCardWrapper = styled.article`
   padding: 1rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   background-color: #f9f9f9;
+  color: #2A475E;
   row-gap: 1rem;
 `;
 
