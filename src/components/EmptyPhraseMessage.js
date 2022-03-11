@@ -20,7 +20,7 @@ const EmptyPhrasesMessageWrapper = styled.article`
   color: #2a475e;
   padding: 1rem;
   border-radius: 20px;
-  box-shadow: rgba(242, 161, 34, 0.3) 0px -1px 2px 0px, rgba(242, 161, 34, 0.15) 0px 1px 3px 1px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   background-color: #f9f9f9;
   display: grid;
   grid-template-rows: auto 1fr auto;

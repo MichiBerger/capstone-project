@@ -5,20 +5,22 @@ import PhraseData from './components/PhraseData.js';
 import AllPhrases from './components/pages/AllPhrases.js';
 import Navigation from './components/Navigation.js';
 import FavoritePhrases from './components/pages/FavoritePhrases.js';
+import AddPhrases from './components/pages/AddPhrases.js';
 
 function App() {
   const [phrases, setPhrases] = useState(PhraseData);
 
   return (
     <AppGrid>
-      <Header>
-        <h1>header</h1>
-      </Header>
+      
+        <Header>title</Header>
+
 
       <Main>
         <Routes>
           <Route path="/" element={<AllPhrases phrases={phrases} onIconClick={handleIconClick} />} />
           <Route path="/favorites" element={<FavoritePhrases phrases={phrases} onIconClick={handleIconClick} />} />
+          <Route path="/addphrases" element={<AddPhrases />} />
         </Routes>
       </Main>
       <NavBar />
@@ -43,7 +45,7 @@ const AppGrid = styled.div`
   grid-template-rows: 48px 1fr 48px;
 `;
 
-const Header = styled.header`
+const Header = styled.h1`
   position: sticky;
   top: 0px;
   z-index: 2;
