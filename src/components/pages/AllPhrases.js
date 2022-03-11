@@ -1,7 +1,7 @@
-import PhraseCard from './PhraseCard.js';
+import PhraseCard from '../PhraseCard.js';
 import styled from 'styled-components';
 
-export default function PhraseCardList({ onIconClick, phrases }) {
+export default function AllPhrases({ onIconClick, phrases }) {
   return (
     <section>
       <PhrasesList role="list" aria-label="phrases">
