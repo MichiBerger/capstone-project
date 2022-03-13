@@ -12,15 +12,13 @@ function App() {
 
   return (
     <AppGrid>
-      
-        <Header>title</Header>
-
+      <Header>title</Header>
 
       <Main>
         <Routes>
           <Route path="/" element={<AllPhrases phrases={phrases} onIconClick={handleIconClick} />} />
           <Route path="/favorites" element={<FavoritePhrases phrases={phrases} onIconClick={handleIconClick} />} />
-          <Route path="/addphrases" element={<AddPhrases />} />
+          <Route path="/addphrases" element={<AddPhrases phrases={phrases} setPhrases={setPhrases} />} />
         </Routes>
       </Main>
       <NavBar />

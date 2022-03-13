@@ -26,7 +26,7 @@ export default function FavoritePhrases({ onIconClick, phrases }) {
                   onIconClick={() => onIconClick(phrase.id)}
                   isBookmarked={phrase.isBookmarked}
                   date={phrase.date}
-                  phraseText={phrase.phrase}
+                  text={phrase.text}
                 />
               </li>
             );

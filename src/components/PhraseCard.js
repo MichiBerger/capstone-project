@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import HeartIcon from './HeartIcon.js';
 
-export default function PhraseCard({ date, phraseText, isBookmarked, onIconClick }) {
+export default function PhraseCard({ date, text, isBookmarked, onIconClick }) {
   return (
     <>
       <PhraseCardWrapper>
         <HeartIcon onIconClick={onIconClick} isBookmarked={isBookmarked} />
         <PhraseCardDate>{date}</PhraseCardDate>
-        <PhraseCardText>{phraseText}</PhraseCardText>
+        <PhraseCardText>{text}</PhraseCardText>
       </PhraseCardWrapper>
     </>
   );

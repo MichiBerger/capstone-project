@@ -30,6 +30,10 @@ ul{
   padding: 0;
   list-style: none;
 }
+input, textarea {
+  font-family: sans-serif;
+  font-size: 1rem;
+}
 .sr-only {
 position: absolute;
 width: 1px;

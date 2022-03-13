@@ -12,7 +12,7 @@ export default function AllPhrases({ onIconClick, phrases }) {
                 onIconClick={() => onIconClick(phrase.id)}
                 isBookmarked={phrase.isBookmarked}
                 date={phrase.date}
-                phraseText={phrase.phrase}
+                text={phrase.text}
               />
             </li>
           );
