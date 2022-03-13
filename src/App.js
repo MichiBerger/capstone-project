@@ -10,6 +10,7 @@ import AddPhrases from './components/pages/AddPhrases.js';
 function App() {
   const [phrases, setPhrases] = useState(PhraseData);
 
+  console.log(phrases);
   return (
     <AppGrid>
       <Header>title</Header>
