@@ -46,8 +46,7 @@ export default function PhraseForm({ handlePhraseSubmit }) {
           dateFormat="dd-MM-yyyy"
           selected={startDate}
           onChange={date => setStartDate(date)}
-          maxDate={startDate}
-          isClearable
+
         />
         {startDate === null ? <ErrorMessage>Bitte wähle ein Datum!</ErrorMessage> : null}
         <LabelTextArea htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelTextArea>
