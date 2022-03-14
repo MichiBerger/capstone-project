@@ -8,7 +8,7 @@ describe('EmptyPhraseMessage', () => {
       <Router>
         <EmptyPhraseMessage
           titleText="Upps...da fehlt noch was!"
-          emptyPhrasetext="Gehe zurück und markiere deine Lieblingsprüche einfach durch anklicken auf das Herzsymbol!"
+          emptyPhrasetext="Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!"
         />
       </Router>
     );
@@ -17,7 +17,7 @@ describe('EmptyPhraseMessage', () => {
     expect(title).toBeInTheDocument();
 
     const message = screen.getByText(
-      /Gehe zurück und markiere deine Lieblingsprüche einfach durch anklicken auf das Herzsymbol!/i
+      /Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!/i
     );
     expect(message).toBeInTheDocument();
 

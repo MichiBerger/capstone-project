@@ -8,3 +8,7 @@ export default {
 const Template = args => <EmptyPhraseMessage {...args} />;
 
 export const Default = Template.bind({});
+Default.args = {
+  titleText: "22. Feb. 2022",
+  emptyPhrasetext: "das ist mein..."
+};

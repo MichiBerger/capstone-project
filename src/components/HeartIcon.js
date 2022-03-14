@@ -49,8 +49,9 @@ const IconWrapper = styled.button`
   cursor: pointer;
 
   &:active {
-    transform: scale(1.1);
+    transform: scale(1.2);
     background: transparent;
+    transition: all 0.2s ease-out;
   }
 
   img {
@@ -59,8 +60,8 @@ const IconWrapper = styled.button`
 `;
 
 const HeartFilled = styled.svg`
-  fill: #F2A122 ;
+  fill: #f2a122;
 `;
 const HeartOutlined = styled.svg`
-  fill: #F2A122 ;
+  fill: #f2a122;
 `;

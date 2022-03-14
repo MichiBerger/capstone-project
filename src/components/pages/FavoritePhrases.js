@@ -8,7 +8,7 @@ export default function FavoritePhrases({ onIconClick, phrases }) {
   const emptyPhrasesMessage =
     emptyPhrases.length === 0 ? (
       <EmptyPhraseMessage
-        emptyPhrasetext="Gehe zurück und markiere deine Lieblingsprüche einfach durch anklicken auf das Herzsymbol!"
+        emptyPhrasetext="Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!"
         titleText="Upps...da fehlt noch was!"
       />
     ) : null;
@@ -26,7 +26,7 @@ export default function FavoritePhrases({ onIconClick, phrases }) {
                   onIconClick={() => onIconClick(phrase.id)}
                   isBookmarked={phrase.isBookmarked}
                   date={phrase.date}
-                  phraseText={phrase.phrase}
+                  text={phrase.text}
                 />
               </li>
             );

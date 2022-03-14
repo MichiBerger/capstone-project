@@ -10,7 +10,7 @@ body {
   font-family: sans-serif;
   font-size: 112.5%;
   line-height: 1.5;
-  color: black;
+  color: #2a475e;
   background-color: #efefef;
 }
 h1,
@@ -29,6 +29,10 @@ ul{
   margin: 0;
   padding: 0;
   list-style: none;
+}
+input, textarea {
+  font-family: sans-serif;
+  font-size: 1rem;
 }
 .sr-only {
 position: absolute;
