@@ -1,25 +1,28 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import styled from 'styled-components';
-import PhraseData from './components/PhraseData.js';
 import AllPhrases from './components/pages/AllPhrases.js';
 import Navigation from './components/Navigation.js';
 import FavoritePhrases from './components/pages/FavoritePhrases.js';
 import AddPhrases from './components/pages/AddPhrases.js';
+import { nanoid } from 'nanoid';
 
 function App() {
-  const [phrases, setPhrases] = useState(PhraseData);
+  const [phrases, setPhrases] = useState([]);
 
   console.log(phrases);
   return (
     <AppGrid>
-      <Header>title</Header>
+      <Header>MeinMausebär</Header>
 
       <Main>
         <Routes>
           <Route path="/" element={<AllPhrases phrases={phrases} onIconClick={handleIconClick} />} />
           <Route path="/favorites" element={<FavoritePhrases phrases={phrases} onIconClick={handleIconClick} />} />
-          <Route path="/addphrases" element={<AddPhrases phrases={phrases} setPhrases={setPhrases} />} />
+          <Route
+            path="/addphrases"
+            element={<AddPhrases phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
+          />
         </Routes>
       </Main>
       <NavBar />
@@ -36,6 +39,13 @@ function App() {
     });
     setPhrases(nextPhrases);
     console.log('click');
+  }
+
+  function handlePhraseSubmit({ date, text }) {
+    let id = nanoid();
+    let isBookmarked = false;
+
+    setPhrases([{ id, date, text, isBookmarked }, ...phrases]);
   }
 }
 
@@ -54,6 +64,7 @@ const Header = styled.h1`
   color: white;
   background-color: #efefef;
   color: #2196f3;
+  font-size: 2rem;
 `;
 const Main = styled.main`
   height: 100vh;

@@ -50,8 +50,6 @@ const AddButtonLink = styled(Link)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
-  
   min-height: 250px;
   min-width: 250px;
 `;

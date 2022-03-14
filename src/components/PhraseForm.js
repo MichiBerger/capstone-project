@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import AddIcon from './AddIcon.js';
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PhraseAddedMessage from './PhraseAddedMessage.js';
 
-export default function PhraseForm({ phrases, setPhrases }) {
+export default function PhraseForm({ handlePhraseSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
   const [phraseText, setPhraseText] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
@@ -15,22 +14,26 @@ export default function PhraseForm({ phrases, setPhrases }) {
 
   const disabledButton = (phraseText.length === 0 || startDate === null) ?? true;
 
+  function setTime() {
+    setSuccessMessage(true);
+    setTimeout(() => {
+      setSuccessMessage(false);
+    }, 2000);
+  }
+
   function onTextareaChange(e) {
     setPhraseText(e.target.value);
   }
 
   function onFormSubmit(e) {
     e.preventDefault();
-    let id = nanoid();
     let newDate = startDate.toLocaleDateString('de-DE', options);
 
-    setPhrases([{ id: id, date: newDate, text: phraseText, isBookmarked: false }, ...phrases]);
-    setSuccessMessage(true);
-    setTimeout(() => {
-      setSuccessMessage(false);
-    }, 2000);
-    setPhraseText('');
+    handlePhraseSubmit({ date: newDate, text: phraseText });
+
     setStartDate(new Date());
+    setPhraseText('');
+    setTime()
   }
 
   return (
@@ -61,7 +64,7 @@ export default function PhraseForm({ phrases, setPhrases }) {
         {phraseText.length === 300 ? (
           <ErrorMessage>Du hast die maximale Anzahl an Buchstaben erreicht!</ErrorMessage>
         ) : null}
-        <AddButton disabled={disabledButton} type="submit">
+        <AddButton disabled={disabledButton}>
           <AddIcon fill="#2196f3" height="30px" width="30px" />
           <AddButtonText>Füge einen Spruch hinzu!</AddButtonText>
         </AddButton>
@@ -135,10 +138,8 @@ const AddButton = styled.button`
   padding: 0.5rem 0;
   border-radius: 25px;
   cursor: pointer;
-  
 `;
 const AddButtonText = styled.p`
   font-size: 0.75rem;
   color: #2196f3;
 `;
-
