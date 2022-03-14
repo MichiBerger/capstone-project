@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import DeleteButton from './DeleteButton.js';
 import HeartIcon from './HeartIcon.js';
 
 export default function PhraseCard({ date, text, isBookmarked, onIconClick }) {
@@ -6,6 +7,7 @@ export default function PhraseCard({ date, text, isBookmarked, onIconClick }) {
     <>
       <PhraseCardWrapper>
         <HeartIcon onIconClick={onIconClick} isBookmarked={isBookmarked} />
+        <DeleteButton fill="red"/>
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
       </PhraseCardWrapper>
@@ -15,10 +17,10 @@ export default function PhraseCard({ date, text, isBookmarked, onIconClick }) {
 
 const PhraseCardWrapper = styled.article`
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: auto 2fr auto auto;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    'date date . heartIconButton'
+    'date . heartIconButton deleteIconButton'
     '. text text text'
     '. . . .';
   border-radius: 15px;
