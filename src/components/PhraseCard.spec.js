@@ -5,10 +5,10 @@ describe('PhraseCard', () => {
   it('renders a date and a phrase text', () => {
     render(<PhraseCard date="22. Feb. 2022" phraseText="Das ist mein Papapa!" />);
 
-    const date = screen.getByText('22. Feb. 2022');
+    const date = screen.getByText(/22. Feb. 2022/i);
     expect(date).toBeInTheDocument();
 
-    const phraseText = screen.getByText('Das ist mein Papapa!');
+    const phraseText = screen.getByText(/Das ist mein Papapa!/i);
     expect(phraseText).toBeInTheDocument();
   });
 });

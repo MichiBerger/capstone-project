@@ -17,7 +17,7 @@ describe('EmptyPhraseMessage', () => {
     expect(title).toBeInTheDocument();
 
     const message = screen.getByText(
-      /Gehe zurück und markiere deine Lieblingspruch einfach durch klicken auf das Herzsymbol!/i
+      /Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!/i
     );
     expect(message).toBeInTheDocument();
 

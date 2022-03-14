@@ -9,6 +9,6 @@ const Template = args => <PhraseCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  phraseText: 'Das ist mein Papapa!',
+  text: 'Das ist mein Papapa!',
   date: '22. Feb. 2022',
 };

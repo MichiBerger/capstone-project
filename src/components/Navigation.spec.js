@@ -10,6 +10,6 @@ describe('Navigation', () => {
     </Router>)
 
     const navLinks = screen.getAllByRole("link")
-    expect(navLinks).toHaveLength(2)
+    expect(navLinks).toHaveLength(3)
   });
 });
