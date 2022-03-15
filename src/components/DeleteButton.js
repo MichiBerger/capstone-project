@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import DeleteIcon from './DeleteIcon.js';
+import DeleteIcon from './icons/DeleteIcon.js';
 
 export default function DeleteButton({ fill, onClick, disabled }) {
   return (
     <IconWrapper disabled={disabled} onClick={onClick} type="button">
-      <DeleteIcon data-testid="deleteicon" fill={fill} />
+      <DeleteIcon fill={fill} />
       <span className="sr-only">Delete</span>
     </IconWrapper>
   );

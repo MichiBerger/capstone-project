@@ -10,12 +10,6 @@ import { nanoid } from 'nanoid';
 function App() {
   const [phrases, setPhrases] = useState([]);
 
-  function handleDelete(phraseId) {
-    console.log('click');
-    setPhrases(phrases.filter(item => item.id !== phraseId))
-  }
-
-  console.log(phrases);
   return (
     <AppGrid>
       <Header>MeinMausebär</Header>
@@ -53,7 +47,10 @@ function App() {
       }
     });
     setPhrases(nextPhrases);
-    console.log('click');
+  }
+
+  function handleDelete(phraseId) {
+    setPhrases(phrases.filter(item => item.id !== phraseId));
   }
 
   function handlePhraseSubmit({ date, text }) {

@@ -17,6 +17,7 @@ const AddMessageWrapper = styled.article`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   width: 100%;
   position: absolute;
   top: 50%;

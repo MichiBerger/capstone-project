@@ -1,7 +1,7 @@
-import CancelIcon from './CancelIcon.js';
-import DeleteIcon from './DeleteIcon.js';
+import CancelIcon from './icons/CancelIcon.js';
+import DeleteIcon from './icons/DeleteIcon.js';
 import styled from 'styled-components';
-import CancelIconCircle from './CancelIconCircle.js';
+import CancelIconCircle from './icons/CancelIconCircle.js';
 
 export default function ModalDeleteMessage({
   onDeleteClick,
@@ -20,6 +20,7 @@ export default function ModalDeleteMessage({
       <Wrapper>
         <CancelCircleButton onClick={onCancleClick}>
           <CancelIconCircle height="24px" width="24px" fill="#19337A" />
+          <span className="sr-only">Cancel</span>
         </CancelCircleButton>
         <h2>{messageTitle}</h2>
         <p>{messageText}</p>
@@ -31,6 +32,7 @@ export default function ModalDeleteMessage({
           </CancelButton>
           <DeleteButton onClick={onDeleteClick}>
             <DeleteIcon height="20px" width="20px" fill="#fff" />
+            <span className="sr-only">Delete</span>
             <p>{deleteText}</p>
           </DeleteButton>
         </ButtonWrapper>

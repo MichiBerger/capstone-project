@@ -5,19 +5,21 @@ import DeleteButton from './DeleteButton.js';
 describe('DeleteButton', () => {
   it('renders a button, svg and sr-only text', () => {
     const deleteClick = jest.fn();
-    render(<DeleteButton onDeletePhraseClick={deleteClick} />);
+    render(<DeleteButton onClick={deleteClick} />);
     const button = screen.getByRole('button', { name: /Delete/i });
-    const deleteIcon = screen.getByTestId('deleticon');
+
     const srOnlyText = screen.getByText(/Delete/i);
 
+    const svg = screen.getByTestId("delete-icon")
+    expect(svg).toBeInTheDocument()
+
     expect(button).toBeInTheDocument();
-    expect(deleteIcon).toBeInTheDocument();
     expect(srOnlyText).toBeInTheDocument();
   });
 
-  it('clicking the button opens a modal message', () => {
+  it('renders clicking the button', () => {
     const deleteClick = jest.fn();
-    render(<DeleteButton onBookmarkClick={deleteClick} />);
+    render(<DeleteButton onClick={deleteClick} />);
 
     const button = screen.getByRole('button', { name: /Delete/i });
     userEvent.click(button);

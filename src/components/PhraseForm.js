@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AddIcon from './AddIcon.js';
+import AddIcon from './icons/AddIcon.js';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -63,8 +63,8 @@ export default function PhraseForm({ handlePhraseSubmit }) {
           <ErrorMessage>Du hast die maximale Anzahl an Buchstaben erreicht!</ErrorMessage>
         ) : null}
         <AddButton disabled={disabledButton}>
-          <AddIcon fill="#2196f3" height="30px" width="30px" />
-          <AddButtonText>Füge einen Spruch hinzu!</AddButtonText>
+          <AddIcon fill={disabledButton ? '#fff' : '#fff'} height="30px" width="30px" />
+          <p>Füge einen Spruch hinzu!</p>
         </AddButton>
       </FormWrapper>
       {successMessage ? <ModalPhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
@@ -118,7 +118,7 @@ const TextInput = styled.textarea`
 `;
 
 const ErrorMessage = styled.p`
-  color: red;
+  color: #de0c47;
   margin-top: 0.375rem;
   font-size: 0.75rem;
 `;
@@ -130,14 +130,16 @@ const AddButton = styled.button`
   :disabled {
     opacity: 0.5;
     border: none;
+    color: #19337a;
   }
 
-  border: 1px solid #2196f3;
+  background-color: #19337a;
   padding: 0.5rem 0;
   border-radius: 25px;
   cursor: pointer;
-`;
-const AddButtonText = styled.p`
-  font-size: 0.75rem;
-  color: #2196f3;
+
+  p {
+    font-size: 0.75rem;
+    color: #fff;
+  }
 `;

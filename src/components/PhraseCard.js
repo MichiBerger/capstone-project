@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import DeleteButton from './DeleteButton.js';
-import HeartIcon from './HeartIcon.js';
+import HeartButton from './HeartButton.js';
 import ModalDeleteMessage from './ModalDeleteMessage.js';
 
 export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, onDeleteClick }) {
@@ -14,8 +14,12 @@ export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, 
   return (
     <>
       <PhraseCardWrapper>
-        <HeartIcon onBookmarkClick={onBookmarkClick} isBookmarked={isBookmarked} />
-        <DeleteButton disabled={showDeleteMessage} fill="#DE0C47" onClick={() => setShowDeleteMessage(!showDeleteMessage)} />
+        <HeartButton onBookmarkClick={onBookmarkClick} isBookmarked={isBookmarked} />
+        <DeleteButton
+          disabled={showDeleteMessage}
+          fill="#DE0C47"
+          onClick={() => setShowDeleteMessage(!showDeleteMessage)}
+        />
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
         {showDeleteMessage ? (
@@ -25,7 +29,7 @@ export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, 
             deleteText="Löschen"
             cancleText="Abbrechen"
             messageTitle="Spruch löschen"
-            messageText= "Bist Du sicher, dass Du den Spruch löschen möchtest? Das kann nicht rückgängig gemacht werden"
+            messageText="Bist Du sicher, dass Du den Spruch löschen möchtest? Das kann nicht rückgängig gemacht werden"
           />
         ) : null}
       </PhraseCardWrapper>
