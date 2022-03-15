@@ -9,8 +9,8 @@ const Template = args => <ModalDeleteMessage {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  deleteText: 'Dein Spruch wurde hinzugefügt',
-  cancleText: '',
+  deleteText: 'Löschen',
+  cancelText: 'Abbrechen',
   messageTitle: '',
   messageText: '',
 };

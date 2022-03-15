@@ -63,8 +63,9 @@ export default function PhraseForm({ handlePhraseSubmit }) {
           <ErrorMessage>Du hast die maximale Anzahl an Buchstaben erreicht!</ErrorMessage>
         ) : null}
         <AddButton disabled={disabledButton}>
-          <AddIcon fill={disabledButton ? '#fff' : '#fff'} height="30px" width="30px" />
-          <p>Füge einen Spruch hinzu!</p>
+          <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
+
+          <p disabled={disabledButton}>Füge einen Spruch hinzu!</p>
         </AddButton>
       </FormWrapper>
       {successMessage ? <ModalPhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
@@ -131,6 +132,7 @@ const AddButton = styled.button`
     opacity: 0.5;
     border: none;
     color: #19337a;
+    background: none;
   }
 
   background-color: #19337a;
@@ -140,6 +142,6 @@ const AddButton = styled.button`
 
   p {
     font-size: 0.75rem;
-    color: #fff;
+    color: ${props => props.disabled ? "#19337a" : "#fff"};
   }
 `;

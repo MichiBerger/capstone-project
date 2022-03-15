@@ -9,7 +9,7 @@ describe('ModalDeleteMessage', () => {
       <Router>
         <ModalDeleteMessage
           deleteText="Loeschen"
-          cancleText="Abbrechen"
+          cancelText="Abbrechen"
           messageTitle="Spruch löschen"
           messageText="Bist Du sicher"
         />
@@ -43,7 +43,7 @@ describe('ModalDeleteMessage', () => {
       <Router>
         <ModalDeleteMessage
           deleteText="Loeschen"
-          cancleText="Abbrechen"
+          cancelText="Abbrechen"
           messageTitle="Spruch löschen"
           messageText="Bist Du sicher"
           onDeleteClick={deleteClick}
@@ -56,7 +56,7 @@ describe('ModalDeleteMessage', () => {
     const deleteButton = screen.getByRole('button', { name: 'Delete Loeschen' });
     const cancelButtonTwo = screen.getByRole('button', { name: 'Cancel Abbrechen' });
 
-    userEvent.click(cancelButtonOne)
+    userEvent.click(cancelButtonOne);
     userEvent.click(cancelButtonTwo);
     userEvent.click(deleteButton);
 

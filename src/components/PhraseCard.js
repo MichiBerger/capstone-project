@@ -27,7 +27,7 @@ export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, 
             onDeleteClick={onDeleteClick}
             onCancleClick={handleCancel}
             deleteText="Löschen"
-            cancleText="Abbrechen"
+            cancelText="Abbrechen"
             messageTitle="Spruch löschen"
             messageText="Bist Du sicher, dass Du den Spruch löschen möchtest? Das kann nicht rückgängig gemacht werden"
           />

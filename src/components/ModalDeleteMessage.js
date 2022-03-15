@@ -7,7 +7,7 @@ export default function ModalDeleteMessage({
   onDeleteClick,
   onCancleClick,
   deleteText,
-  cancleText,
+  cancelText,
   messageTitle,
   messageText,
 }) {
@@ -28,7 +28,7 @@ export default function ModalDeleteMessage({
           <CancelButton onClick={onCancleClick}>
             <CancelIcon height="20px" width="20px" fill="#19337A" />
             <span className="sr-only">Cancel</span>
-            <p>{cancleText}</p>
+            <p>{cancelText}</p>
           </CancelButton>
           <DeleteButton onClick={onDeleteClick}>
             <DeleteIcon height="20px" width="20px" fill="#fff" />
