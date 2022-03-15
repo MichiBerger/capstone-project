@@ -1,7 +1,7 @@
 import PhraseCard from './PhraseCard.js';
 import styled from 'styled-components';
 
-export default function PhraseCardList({ onIconClick, phrases }) {
+export default function PhraseCardList({ onBookmarkClick, phrases }) {
   return (
     <section>
       <PhrasesList role="list" aria-label="phrases">
@@ -9,7 +9,7 @@ export default function PhraseCardList({ onIconClick, phrases }) {
           return (
             <li aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
-                onIconClick={() => onIconClick(phrase.id)}
+                onBookmarkClick={() => onBookmarkClick(phrase.id)}
                 isBookmarked={phrase.isBookmarked}
                 date={phrase.date}
                 text={phrase.text}

@@ -1,23 +1,30 @@
-import PhraseCard from '../PhraseCard.js';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
+import PhraseCard from '../PhraseCard.js';
 import AddIcon from '../AddIcon.js';
 
-export default function AllPhrases({ onIconClick, phrases }) {
-const noPhrases = phrases.length === 0 ? <AddButtonLink to="/addphrases">
-<AddIcon fill="#2196f3" height="40px" width="40px" />
-<p>Füge einen Spruch hinzu!</p>
-</AddButtonLink> : null;
+export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick }) {
+  const noPhrases =
+    phrases.length === 0 ? (
+      <AddButtonLink to="/addphrases">
+        <AddIcon fill="#2196f3" height="40px" width="40px" />
+        <p>Füge einen Spruch hinzu!</p>
+      </AddButtonLink>
+    ) : null;
 
   return (
     <AllPhrasesWrapper>
       {noPhrases}
+
       <PhrasesList role="list" aria-label="phrases">
         {phrases.map(phrase => {
           return (
             <li aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
-                onIconClick={() => onIconClick(phrase.id)}
+               
+                onBookmarkClick={() => onBookmarkClick(phrase.id)}
+                onDeleteClick={() => onDeleteClick(phrase.id)}
                 isBookmarked={phrase.isBookmarked}
                 date={phrase.date}
                 text={phrase.text}

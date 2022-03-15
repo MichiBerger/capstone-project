@@ -3,7 +3,7 @@ import AddIcon from './AddIcon.js';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import PhraseAddedMessage from './PhraseAddedMessage.js';
+import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 
 export default function PhraseForm({ handlePhraseSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
@@ -33,7 +33,7 @@ export default function PhraseForm({ handlePhraseSubmit }) {
 
     setStartDate(new Date());
     setPhraseText('');
-    setTime()
+    setTime();
   }
 
   return (
@@ -46,7 +46,6 @@ export default function PhraseForm({ handlePhraseSubmit }) {
           dateFormat="dd-MM-yyyy"
           selected={startDate}
           onChange={date => setStartDate(date)}
-
         />
         {startDate === null ? <ErrorMessage>Bitte wähle ein Datum!</ErrorMessage> : null}
         <LabelTextArea htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelTextArea>
@@ -68,7 +67,7 @@ export default function PhraseForm({ handlePhraseSubmit }) {
           <AddButtonText>Füge einen Spruch hinzu!</AddButtonText>
         </AddButton>
       </FormWrapper>
-      {successMessage ? <PhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
+      {successMessage ? <ModalPhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
     </Wrapper>
   );
 }
@@ -95,26 +94,26 @@ const DayPicker = styled(DatePicker)`
   background-color: #f9f9f9;
   border-radius: 10px;
   border: none;
-  border: 1px solid #2a475e;
-  color: #2a475e;
+  border: 1px solid #19337a;
+  color: #19337a;
   width: 100%;
   &:focus {
     outline: none;
-    border: 1px solid #f2a122;
+    border: 1px solid #9ad21c;
   }
 `;
 
 const TextInput = styled.textarea`
   border-radius: 10px;
   background-color: #f9f9f9;
-  border: 1px solid #2a475e;
-  color: #2a475e;
+  border: 1px solid #19337a;
+  color: #19337a;
   resize: none;
   padding: 1rem;
 
   &:focus {
     outline: none;
-    border: 1px solid #f2a122;
+    border: 1px solid #9ad21c;
   }
 `;
 

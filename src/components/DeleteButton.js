@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import DeleteIcon from './DeleteIcon.js';
 
-export default function DeleteButton({ fill }) {
+export default function DeleteButton({ fill, onClick, disabled }) {
   return (
-    <IconWrapper type="button">
-      <DeleteIcon fill={fill}/>
-      <span className="sr-only">Bookmark</span>
+    <IconWrapper disabled={disabled} onClick={onClick} type="button">
+      <DeleteIcon data-testid="deleteicon" fill={fill} />
+      <span className="sr-only">Delete</span>
     </IconWrapper>
   );
 }
@@ -18,7 +18,7 @@ const IconWrapper = styled.button`
   width: 24px;
   height: 24px;
   grid-area: deleteIconButton;
-  justify-self: end;
+  justify-self: center;
   align-self: center;
   display: flex;
   align-items: center;
@@ -30,15 +30,4 @@ const IconWrapper = styled.button`
     background: transparent;
     transition: all 0.2s ease-out;
   }
-
-  img {
-    opacity: 0.7;
-  }
-`;
-
-const HeartFilled = styled.svg`
-  fill: #f2a122;
-`;
-const HeartOutlined = styled.svg`
-  fill: #f2a122;
 `;

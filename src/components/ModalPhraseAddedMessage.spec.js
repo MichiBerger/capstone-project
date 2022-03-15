@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
-import PhraseAddedMessage from './PhraseAddedMessage.js';
+import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 
-describe('PhraseAddedMessage', () => {
+describe('ModalPhraseAddedMessage', () => {
   it('renders a text message', () => {
     render(
       <Router>
-        <PhraseAddedMessage message="Dein Spruch wurde hinzugefügt!" />
+        <ModalPhraseAddedMessage message="Dein Spruch wurde hinzugefügt!" />
       </Router>
     );
 

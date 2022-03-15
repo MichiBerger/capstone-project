@@ -22,8 +22,6 @@ describe('EmptyPhraseMessage', () => {
     expect(message).toBeInTheDocument();
 
     const linkBackwards = screen.getByRole('link');
-    console.log(linkBackwards);
-
     expect(linkBackwards).toBeInTheDocument();
   });
 });
