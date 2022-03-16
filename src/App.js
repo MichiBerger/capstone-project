@@ -16,7 +16,7 @@ function App() {
 
   return (
     <AppGrid>
-      <Header>MeinMausebär</Header>
+      <Header>LittleSunshine</Header>
 
       <Main>
         <Routes>
