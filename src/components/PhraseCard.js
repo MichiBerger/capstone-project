@@ -9,10 +9,21 @@ import HeartOutlinedIcon from './icons/HeartOutlinedIcon.js';
 
 export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, onDeleteClick }) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [image, setImage] = useState("")
 
   function handleCancel() {
     setShowDeleteMessage(false);
   }
+
+  function handleUploadChange(e) {
+    setImage(e.target.files[0]);
+  }
+
+  function handleUploadClick(){
+    console.log("click")
+  }
+
+  console.log(image)
 
   return (
     <>
@@ -29,11 +40,12 @@ export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, 
           <DeleteIcon fill="#DE0C47" />
           <span className="sr-only">Delete</span>
         </IconButton>
-        <IconButton gridArea="addPhotoIconButton">
+        <IconButton onClick={handleUploadClick} gridArea="addPhotoIconButton">
           <label htmlFor="image-upload">
-          <input id='image-upload' style={{display: "none"}} type="file" />
-          <AddPhotoIcon fill="#19337a" />
-          <span className="sr-only">Upload</span></label>
+            <input onChange={handleUploadChange} id="image-upload" style={{ display: 'none' }} type="file" />
+            <AddPhotoIcon fill="#19337a" />
+            <span className="sr-only">Upload</span>
+          </label>
         </IconButton>
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
