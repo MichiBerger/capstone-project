@@ -7,27 +7,17 @@ import DeleteIcon from './icons/DeleteIcon.js';
 import HeartFilledIcon from './icons/HeartFilledIcon.js';
 import HeartOutlinedIcon from './icons/HeartOutlinedIcon.js';
 
-export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, onDeleteClick }) {
+export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, onDeleteClick, image, onUpload }) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
-  const [image, setImage] = useState("")
 
   function handleCancel() {
     setShowDeleteMessage(false);
   }
 
-  function handleUploadChange(e) {
-    setImage(e.target.files[0]);
-  }
-
-  function handleUploadClick(){
-    console.log("click")
-  }
-
-  console.log(image)
-
   return (
     <>
       <PhraseCardWrapper>
+
         <IconButton type="button" onClick={onBookmarkClick} gridArea="heartIconButton">
           {isBookmarked ? <HeartFilledIcon fill="#9AD21C" /> : <HeartOutlinedIcon fill="#9AD21C" />}
           <span className="sr-only">Bookmark</span>
@@ -40,15 +30,18 @@ export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, 
           <DeleteIcon fill="#DE0C47" />
           <span className="sr-only">Delete</span>
         </IconButton>
-        <IconButton onClick={handleUploadClick} gridArea="addPhotoIconButton">
+        <IconButton gridArea="addPhotoIconButton">
           <label htmlFor="image-upload">
-            <input onChange={handleUploadChange} id="image-upload" style={{ display: 'none' }} type="file" />
+            <input onChange={onUpload} id="image-upload" style={{ display: 'none' }} type="file" />
             <AddPhotoIcon fill="#19337a" />
             <span className="sr-only">Upload</span>
           </label>
         </IconButton>
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
+        {image ?
+        <img src={image} alt="" style={{ width: "80px", height:"80px", gridArea: "image" }} />
+       : null}
         {showDeleteMessage ? (
           <ModalDeleteMessage
             onDeleteClick={onDeleteClick}
@@ -70,7 +63,7 @@ const PhraseCardWrapper = styled.article`
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
     'date . heartIconButton deleteIconButton addPhotoIconButton'
-    '. text text text text'
+    'image text text text text'
     '. . . . .';
   border-radius: 15px;
   padding: 1rem;
@@ -91,3 +84,4 @@ const PhraseCardText = styled.p`
   grid-area: text;
   word-wrap: break-word;
 `;
+

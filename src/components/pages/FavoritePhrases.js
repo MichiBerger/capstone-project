@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PhraseCard from '../PhraseCard.js';
 import EmptyPhraseMessage from '../EmptyPhraseMessage.js';
 
-export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick}) {
+export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
 
   const emptyPhrasesMessage =
@@ -23,6 +23,7 @@ export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClic
             return (
               <li aria-label="phrase-item" key={phrase.id}>
                 <PhraseCard
+                  onUpload={onUpload}
                   onBookmarkClick={() => onBookmarkClick(phrase.id)}
                   onDeleteClick={() => onDeleteClick(phrase.id)}
                   isBookmarked={phrase.isBookmarked}
