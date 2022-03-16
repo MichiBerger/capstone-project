@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import AllPhrases from './components/pages/AllPhrases.js';
 import Navigation from './components/Navigation.js';
@@ -8,7 +8,11 @@ import AddPhrases from './components/pages/AddPhrases.js';
 import { nanoid } from 'nanoid';
 
 function App() {
-  const [phrases, setPhrases] = useState([]);
+  const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
+
+  useEffect(() => {
+    saveToLocal('allPhrases', phrases);
+  }, [phrases]);
 
   return (
     <AppGrid>
@@ -58,6 +62,18 @@ function App() {
     let isBookmarked = false;
 
     setPhrases([{ id, date, text, isBookmarked }, ...phrases]);
+  }
+
+  function loadFromLocal(key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function saveToLocal(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
   }
 }
 
