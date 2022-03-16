@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export default function HeartIcon({ isBookmarked, onIconClick }) {
+export default function HeartIcon({ isBookmarked, onBookmarkClick }) {
   return (
-    <IconWrapper type="button" onClick={onIconClick}>
+    <IconWrapper type="button" onClick={onBookmarkClick}>
       {isBookmarked ? (
         <HeartFilled
           xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ const IconWrapper = styled.button`
   width: 24px;
   height: 24px;
   grid-area: heartIconButton;
-  justify-self: end;
+  justify-self: center;
   align-self: center;
   display: flex;
   align-items: center;
@@ -60,8 +60,8 @@ const IconWrapper = styled.button`
 `;
 
 const HeartFilled = styled.svg`
-  fill: #f2a122;
+  fill: #9AD21C;
 `;
 const HeartOutlined = styled.svg`
-  fill: #f2a122;
+  fill: #9AD21C;
 `;

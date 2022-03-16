@@ -10,15 +10,24 @@ import { nanoid } from 'nanoid';
 function App() {
   const [phrases, setPhrases] = useState([]);
 
-  console.log(phrases);
   return (
     <AppGrid>
       <Header>MeinMausebär</Header>
 
       <Main>
         <Routes>
-          <Route path="/" element={<AllPhrases phrases={phrases} onIconClick={handleIconClick} />} />
-          <Route path="/favorites" element={<FavoritePhrases phrases={phrases} onIconClick={handleIconClick} />} />
+          <Route
+            path="/"
+            element={
+              <AllPhrases phrases={phrases} onBookmarkClick={handleBookmarkClick} onDeleteClick={handleDelete} />
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <FavoritePhrases phrases={phrases} onBookmarkClick={handleBookmarkClick} onDeleteClick={handleDelete} />
+            }
+          />
           <Route
             path="/addphrases"
             element={<AddPhrases phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
@@ -29,7 +38,7 @@ function App() {
     </AppGrid>
   );
 
-  function handleIconClick(phraseId) {
+  function handleBookmarkClick(phraseId) {
     const nextPhrases = phrases.map(item => {
       if (item.id === phraseId) {
         return { ...item, isBookmarked: !item.isBookmarked };
@@ -38,7 +47,10 @@ function App() {
       }
     });
     setPhrases(nextPhrases);
-    console.log('click');
+  }
+
+  function handleDelete(phraseId) {
+    setPhrases(phrases.filter(item => item.id !== phraseId));
   }
 
   function handlePhraseSubmit({ date, text }) {
@@ -63,7 +75,7 @@ const Header = styled.h1`
   justify-content: center;
   color: white;
   background-color: #efefef;
-  color: #2196f3;
+  color: #0fcbea;
   font-size: 2rem;
 `;
 const Main = styled.main`

@@ -1,11 +1,10 @@
-
 import { render, screen } from '@testing-library/react';
-import  userEvent  from '@testing-library/user-event';
-import HeartIcon from './HeartIcon.js';
+import userEvent from '@testing-library/user-event';
+import HeartButton from './HeartButton.js';
 
-describe('HeartIcon', () => {
+describe('HeartButton', () => {
   it('renders a button, img and sr-only text', () => {
-    render(<HeartIcon />);
+    render(<HeartButton />);
     const button = screen.getByRole('button', { name: /bookmark/i });
     const bookmarkIcon = screen.getByRole('img');
     const srOnlyText = screen.getByText('Bookmark');
@@ -16,11 +15,11 @@ describe('HeartIcon', () => {
   });
 
   it('clicking the button toggles the bookmark status', () => {
-    const toggle =jest.fn()
-    render(<HeartIcon onIconClick={toggle} />);
+    const toggle = jest.fn();
+    render(<HeartButton onBookmarkClick={toggle} />);
 
     const button = screen.getByRole('button', { name: /bookmark/i });
-    userEvent.click(button)
+    userEvent.click(button);
 
     expect(toggle).toHaveBeenCalled();
   });

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import AddIcon from './AddIcon.js';
+import AddIcon from './icons/AddIcon.js';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import PhraseAddedMessage from './PhraseAddedMessage.js';
+import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 
 export default function PhraseForm({ handlePhraseSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
@@ -33,7 +33,7 @@ export default function PhraseForm({ handlePhraseSubmit }) {
 
     setStartDate(new Date());
     setPhraseText('');
-    setTime()
+    setTime();
   }
 
   return (
@@ -46,7 +46,6 @@ export default function PhraseForm({ handlePhraseSubmit }) {
           dateFormat="dd-MM-yyyy"
           selected={startDate}
           onChange={date => setStartDate(date)}
-
         />
         {startDate === null ? <ErrorMessage>Bitte wähle ein Datum!</ErrorMessage> : null}
         <LabelTextArea htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelTextArea>
@@ -64,11 +63,12 @@ export default function PhraseForm({ handlePhraseSubmit }) {
           <ErrorMessage>Du hast die maximale Anzahl an Buchstaben erreicht!</ErrorMessage>
         ) : null}
         <AddButton disabled={disabledButton}>
-          <AddIcon fill="#2196f3" height="30px" width="30px" />
-          <AddButtonText>Füge einen Spruch hinzu!</AddButtonText>
+          <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
+
+          <p disabled={disabledButton}>Füge einen Spruch hinzu!</p>
         </AddButton>
       </FormWrapper>
-      {successMessage ? <PhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
+      {successMessage ? <ModalPhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
     </Wrapper>
   );
 }
@@ -95,31 +95,31 @@ const DayPicker = styled(DatePicker)`
   background-color: #f9f9f9;
   border-radius: 10px;
   border: none;
-  border: 1px solid #2a475e;
-  color: #2a475e;
+  border: 1px solid #19337a;
+  color: #19337a;
   width: 100%;
   &:focus {
     outline: none;
-    border: 1px solid #f2a122;
+    border: 1px solid #9ad21c;
   }
 `;
 
 const TextInput = styled.textarea`
   border-radius: 10px;
   background-color: #f9f9f9;
-  border: 1px solid #2a475e;
-  color: #2a475e;
+  border: 1px solid #19337a;
+  color: #19337a;
   resize: none;
   padding: 1rem;
 
   &:focus {
     outline: none;
-    border: 1px solid #f2a122;
+    border: 1px solid #9ad21c;
   }
 `;
 
 const ErrorMessage = styled.p`
-  color: red;
+  color: #de0c47;
   margin-top: 0.375rem;
   font-size: 0.75rem;
 `;
@@ -131,14 +131,17 @@ const AddButton = styled.button`
   :disabled {
     opacity: 0.5;
     border: none;
+    color: #19337a;
+    background: none;
   }
 
-  border: 1px solid #2196f3;
+  background-color: #19337a;
   padding: 0.5rem 0;
   border-radius: 25px;
   cursor: pointer;
-`;
-const AddButtonText = styled.p`
-  font-size: 0.75rem;
-  color: #2196f3;
+
+  p {
+    font-size: 0.75rem;
+    color: ${props => props.disabled ? "#19337a" : "#fff"};
+  }
 `;

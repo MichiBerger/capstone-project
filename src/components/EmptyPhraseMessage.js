@@ -17,7 +17,7 @@ export default function FavoriteEmptyPhraseMessage({ titleText, emptyPhrasetext 
 }
 
 const EmptyPhrasesMessageWrapper = styled.article`
-  color: #2a475e;
+  color: #19337a;
   padding: 1rem;
   border-radius: 20px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
@@ -40,12 +40,12 @@ const StyledLink = styled(Link)`
 const BackIcon = styled.svg`
   width: 35px;
   height: 35px;
-  fill: #f2a122;
-  border: 1px solid #f2a122;
+  fill: #9ad21c;
+  border: 1px solid #9ad21c;
   border-radius: 50%;
 
   &:active {
     transform: scale(1.1);
-    fill: #2a475e;
+    fill: #19337a;
   }
 `;

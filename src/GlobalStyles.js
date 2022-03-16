@@ -10,7 +10,7 @@ body {
   font-family: sans-serif;
   font-size: 112.5%;
   line-height: 1.5;
-  color: #2a475e;
+  color: #19337A;
   background-color: #efefef;
 }
 h1,
@@ -34,6 +34,7 @@ input, textarea {
   font-family: sans-serif;
   font-size: 1rem;
 }
+
 .sr-only {
 position: absolute;
 width: 1px;
