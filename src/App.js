@@ -9,6 +9,8 @@ import { nanoid } from 'nanoid';
 
 function App() {
   const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
+ 
+
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
