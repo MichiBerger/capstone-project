@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Image, Transformation, CloudinaryContext } from 'cloudinary-react';
 import ModalDeleteMessage from './ModalDeleteMessage.js';
 import IconButton from './IconButton.js';
 import AddPhotoIcon from './icons/AddPhotoIcon.js';
@@ -7,17 +8,28 @@ import DeleteIcon from './icons/DeleteIcon.js';
 import HeartFilledIcon from './icons/HeartFilledIcon.js';
 import HeartOutlinedIcon from './icons/HeartOutlinedIcon.js';
 
-export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, onDeleteClick, image, onUpload }) {
+export default function PhraseCard({
+  date,
+  text,
+  isBookmarked,
+  onBookmarkClick,
+  onDeleteClick,
+  image,
+  onUpload,
+  cloudname,
+  preset,
+}) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
 
   function handleCancel() {
     setShowDeleteMessage(false);
   }
 
+
+
   return (
     <>
       <PhraseCardWrapper>
-
         <IconButton type="button" onClick={onBookmarkClick} gridArea="heartIconButton">
           {isBookmarked ? <HeartFilledIcon fill="#9AD21C" /> : <HeartOutlinedIcon fill="#9AD21C" />}
           <span className="sr-only">Bookmark</span>
@@ -31,17 +43,21 @@ export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, 
           <span className="sr-only">Delete</span>
         </IconButton>
         <IconButton gridArea="addPhotoIconButton">
-          <label htmlFor="image-upload">
-            <input onChange={onUpload} id="image-upload" style={{ display: 'none' }} type="file" />
-            <AddPhotoIcon fill="#19337a" />
+          <label>
+            <input onChange={onUpload} id="image-upload" type="file" className="sr-only" />
+            <AddPhotoIcon height="30" width="30" fill="#19337a" />
             <span className="sr-only">Upload</span>
           </label>
         </IconButton>
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
-        {image ?
-        <img src={image} alt="" style={{ width: "80px", height:"80px", gridArea: "image" }} />
-       : null}
+        {image ? (
+          <CloudinaryContext cloudName={cloudname} upload_preset={preset}>
+            <Image publicId={image} width={50} >
+              <Transformation crop="scale" />
+            </Image>
+          </CloudinaryContext>
+        ) : null}
         {showDeleteMessage ? (
           <ModalDeleteMessage
             onDeleteClick={onDeleteClick}
@@ -55,6 +71,11 @@ export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, 
       </PhraseCardWrapper>
     </>
   );
+
+}
+
+{
+  /* <img src={image} alt="" style={{ width: '80px', height: '80px', gridArea: 'image' }} */
 }
 
 const PhraseCardWrapper = styled.article`
@@ -84,4 +105,3 @@ const PhraseCardText = styled.p`
   grid-area: text;
   word-wrap: break-word;
 `;
-

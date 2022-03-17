@@ -13,47 +13,13 @@ const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 function App() {
   const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
-  const [image, setImage] = useState('');
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
   }, [phrases]);
 
-  function upload(phraseId, event) {
-    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
-
-    const formData = new FormData();
-    formData.append('file', event.target.files[0]);
-    formData.append('upload_preset', PRESET);
-
-    axios
-      .post(url, formData, {
-        headers: {
-          'Content-type': 'multipart/form-data',
-        },
-      })
-      .then(response => {
-        setImage(response.data.url);
-      })
-      // .then( console.log(phraseId))
-      .catch(error => console.error(error));
-
-      console.log(phraseId)
-
-  }
-
-
- // setPhrases(
-  //   phrases.map(item => {
-  //     if (item.id === phraseId) {
-  //       return { ...item, image: image };
-  //     } else {
-  //       return item;
-  //     }
-  //   })
-  // )
-
   console.log(phrases);
+
   return (
     <AppGrid>
       <Header>LittleSunshine</Header>
@@ -64,8 +30,9 @@ function App() {
             path="/"
             element={
               <AllPhrases
+                preset={PRESET}
+                cloudname={CLOUDNAME}
                 onUpload={upload}
-                image={image}
                 phrases={phrases}
                 onBookmarkClick={handleBookmarkClick}
                 onDeleteClick={handleDelete}
@@ -76,6 +43,7 @@ function App() {
             path="/favorites"
             element={
               <FavoritePhrases
+                cloudname={CLOUDNAME}
                 onUpload={upload}
                 phrases={phrases}
                 onBookmarkClick={handleBookmarkClick}
@@ -94,44 +62,56 @@ function App() {
   );
 
   function handleBookmarkClick(phraseId) {
-    const nextPhrases = phrases.map(item => {
-      if (item.id === phraseId) {
-        return { ...item, isBookmarked: !item.isBookmarked };
-      } else {
-        return item;
-      }
-    });
-    setPhrases(nextPhrases);
+    setPhrases(
+      phrases.map(item => {
+        if (item.id === phraseId) {
+          return { ...item, isBookmarked: !item.isBookmarked };
+        } else {
+          return item;
+        }
+      })
+    );
   }
 
   function handleDelete(phraseId) {
     setPhrases(phrases.filter(item => item.id !== phraseId));
   }
 
-  // ohne useImmer
   function handlePhraseSubmit({ date, text }) {
     let id = nanoid();
     let isBookmarked = false;
-    let photo = image ? image : '';
+    let photo = '';
 
     setPhrases([{ id, date, text, isBookmarked, photo }, ...phrases]);
   }
 
-  // function handlePhraseSubmit({ date, text }) {
-  //   let id = nanoid();
-  //   let isBookmarked = false;
-  //   let photo = '';
+  function upload(phraseId, event) {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
 
-  //   setPhrases(draft => {
-  //     draft.push({
-  //       id: id,
-  //       date: date,
-  //       text: text,
-  //       isBookmarked: isBookmarked,
-  //       image: photo,
-  //     });
-  //   });
-  // }
+    const formData = new FormData();
+    formData.append('file', event.target.files[0]);
+    formData.append('upload_preset', PRESET);
+
+    axios
+      .post(url, formData, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        setPhrases(
+          phrases.map(item => {
+            if (item.id === phraseId) {
+              return { ...item, photo: response.data.url };
+            } else {
+              return item;
+            }
+          })
+        );
+      })
+      .catch(error => console.error(error));
+  }
+
   function loadFromLocal(key) {
     try {
       return JSON.parse(localStorage.getItem(key));
@@ -143,17 +123,6 @@ function App() {
   function saveToLocal(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
   }
-
-  // function testUpload(phraseId) {
-  //   const uploadphrases = test.map(item => {
-  //     if (item.id === phraseId) {
-  //       return { ...item, image: image };
-  //     } else {
-  //       return item;
-  //     }
-  //   });
-  //   setPhrases(uploadphrases);
-  // }
 }
 
 const AppGrid = styled.div`

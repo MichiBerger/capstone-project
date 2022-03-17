@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PhraseCard from '../PhraseCard.js';
 import ModalEmptyPhraseMessage from '../ModalEmptyPhraseMessage.js';
 
-export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, image }) {
+export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, cloudname, preset }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
 
   const emptyPhrasesMessage =
@@ -23,8 +23,10 @@ export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClic
             return (
               <li aria-label="phrase-item" key={phrase.id}>
                 <PhraseCard
-                  onUpload={(event) => onUpload(event, phrase.id)}
-                  image={image}
+                  preset={preset}
+                  cloudname={cloudname}
+                  onUpload={event => onUpload(phrase.id, event)}
+                  image={phrase.photo}
                   onBookmarkClick={() => onBookmarkClick(phrase.id)}
                   onDeleteClick={() => onDeleteClick(phrase.id)}
                   isBookmarked={phrase.isBookmarked}
