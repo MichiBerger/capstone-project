@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import PhraseCard from '../PhraseCard.js';
-import EmptyPhraseMessage from '../EmptyPhraseMessage.js';
+import ModalEmptyPhraseMessage from '../ModalEmptyPhraseMessage.js';
 
-export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload }) {
+export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, image }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
 
   const emptyPhrasesMessage =
     emptyPhrases.length === 0 ? (
-      <EmptyPhraseMessage
+      <ModalEmptyPhraseMessage
         emptyPhrasetext="Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!"
         titleText="Upps...da fehlt noch was!"
       />
@@ -23,7 +23,8 @@ export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClic
             return (
               <li aria-label="phrase-item" key={phrase.id}>
                 <PhraseCard
-                  onUpload={onUpload}
+                  onUpload={(event) => onUpload(event, phrase.id)}
+                  image={image}
                   onBookmarkClick={() => onBookmarkClick(phrase.id)}
                   onDeleteClick={() => onDeleteClick(phrase.id)}
                   isBookmarked={phrase.isBookmarked}

@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
-import EmptyPhraseMessage from './EmptyPhraseMessage.js';
+import ModalEmptyPhraseMessage from './ModalEmptyPhraseMessage.js';
 
-describe('EmptyPhraseMessage', () => {
+describe('ModalEmptyPhraseMessage', () => {
   it('renders a title, a message text and link', () => {
     render(
       <Router>
-        <EmptyPhraseMessage
+        <ModalEmptyPhraseMessage
           titleText="Upps...da fehlt noch was!"
           emptyPhrasetext="Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!"
         />

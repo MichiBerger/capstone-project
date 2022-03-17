@@ -13,10 +13,13 @@ const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 function App() {
   const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
-  const [test, setTest] = useState([]);
   const [image, setImage] = useState('');
 
-  function upload(event) {
+  useEffect(() => {
+    saveToLocal('allPhrases', phrases);
+  }, [phrases]);
+
+  function upload(phraseId, event) {
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
 
     const formData = new FormData();
@@ -29,20 +32,28 @@ function App() {
           'Content-type': 'multipart/form-data',
         },
       })
-      .then(onImageSave)
+      .then(response => {
+        setImage(response.data.url);
+      })
+      // .then( console.log(phraseId))
       .catch(error => console.error(error));
+
+      console.log(phraseId)
+
   }
 
-  function onImageSave(response) {
-    setImage(response.data.url);
-  }
 
-  console.log(test);
+ // setPhrases(
+  //   phrases.map(item => {
+  //     if (item.id === phraseId) {
+  //       return { ...item, image: image };
+  //     } else {
+  //       return item;
+  //     }
+  //   })
+  // )
 
-  useEffect(() => {
-    saveToLocal('allPhrases', phrases);
-  }, [phrases]);
-
+  console.log(phrases);
   return (
     <AppGrid>
       <Header>LittleSunshine</Header>
@@ -82,19 +93,6 @@ function App() {
     </AppGrid>
   );
 
-
-  function testUpload(phraseId, photo){
-
-    const uploadphrases = test.map(item => {
-      if (item.id === phraseId ){
-        return {...item, image: photo}
-      } else {
-        return item
-      }
-    })
-    setTest(uploadphrases)
-  }
-
   function handleBookmarkClick(phraseId) {
     const nextPhrases = phrases.map(item => {
       if (item.id === phraseId) {
@@ -110,20 +108,19 @@ function App() {
     setPhrases(phrases.filter(item => item.id !== phraseId));
   }
 
+  // ohne useImmer
   function handlePhraseSubmit({ date, text }) {
     let id = nanoid();
     let isBookmarked = false;
     let photo = image ? image : '';
 
     setPhrases([{ id, date, text, isBookmarked, photo }, ...phrases]);
-    setTest([{ id: id, date: date, text: text, image: photo, isBookmarked }])
   }
 
   // function handlePhraseSubmit({ date, text }) {
   //   let id = nanoid();
   //   let isBookmarked = false;
   //   let photo = '';
-  //   setTest({ id: id, date: date, text: text, image: photo, isBookmarked }, ...test);
 
   //   setPhrases(draft => {
   //     draft.push({
@@ -135,7 +132,6 @@ function App() {
   //     });
   //   });
   // }
-
   function loadFromLocal(key) {
     try {
       return JSON.parse(localStorage.getItem(key));
@@ -147,6 +143,17 @@ function App() {
   function saveToLocal(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
   }
+
+  // function testUpload(phraseId) {
+  //   const uploadphrases = test.map(item => {
+  //     if (item.id === phraseId) {
+  //       return { ...item, image: image };
+  //     } else {
+  //       return item;
+  //     }
+  //   });
+  //   setPhrases(uploadphrases);
+  // }
 }
 
 const AppGrid = styled.div`

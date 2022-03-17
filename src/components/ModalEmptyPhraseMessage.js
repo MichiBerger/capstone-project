@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function FavoriteEmptyPhraseMessage({ titleText, emptyPhrasetext }) {
+export default function FavoriteModalEmptyPhraseMessage({ titleText, emptyPhrasetext }) {
   return (
     <EmptyPhrasesMessageWrapper>
       <h2>{titleText}</h2>

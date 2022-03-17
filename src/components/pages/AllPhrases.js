@@ -22,7 +22,7 @@ export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, on
           return (
             <li aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
-                onUpload={onUpload}
+                onUpload={event => onUpload(phrase.id, event)}
                 image={image}
                 onBookmarkClick={() => onBookmarkClick(phrase.id)}
                 onDeleteClick={() => onDeleteClick(phrase.id)}
