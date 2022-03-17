@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PhraseCard from '../PhraseCard.js';
 import AddIcon from '../icons/AddIcon.js';
 
-export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload }) {
+export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, image }) {
   const noPhrases =
     phrases.length === 0 ? (
       <AddButtonLink to="/addphrases">
@@ -23,7 +23,7 @@ export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, on
             <li aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
                 onUpload={onUpload}
-                image={phrase.photo}
+                image={image}
                 onBookmarkClick={() => onBookmarkClick(phrase.id)}
                 onDeleteClick={() => onDeleteClick(phrase.id)}
                 isBookmarked={phrase.isBookmarked}

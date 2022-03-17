@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useImmer } from 'use-immer';
 import axios from 'axios';
 import styled from 'styled-components';
 import AllPhrases from './components/pages/AllPhrases.js';
@@ -13,7 +12,8 @@ const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 function App() {
-  const [phrases, setPhrases] = useImmer(loadFromLocal('allPhrases') ?? []);
+  const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
+  const [test, setTest] = useState([]);
   const [image, setImage] = useState('');
 
   function upload(event) {
@@ -31,22 +31,13 @@ function App() {
       })
       .then(onImageSave)
       .catch(error => console.error(error));
-
-      setPhrases(draft => {
-        draft.image = image;
-      });
-    console.log(image);
   }
 
   function onImageSave(response) {
     setImage(response.data.url);
   }
 
- 
-
-  console.log(phrases);
-  console.log(image);
-
+  console.log(test);
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
@@ -91,6 +82,19 @@ function App() {
     </AppGrid>
   );
 
+
+  function testUpload(phraseId, photo){
+
+    const uploadphrases = test.map(item => {
+      if (item.id === phraseId ){
+        return {...item, image: photo}
+      } else {
+        return item
+      }
+    })
+    setTest(uploadphrases)
+  }
+
   function handleBookmarkClick(phraseId) {
     const nextPhrases = phrases.map(item => {
       if (item.id === phraseId) {
@@ -106,29 +110,31 @@ function App() {
     setPhrases(phrases.filter(item => item.id !== phraseId));
   }
 
-  // function handlePhraseSubmit({ date, text }) {
-  //   let id = nanoid();
-  //   let isBookmarked = false;
-  //   let photo = image ? image : '';
-
-  //   setPhrases([{ id, date, text, isBookmarked, photo }, ...phrases]);
-  // }
-
   function handlePhraseSubmit({ date, text }) {
     let id = nanoid();
     let isBookmarked = false;
-    let photo = '';
+    let photo = image ? image : '';
 
-    setPhrases(draft => {
-      draft.push({
-        id: id,
-        date: date,
-        text: text,
-        isBookmarked: isBookmarked,
-        image: photo,
-      });
-    });
+    setPhrases([{ id, date, text, isBookmarked, photo }, ...phrases]);
+    setTest([{ id: id, date: date, text: text, image: photo, isBookmarked }])
   }
+
+  // function handlePhraseSubmit({ date, text }) {
+  //   let id = nanoid();
+  //   let isBookmarked = false;
+  //   let photo = '';
+  //   setTest({ id: id, date: date, text: text, image: photo, isBookmarked }, ...test);
+
+  //   setPhrases(draft => {
+  //     draft.push({
+  //       id: id,
+  //       date: date,
+  //       text: text,
+  //       isBookmarked: isBookmarked,
+  //       image: photo,
+  //     });
+  //   });
+  // }
 
   function loadFromLocal(key) {
     try {
