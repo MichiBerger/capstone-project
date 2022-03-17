@@ -86,7 +86,7 @@ function App() {
   }
 
   function upload(phraseId, event) {
-    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/upload`;
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`;
 
     const formData = new FormData();
     formData.append('file', event.target.files[0]);

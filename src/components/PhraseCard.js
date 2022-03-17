@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { Image, Transformation, CloudinaryContext } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 import ModalDeleteMessage from './ModalDeleteMessage.js';
 import IconButton from './IconButton.js';
 import AddPhotoIcon from './icons/AddPhotoIcon.js';
@@ -25,7 +25,7 @@ export default function PhraseCard({
     setShowDeleteMessage(false);
   }
 
-
+  console.log(image);
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function PhraseCard({
         </IconButton>
         <IconButton gridArea="addPhotoIconButton">
           <label>
-            <input onChange={onUpload} id="image-upload" type="file" className="sr-only" />
+            <input onChange={onUpload} id="image-upload" type="file" className="sr-only" accept="image/*" />
             <AddPhotoIcon height="30" width="30" fill="#19337a" />
             <span className="sr-only">Upload</span>
           </label>
@@ -52,12 +52,9 @@ export default function PhraseCard({
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
         {image ? (
-          <CloudinaryContext cloudName={cloudname} upload_preset={preset}>
-            <Image publicId={image} width={50} >
-              <Transformation crop="scale" />
-            </Image>
-          </CloudinaryContext>
+          <Image publicId={image} style={{ gridArea: 'image' }} width="100" crop="scale" cloudName={cloudname} />
         ) : null}
+
         {showDeleteMessage ? (
           <ModalDeleteMessage
             onDeleteClick={onDeleteClick}
@@ -71,28 +68,25 @@ export default function PhraseCard({
       </PhraseCardWrapper>
     </>
   );
-
-}
-
-{
-  /* <img src={image} alt="" style={{ width: '80px', height: '80px', gridArea: 'image' }} */
 }
 
 const PhraseCardWrapper = styled.article`
   display: grid;
-  grid-template-columns: auto 40% 10% 10% 10%;
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(100px, 100px) minmax(100px, auto) repeat(3, 5%);
+  grid-template-rows: auto 1f auto;
   grid-template-areas:
     'date . heartIconButton deleteIconButton addPhotoIconButton'
-    'image text text text text'
+    'image text text text .'
     '. . . . .';
   border-radius: 15px;
   padding: 1rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   background-color: #f9f9f9;
   color: #19337a;
-  row-gap: 1rem;
+  gap: 1rem 0.5rem;
+
   position: relative;
+  width: 100%;
 `;
 
 const PhraseCardDate = styled.time`
