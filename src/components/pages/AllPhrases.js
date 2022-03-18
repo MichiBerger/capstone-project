@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import breakpoint from '../commons/breakpoints.js';
-
 import PhraseCard from '../PhraseCard.js';
+import breakpoint from '../commons/breakpoints.js';
 import AddIcon from '../icons/AddIcon.js';
 
-export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, cloudname, preset }) {
+
+export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, cloudname }) {
+  
   const noPhrases =
     phrases.length === 0 ? (
       <AddButtonLink to="/addphrases">
@@ -23,7 +24,6 @@ export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, on
           return (
             <PhraseItem aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
-                preset={preset}
                 cloudname={cloudname}
                 onUpload={event => onUpload(phrase.id, event)}
                 image={phrase.photo}

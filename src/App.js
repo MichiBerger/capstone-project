@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
-import AllPhrases from './components/pages/AllPhrases.js';
-import Navigation from './components/Navigation.js';
-import FavoritePhrases from './components/pages/FavoritePhrases.js';
-import AddPhrases from './components/pages/AddPhrases.js';
 import { nanoid } from 'nanoid';
+import styled from 'styled-components';
+import Navigation from './components/Navigation.js';
+import AllPhrases from './components/pages/AllPhrases.js';
+import AddPhrases from './components/pages/AddPhrases.js';
+import FavoritePhrases from './components/pages/FavoritePhrases.js';
 
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -18,8 +18,6 @@ function App() {
     saveToLocal('allPhrases', phrases);
   }, [phrases]);
 
-  console.log(phrases);
-
   return (
     <AppGrid>
       <Header>LittleSunshine</Header>
@@ -30,7 +28,6 @@ function App() {
             path="/"
             element={
               <AllPhrases
-                preset={PRESET}
                 cloudname={CLOUDNAME}
                 onUpload={upload}
                 phrases={phrases}
@@ -61,6 +58,7 @@ function App() {
     </AppGrid>
   );
 
+  //Bookmark a phrase
   function handleBookmarkClick(phraseId) {
     setPhrases(
       phrases.map(item => {
@@ -73,10 +71,12 @@ function App() {
     );
   }
 
+  //Delete a phrase function
   function handleDelete(phraseId) {
     setPhrases(phrases.filter(item => item.id !== phraseId));
   }
 
+  //Adding a phrase function
   function handlePhraseSubmit({ date, text }) {
     let id = nanoid();
     let isBookmarked = false;
@@ -85,6 +85,7 @@ function App() {
     setPhrases([{ id, date, text, isBookmarked, photo }, ...phrases]);
   }
 
+  // Photoupload to phraseCard
   function upload(phraseId, event) {
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`;
 
@@ -99,7 +100,6 @@ function App() {
         },
       })
       .then(response => {
-        console.log(response.data.public_id);
         setPhrases(
           phrases.map(item => {
             if (item.id === phraseId) {
@@ -113,6 +113,7 @@ function App() {
       .catch(error => console.error(error));
   }
 
+  // Local Storage
   function loadFromLocal(key) {
     try {
       return JSON.parse(localStorage.getItem(key));

@@ -16,16 +16,9 @@ export default function PhraseCard({
   onDeleteClick,
   image,
   onUpload,
-  cloudname,
-  preset,
+  cloudname
 }) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
-
-  function handleCancel() {
-    setShowDeleteMessage(false);
-  }
-
-  console.log(image);
 
   return (
     <>
@@ -44,7 +37,7 @@ export default function PhraseCard({
         </IconButton>
         <IconButton gridArea="addPhotoIconButton">
           <label>
-            <input onChange={onUpload} id="image-upload" type="file" className="sr-only" accept="image/*" />
+            <input data-testid="photo-upload" onChange={onUpload} id="image-upload" type="file" className="sr-only" accept="image/*" />
             <AddPhotoIcon height="30" width="30" fill="#19337a" />
             <span className="sr-only">Upload</span>
           </label>
@@ -72,6 +65,10 @@ export default function PhraseCard({
       </PhraseCardWrapper>
     </>
   );
+
+  function handleCancel() {
+    setShowDeleteMessage(false);
+  }
 }
 
 const PhraseCardWrapper = styled.article`
