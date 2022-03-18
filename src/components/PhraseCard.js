@@ -52,8 +52,12 @@ export default function PhraseCard({
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
         {image ? (
-          <Image publicId={image} style={{ gridArea: 'image' }} width="100" crop="scale" cloudName={cloudname} />
-        ) : null}
+          <Image publicId={`${image}.png`} cloudName={cloudname} style={{ gridArea: 'image' }}>
+            <Transformation width={100} height={100} crop="thumb" />
+            <Transformation radius="max" />
+          </Image>
+        ) : // <Image publicId={image} style={{ gridArea: 'image' }} width="100" crop="scale" cloudName={cloudname} />
+        null}
 
         {showDeleteMessage ? (
           <ModalDeleteMessage

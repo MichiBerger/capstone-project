@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import breakpoint from '../commons/breakpoints.js';
 
 import PhraseCard from '../PhraseCard.js';
 import AddIcon from '../icons/AddIcon.js';
@@ -20,7 +21,7 @@ export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, on
       <PhrasesList role="list" aria-label="phrases">
         {phrases.map(phrase => {
           return (
-            <li aria-label="phrase-item" key={phrase.id}>
+            <PhraseItem aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
                 preset={preset}
                 cloudname={cloudname}
@@ -32,20 +33,30 @@ export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, on
                 date={phrase.date}
                 text={phrase.text}
               />
-            </li>
+            </PhraseItem>
           );
         })}
       </PhrasesList>
     </AllPhrasesWrapper>
   );
 }
+
 const AllPhrasesWrapper = styled.section`
   position: relative;
 `;
 const PhrasesList = styled.ul`
   display: flex;
-  flex-direction: column;
   gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const PhraseItem = styled.li`
+  width: 100%;
+
+  @media only screen and (${breakpoint.device.sm}) {
+    width: 47%;
+  }
 `;
 
 const AddButtonLink = styled(Link)`

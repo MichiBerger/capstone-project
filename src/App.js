@@ -99,10 +99,11 @@ function App() {
         },
       })
       .then(response => {
+        console.log(response.data.public_id);
         setPhrases(
           phrases.map(item => {
             if (item.id === phraseId) {
-              return { ...item, photo: response.data.url };
+              return { ...item, photo: response.data.public_id };
             } else {
               return item;
             }

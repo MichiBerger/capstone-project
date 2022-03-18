@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import PhraseCard from '../PhraseCard.js';
+import breakpoint from '../commons/breakpoints.js';
 import ModalEmptyPhraseMessage from '../ModalEmptyPhraseMessage.js';
 
 export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, cloudname, preset }) {
@@ -21,7 +22,7 @@ export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClic
           .filter(phrase => phrase.isBookmarked)
           .map(phrase => {
             return (
-              <li aria-label="phrase-item" key={phrase.id}>
+              <PhraseItem aria-label="phrase-item" key={phrase.id}>
                 <PhraseCard
                   preset={preset}
                   cloudname={cloudname}
@@ -33,7 +34,7 @@ export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClic
                   date={phrase.date}
                   text={phrase.text}
                 />
-              </li>
+              </PhraseItem>
             );
           })}
       </PhrasesList>
@@ -43,6 +44,15 @@ export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClic
 
 const PhrasesList = styled.ul`
   display: flex;
-  flex-direction: column;
   gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const PhraseItem = styled.li`
+  width: 100%;
+
+  @media only screen and (${breakpoint.device.sm}) {
+    width: 47%;
+  }
 `;
