@@ -1,27 +1,57 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import DeleteButton from './DeleteButton.js';
-import HeartButton from './HeartButton.js';
+import { Image, Transformation } from 'cloudinary-react';
 import ModalDeleteMessage from './ModalDeleteMessage.js';
+import IconButton from './IconButton.js';
+import AddPhotoIcon from './icons/AddPhotoIcon.js';
+import DeleteIcon from './icons/DeleteIcon.js';
+import HeartFilledIcon from './icons/HeartFilledIcon.js';
+import HeartOutlinedIcon from './icons/HeartOutlinedIcon.js';
 
-export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, onDeleteClick }) {
+export default function PhraseCard({
+  date,
+  text,
+  isBookmarked,
+  onBookmarkClick,
+  onDeleteClick,
+  image,
+  onUpload,
+  cloudname
+}) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
-
-  function handleCancel() {
-    setShowDeleteMessage(false);
-  }
 
   return (
     <>
       <PhraseCardWrapper>
-        <HeartButton onBookmarkClick={onBookmarkClick} isBookmarked={isBookmarked} />
-        <DeleteButton
+        <IconButton type="button" onClick={onBookmarkClick} gridArea="heartIconButton">
+          {isBookmarked ? <HeartFilledIcon fill="#9AD21C" /> : <HeartOutlinedIcon fill="#9AD21C" />}
+          <span className="sr-only">Bookmark</span>
+        </IconButton>
+        <IconButton
+          gridArea="deleteIconButton"
           disabled={showDeleteMessage}
-          fill="#DE0C47"
           onClick={() => setShowDeleteMessage(!showDeleteMessage)}
-        />
+        >
+          <DeleteIcon fill="#DE0C47" />
+          <span className="sr-only">Delete</span>
+        </IconButton>
+        <IconButton gridArea="addPhotoIconButton">
+          <label>
+            <input data-testid="photo-upload" onChange={onUpload} id="image-upload" type="file" className="sr-only" accept="image/*" />
+            <AddPhotoIcon height="30" width="30" fill="#19337a" />
+            <span className="sr-only">Upload</span>
+          </label>
+        </IconButton>
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
+        {image ? (
+          <Image publicId={`${image}.png`} cloudName={cloudname} style={{ gridArea: 'image' }}>
+            <Transformation width={100} height={100} crop="thumb" />
+            <Transformation radius="max" />
+          </Image>
+        ) : // <Image publicId={image} style={{ gridArea: 'image' }} width="100" crop="scale" cloudName={cloudname} />
+        null}
+
         {showDeleteMessage ? (
           <ModalDeleteMessage
             onDeleteClick={onDeleteClick}
@@ -35,23 +65,29 @@ export default function PhraseCard({ date, text, isBookmarked, onBookmarkClick, 
       </PhraseCardWrapper>
     </>
   );
+
+  function handleCancel() {
+    setShowDeleteMessage(false);
+  }
 }
 
 const PhraseCardWrapper = styled.article`
   display: grid;
-  grid-template-columns: auto 50% 10% 10%;
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(100px, 100px) minmax(100px, auto) repeat(3, 5%);
+  grid-template-rows: auto 1f auto;
   grid-template-areas:
-    'date . heartIconButton deleteIconButton'
-    '. text text text'
-    '. . . .';
+    'date . heartIconButton deleteIconButton addPhotoIconButton'
+    'image text text text .'
+    '. . . . .';
   border-radius: 15px;
   padding: 1rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   background-color: #f9f9f9;
   color: #19337a;
-  row-gap: 1rem;
+  gap: 1rem 0.5rem;
+
   position: relative;
+  width: 100%;
 `;
 
 const PhraseCardDate = styled.time`

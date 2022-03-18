@@ -1,11 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import AllPhrases from './components/pages/AllPhrases.js';
-import Navigation from './components/Navigation.js';
-import FavoritePhrases from './components/pages/FavoritePhrases.js';
-import AddPhrases from './components/pages/AddPhrases.js';
+import axios from 'axios';
 import { nanoid } from 'nanoid';
+import styled from 'styled-components';
+import Navigation from './components/Navigation.js';
+import AllPhrases from './components/pages/AllPhrases.js';
+import AddPhrases from './components/pages/AddPhrases.js';
+import FavoritePhrases from './components/pages/FavoritePhrases.js';
+
+const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
+const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 function App() {
   const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
@@ -16,20 +20,32 @@ function App() {
 
   return (
     <AppGrid>
-      <Header>MeinMausebär</Header>
+      <Header>LittleSunshine</Header>
 
       <Main>
         <Routes>
           <Route
             path="/"
             element={
-              <AllPhrases phrases={phrases} onBookmarkClick={handleBookmarkClick} onDeleteClick={handleDelete} />
+              <AllPhrases
+                cloudname={CLOUDNAME}
+                onUpload={upload}
+                phrases={phrases}
+                onBookmarkClick={handleBookmarkClick}
+                onDeleteClick={handleDelete}
+              />
             }
           />
           <Route
             path="/favorites"
             element={
-              <FavoritePhrases phrases={phrases} onBookmarkClick={handleBookmarkClick} onDeleteClick={handleDelete} />
+              <FavoritePhrases
+                cloudname={CLOUDNAME}
+                onUpload={upload}
+                phrases={phrases}
+                onBookmarkClick={handleBookmarkClick}
+                onDeleteClick={handleDelete}
+              />
             }
           />
           <Route
@@ -42,28 +58,62 @@ function App() {
     </AppGrid>
   );
 
+  //Bookmark a phrase
   function handleBookmarkClick(phraseId) {
-    const nextPhrases = phrases.map(item => {
-      if (item.id === phraseId) {
-        return { ...item, isBookmarked: !item.isBookmarked };
-      } else {
-        return item;
-      }
-    });
-    setPhrases(nextPhrases);
+    setPhrases(
+      phrases.map(item => {
+        if (item.id === phraseId) {
+          return { ...item, isBookmarked: !item.isBookmarked };
+        } else {
+          return item;
+        }
+      })
+    );
   }
 
+  //Delete a phrase function
   function handleDelete(phraseId) {
     setPhrases(phrases.filter(item => item.id !== phraseId));
   }
 
+  //Adding a phrase function
   function handlePhraseSubmit({ date, text }) {
     let id = nanoid();
     let isBookmarked = false;
+    let photo = '';
 
-    setPhrases([{ id, date, text, isBookmarked }, ...phrases]);
+    setPhrases([{ id, date, text, isBookmarked, photo }, ...phrases]);
   }
 
+  // Photoupload to phraseCard
+  function upload(phraseId, event) {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`;
+
+    const formData = new FormData();
+    formData.append('file', event.target.files[0]);
+    formData.append('upload_preset', PRESET);
+
+    axios
+      .post(url, formData, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        setPhrases(
+          phrases.map(item => {
+            if (item.id === phraseId) {
+              return { ...item, photo: response.data.public_id };
+            } else {
+              return item;
+            }
+          })
+        );
+      })
+      .catch(error => console.error(error));
+  }
+
+  // Local Storage
   function loadFromLocal(key) {
     try {
       return JSON.parse(localStorage.getItem(key));
