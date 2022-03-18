@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Image, Transformation } from 'cloudinary-react';
 import ModalDeleteMessage from './ModalDeleteMessage.js';
 import IconButton from './IconButton.js';
