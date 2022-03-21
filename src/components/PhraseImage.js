@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Image, Transformation } from 'cloudinary-react';
-import DeleteIcon from './icons/DeleteIcon.js';
 import IconButton from './IconButton.js';
+import DeleteIcon from './icons/DeleteIcon.js';
 
 export default function PhraseImage({ hover, image, cloudname, onDeleteImageIconClick, onImageClick, gridArea }) {
   return (
