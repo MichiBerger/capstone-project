@@ -7,6 +7,7 @@ import Navigation from './components/Navigation.js';
 import AllPhrases from './components/pages/AllPhrases.js';
 import AddPhrases from './components/pages/AddPhrases.js';
 import FavoritePhrases from './components/pages/FavoritePhrases.js';
+import breakpoint from './components/commons/breakpoints.js';
 
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -29,10 +30,11 @@ function App() {
             element={
               <AllPhrases
                 cloudname={CLOUDNAME}
-                onUpload={upload}
                 phrases={phrases}
                 onBookmarkClick={handleBookmarkClick}
                 onDeleteClick={handleDelete}
+                onImageDeleteClick={handleImageDelete}
+                onUpload={upload}
               />
             }
           />
@@ -41,10 +43,11 @@ function App() {
             element={
               <FavoritePhrases
                 cloudname={CLOUDNAME}
-                onUpload={upload}
                 phrases={phrases}
                 onBookmarkClick={handleBookmarkClick}
                 onDeleteClick={handleDelete}
+                onImageDeleteClick={handleImageDelete}
+                onUpload={upload}
               />
             }
           />
@@ -74,6 +77,19 @@ function App() {
   //Delete a phrase function
   function handleDelete(phraseId) {
     setPhrases(phrases.filter(item => item.id !== phraseId));
+  }
+
+  //Delete a image function
+  function handleImageDelete(phraseId) {
+    setPhrases(
+      phrases.map(item => {
+        if (item.id === phraseId) {
+          return { ...item, photo: '' };
+        } else {
+          return item;
+        }
+      })
+    );
   }
 
   //Adding a phrase function
@@ -130,6 +146,11 @@ function App() {
 const AppGrid = styled.div`
   display: grid;
   grid-template-rows: 48px 1fr 48px;
+
+  @media only screen and (${breakpoint.device.sm}) {
+    max-width: 760px;
+    margin: 0 auto;
+  }
 `;
 
 const Header = styled.h1`
@@ -140,8 +161,8 @@ const Header = styled.h1`
   align-items: center;
   justify-content: center;
   color: white;
-  background-color: #efefef;
-  color: #0fcbea;
+  background-color: #19337a;
+  color: #fff;
   font-size: 2rem;
 `;
 const Main = styled.main`

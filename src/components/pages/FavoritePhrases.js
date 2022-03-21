@@ -3,7 +3,7 @@ import PhraseCard from '../PhraseCard.js';
 import ModalEmptyPhraseMessage from '../ModalEmptyPhraseMessage.js';
 import breakpoint from '../commons/breakpoints.js';
 
-export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, cloudname}) {
+export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, cloudname, onImageDeleteClick}) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
 
   const emptyPhrasesMessage =
@@ -25,12 +25,13 @@ export default function FavoritePhrases({ onBookmarkClick, phrases, onDeleteClic
               <PhraseItem aria-label="phrase-item" key={phrase.id}>
                 <PhraseCard
                   cloudname={cloudname}
-                  onUpload={event => onUpload(phrase.id, event)}
-                  image={phrase.photo}
                   onBookmarkClick={() => onBookmarkClick(phrase.id)}
                   onDeleteClick={() => onDeleteClick(phrase.id)}
+                  onImageDeleteClick={() => onImageDeleteClick(phrase.id)}
+                  onUpload={event => onUpload(phrase.id, event)}
                   isBookmarked={phrase.isBookmarked}
                   date={phrase.date}
+                  image={phrase.photo}
                   text={phrase.text}
                 />
               </PhraseItem>

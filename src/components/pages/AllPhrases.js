@@ -4,9 +4,14 @@ import PhraseCard from '../PhraseCard.js';
 import breakpoint from '../commons/breakpoints.js';
 import AddIcon from '../icons/AddIcon.js';
 
-
-export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, onUpload, cloudname }) {
-  
+export default function AllPhrases({
+  onBookmarkClick,
+  phrases,
+  onDeleteClick,
+  onUpload,
+  cloudname,
+  onImageDeleteClick,
+}) {
   const noPhrases =
     phrases.length === 0 ? (
       <AddButtonLink to="/addphrases">
@@ -25,12 +30,13 @@ export default function AllPhrases({ onBookmarkClick, phrases, onDeleteClick, on
             <PhraseItem aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
                 cloudname={cloudname}
-                onUpload={event => onUpload(phrase.id, event)}
-                image={phrase.photo}
                 onBookmarkClick={() => onBookmarkClick(phrase.id)}
                 onDeleteClick={() => onDeleteClick(phrase.id)}
+                onImageDeleteClick={() => onImageDeleteClick(phrase.id)}
+                onUpload={event => onUpload(phrase.id, event)}
                 isBookmarked={phrase.isBookmarked}
                 date={phrase.date}
+                image={phrase.photo}
                 text={phrase.text}
               />
             </PhraseItem>
@@ -53,7 +59,6 @@ const PhrasesList = styled.ul`
 
 const PhraseItem = styled.li`
   width: 100%;
-
   @media only screen and (${breakpoint.device.sm}) {
     width: 47%;
   }

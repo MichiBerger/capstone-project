@@ -29,7 +29,7 @@ export default function PhraseForm({ handlePhraseSubmit }) {
     e.preventDefault();
     let newDate = startDate.toLocaleDateString('de-DE', options);
 
-    handlePhraseSubmit({ date: newDate, text: phraseText });
+    handlePhraseSubmit({ date: newDate, text: phraseText.trim() });
 
     setStartDate(new Date());
     setPhraseText('');
