@@ -74,12 +74,12 @@ function App() {
     );
   }
 
-  //Delete a phrase function
+  //Delete a phrase
   function handleDelete(phraseId) {
     setPhrases(phrases.filter(item => item.id !== phraseId));
   }
 
-  //Delete a image function
+  //Delete a image
   function handleImageDelete(phraseId) {
     setPhrases(
       phrases.map(item => {
@@ -92,7 +92,7 @@ function App() {
     );
   }
 
-  //Adding a phrase function
+  //Adding a phrase 
   function handlePhraseSubmit({ date, text }) {
     let id = nanoid();
     let isBookmarked = false;
