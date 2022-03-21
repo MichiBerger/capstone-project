@@ -45,20 +45,20 @@ const NavBar = styled.nav`
 `;
 
 const StyledNavLink = styled(NavLink)`
-  color: #19337a;
+  color: #19337a70;
   background-color: #efefef;
   justify-self: center;
   opacity: 0.5;
   width: 50%;
   svg {
-    fill: #19337a;
+    fill: #19337a70;
   }
   &.active {
-    color: #0FCBEA;
+    color: #19337a;
 
     opacity: 1;
     svg {
-      fill: #0FCBEA;
+      fill: #19337a;
     }
   }
 `;

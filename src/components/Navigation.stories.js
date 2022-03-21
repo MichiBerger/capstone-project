@@ -8,6 +8,3 @@ export default {
 const Template = args => <Navigation {...args} />;
 
 export const Default = Template.bind({})
-Default.args = {
-  background: '#ff0', label: 'Button'
-};

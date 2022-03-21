@@ -1,14 +1,14 @@
-import EmptyPhraseMessage from './EmptyPhraseMessage.js';
+import ModalEmptyPhraseMessage from './ModalEmptyPhraseMessage.js';
 
 export default {
-  title: 'components/EmptyPhraseMessage',
-  component: EmptyPhraseMessage,
+  title: 'components/ModalEmptyPhraseMessage',
+  component: ModalEmptyPhraseMessage,
 };
 
-const Template = args => <EmptyPhraseMessage {...args} />;
+const Template = args => <ModalEmptyPhraseMessage {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  titleText: "22. Feb. 2022",
-  emptyPhrasetext: "das ist mein..."
+  titleText: "Upps...da fehlt noch was!",
+  emptyPhrasetext: "Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!"
 };

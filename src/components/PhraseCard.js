@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Image, Transformation } from 'cloudinary-react';
-import ModalDeleteMessage from './ModalDeleteMessage.js';
 import IconButton from './IconButton.js';
+import ModalDeleteMessage from './ModalDeleteMessage.js';
+import PhraseImage from './PhraseImage.js';
 import AddPhotoIcon from './icons/AddPhotoIcon.js';
 import DeleteIcon from './icons/DeleteIcon.js';
 import HeartFilledIcon from './icons/HeartFilledIcon.js';
@@ -59,32 +59,18 @@ export default function PhraseCard({
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
         {image ? (
-          <div style={{ display: 'flex', position: 'relative', gridArea: 'image' }}>
-            <Image
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-              publicId={`${image}.png`}
-              cloudName={cloudname}
-              loading="lazy"
-            >
-              <Transformation width={100} height={100} crop="thumb" />
-              <Transformation radius="max" />
-            </Image>
-            {hover ? (
-              <IconButton
-                photoDeleteIcon
-                onMouseEnter={() => setHover(true)}
-                onClick={() => {
-                  setHover(false);
-                  onImageDeleteClick();
-                }}
-              >
-                <DeleteIcon fill="#fff" height="20" width="20" />
-              </IconButton>
-            ) : null}
-          </div>
+          <PhraseImage
+            gridArea="image"
+            cloudname={cloudname}
+            hover={hover}
+            image={image}
+            onImageClick={() => setHover(!hover)}
+            onDeleteImageIconClick={() => {
+              onImageDeleteClick();
+              setHover(false);
+            }}
+          />
         ) : null}
-
         {showDeleteMessage ? (
           <ModalDeleteMessage
             onDeleteClick={onDeleteClick}
