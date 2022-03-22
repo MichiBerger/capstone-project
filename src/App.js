@@ -122,9 +122,8 @@ function App() {
         },
         onUploadProgress: progressEvent => {
           const { loaded, total } = progressEvent;
-
           let percentage = Math.round((loaded * 100) / total);
-          console.log('percent: ', percentage);
+
           setLoadingStatus(percentage);
           setIsLoading(true);
         },
@@ -139,11 +138,9 @@ function App() {
             }
           })
         );
-        console.log('ISLOADING: ', isLoading);
         if (response.status === 200) {
           setIsLoading(false);
         }
-        console.log(response.status);
       })
       .catch(error => console.error(error));
   }

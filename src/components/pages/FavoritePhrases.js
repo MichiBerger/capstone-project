@@ -16,17 +16,19 @@ export default function FavoritePhrases({
 }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
 
-  // const emptyPhrasesMessage =
-  //   emptyPhrases.length === 0 ? (
-  //     <ModalEmptyPhraseMessage
-  //       emptyPhrasetext="Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!"
-  //       titleText="Upps...da fehlt noch was!"
-  //     />
-  //   ) : null;
+  const emptyPhrasesMessage =
+    emptyPhrases.length === 0 ? (
+      <ModalEmptyPhraseMessage
+        emptyPhrasetext="Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!"
+        titleText="Upps...da fehlt noch was!"
+      />
+    ) : null;
 
   return (
     <AllPhrasesWrapper>
-      {isLoading ? <ModalLoadingInfo style={{ top: 50, left: 50 }} loadingStatus={loadingStatus} /> : null}
+      {emptyPhrasesMessage}
+
+      {isLoading ? <ModalLoadingInfo loadingStatus={loadingStatus} /> : null}
 
       <PhrasesList isLoading={isLoading} role="list" aria-label="phrases">
         {phrases

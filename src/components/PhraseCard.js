@@ -78,7 +78,7 @@ export default function PhraseCard({
             deleteText="Löschen"
             cancelText="Abbrechen"
             messageTitle="Spruch löschen"
-            messageText="Bist Du sicher, dass Du den Spruch löschen möchtest? Das kann nicht rückgängig gemacht werden"
+            messageText="Bist Du sicher, dass Du den Spruch löschen möchtest? Das kann nicht rückgängig gemacht werden!"
           />
         ) : null}
       </PhraseCardWrapper>

@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 export default function LoadingInfo({ loadingStatus }) {
-  const labelStyles = {
-    color: 'white',
-    fontWeight: 'bold',
-  };
-
   return (
     <Wrapper>
       <h2>Ladestatus</h2>

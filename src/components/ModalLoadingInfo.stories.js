@@ -9,5 +9,5 @@ const Template = args => <ModalLoadingInfo {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  
+  loadingStatus: ""
 };
