@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import AddIcon from './icons/AddIcon.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
@@ -14,12 +14,13 @@ export default function PhraseForm({ handlePhraseSubmit }) {
 
   const disabledButton = (phraseText.length === 0 || startDate === null) ?? true;
 
-  function setTime() {
-    setSuccessMessage(true);
-    setTimeout(() => {
-      setSuccessMessage(false);
-    }, 2000);
-  }
+  useEffect(() => {
+    if (successMessage) {
+      setTimeout(() => {
+        setSuccessMessage(false);
+      }, 2000);
+    }
+  }, [successMessage]);
 
   function onTextareaChange(e) {
     setPhraseText(e.target.value);
@@ -31,9 +32,9 @@ export default function PhraseForm({ handlePhraseSubmit }) {
 
     handlePhraseSubmit({ date: newDate, text: phraseText.trim() });
 
-    setStartDate(new Date());
     setPhraseText('');
-    setTime();
+    setStartDate(new Date());
+    setSuccessMessage(true);
   }
 
   return (
@@ -142,6 +143,6 @@ const AddButton = styled.button`
 
   p {
     font-size: 0.75rem;
-    color: ${props => props.disabled ? "#19337a" : "#fff"};
+    color: ${props => (props.disabled ? '#19337a' : '#fff')};
   }
 `;

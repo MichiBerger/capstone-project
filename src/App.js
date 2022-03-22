@@ -14,6 +14,8 @@ const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 function App() {
   const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
+  const [loadingStatus, setLoadingStatus] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
@@ -30,6 +32,8 @@ function App() {
             element={
               <AllPhrases
                 cloudname={CLOUDNAME}
+                loadingStatus={loadingStatus}
+                isLoading={isLoading}
                 phrases={phrases}
                 onBookmarkClick={handleBookmarkClick}
                 onDeleteClick={handleDelete}
@@ -43,6 +47,8 @@ function App() {
             element={
               <FavoritePhrases
                 cloudname={CLOUDNAME}
+                loadingStatus={loadingStatus}
+                isLoading={isLoading}
                 phrases={phrases}
                 onBookmarkClick={handleBookmarkClick}
                 onDeleteClick={handleDelete}
@@ -92,7 +98,7 @@ function App() {
     );
   }
 
-  //Adding a phrase 
+  //Adding a phrase
   function handlePhraseSubmit({ date, text }) {
     let id = nanoid();
     let isBookmarked = false;
@@ -114,17 +120,27 @@ function App() {
         headers: {
           'Content-type': 'multipart/form-data',
         },
+        onUploadProgress: progressEvent => {
+          const { loaded, total } = progressEvent;
+          let percentage = Math.round((loaded * 100) / total);
+
+          setLoadingStatus(percentage);
+          setIsLoading(true);
+        },
       })
       .then(response => {
-        setPhrases(
-          phrases.map(item => {
-            if (item.id === phraseId) {
-              return { ...item, photo: response.data.public_id };
-            } else {
-              return item;
-            }
-          })
+          setPhrases(
+            phrases.map(item => {
+              if (item.id === phraseId) {
+                return { ...item, photo: response.data.public_id };
+              } else {
+                return item;
+              }
+            })
         );
+        if (response.status === 200) {
+          setIsLoading(false);
+        }
       })
       .catch(error => console.error(error));
   }

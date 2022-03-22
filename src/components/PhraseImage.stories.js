@@ -9,7 +9,7 @@ export default {
   subcomponents: { Transformation }
 };
 
-const Template = args => <PhraseImage {...args} />;
+const Template = args => <Image {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

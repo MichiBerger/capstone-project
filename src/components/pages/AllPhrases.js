@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ModalLoadingInfo from '../ModalLoadingInfo.js';
 import PhraseCard from '../PhraseCard.js';
 import breakpoint from '../commons/breakpoints.js';
 import AddIcon from '../icons/AddIcon.js';
@@ -11,6 +12,8 @@ export default function AllPhrases({
   onUpload,
   cloudname,
   onImageDeleteClick,
+  loadingStatus,
+  isLoading,
 }) {
   const noPhrases =
     phrases.length === 0 ? (
@@ -24,7 +27,9 @@ export default function AllPhrases({
     <AllPhrasesWrapper>
       {noPhrases}
 
-      <PhrasesList role="list" aria-label="phrases">
+      {isLoading ? <ModalLoadingInfo loadingStatus={loadingStatus} /> : null}
+
+      <PhrasesList isLoading={isLoading} role="list" aria-label="phrases">
         {phrases.map(phrase => {
           return (
             <PhraseItem aria-label="phrase-item" key={phrase.id}>
@@ -49,12 +54,14 @@ export default function AllPhrases({
 
 const AllPhrasesWrapper = styled.section`
   position: relative;
+  height: calc(100% - 96px);
 `;
 const PhrasesList = styled.ul`
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: space-between;
+  opacity: ${props => (props.isLoading ? '0.2' : '1')};
 `;
 
 const PhraseItem = styled.li`
