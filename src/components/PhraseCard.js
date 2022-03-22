@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Image, Transformation } from 'cloudinary-react';
-import ModalDeleteMessage from './ModalDeleteMessage.js';
 import IconButton from './IconButton.js';
+import ModalDeleteMessage from './ModalDeleteMessage.js';
+import PhraseImage from './PhraseImage.js';
 import AddPhotoIcon from './icons/AddPhotoIcon.js';
 import DeleteIcon from './icons/DeleteIcon.js';
 import HeartFilledIcon from './icons/HeartFilledIcon.js';
@@ -14,30 +14,44 @@ export default function PhraseCard({
   isBookmarked,
   onBookmarkClick,
   onDeleteClick,
+  onImageDeleteClick,
   image,
   onUpload,
-  cloudname
+  cloudname,
 }) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [hover, setHover] = useState(false);
 
   return (
     <>
       <PhraseCardWrapper>
-        <IconButton type="button" onClick={onBookmarkClick} gridArea="heartIconButton">
-          {isBookmarked ? <HeartFilledIcon fill="#9AD21C" /> : <HeartOutlinedIcon fill="#9AD21C" />}
+        <IconButton hoverAndActive type="button" onClick={onBookmarkClick} gridArea="heartIconButton">
+          {isBookmarked ? (
+            <HeartFilledIcon fill="#9AD21C" height="30" width="30" />
+          ) : (
+            <HeartOutlinedIcon fill="#9AD21C" height="30" width="30" />
+          )}
           <span className="sr-only">Bookmark</span>
         </IconButton>
         <IconButton
+          hoverAndActive
           gridArea="deleteIconButton"
           disabled={showDeleteMessage}
           onClick={() => setShowDeleteMessage(!showDeleteMessage)}
         >
-          <DeleteIcon fill="#DE0C47" />
+          <DeleteIcon fill="#DE0C47" height="30" width="30" />
           <span className="sr-only">Delete</span>
         </IconButton>
-        <IconButton gridArea="addPhotoIconButton">
+        <IconButton hoverAndActive gridArea="addPhotoIconButton">
           <label>
-            <input data-testid="photo-upload" onChange={onUpload} id="image-upload" type="file" className="sr-only" accept="image/*" />
+            <input
+              data-testid="photo-upload"
+              onChange={onUpload}
+              id="image-upload"
+              type="file"
+              className="sr-only"
+              accept="image/*"
+            />
             <AddPhotoIcon height="30" width="30" fill="#19337a" />
             <span className="sr-only">Upload</span>
           </label>
@@ -45,13 +59,18 @@ export default function PhraseCard({
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>{text}</PhraseCardText>
         {image ? (
-          <Image publicId={`${image}.png`} cloudName={cloudname} style={{ gridArea: 'image' }}>
-            <Transformation width={100} height={100} crop="thumb" />
-            <Transformation radius="max" />
-          </Image>
-        ) : // <Image publicId={image} style={{ gridArea: 'image' }} width="100" crop="scale" cloudName={cloudname} />
-        null}
-
+          <PhraseImage
+            gridArea="image"
+            cloudname={cloudname}
+            hover={hover}
+            image={image}
+            onImageClick={() => setHover(!hover)}
+            onDeleteImageIconClick={() => {
+              onImageDeleteClick();
+              setHover(false);
+            }}
+          />
+        ) : null}
         {showDeleteMessage ? (
           <ModalDeleteMessage
             onDeleteClick={onDeleteClick}

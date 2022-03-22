@@ -11,4 +11,5 @@ export const Default = Template.bind({});
 Default.args = {
   text: 'Das ist mein Papapa!',
   date: '22. Feb. 2022',
+  isBookmarked: true
 };

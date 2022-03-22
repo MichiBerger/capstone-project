@@ -11,6 +11,6 @@ export const Default = Template.bind({});
 Default.args = {
   deleteText: 'Löschen',
   cancelText: 'Abbrechen',
-  messageTitle: '',
-  messageText: '',
+  messageTitle: 'Spruch löschen',
+  messageText: 'Möchtest du wirklich löschen',
 };

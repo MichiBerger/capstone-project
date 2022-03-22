@@ -1,8 +1,24 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export default function IconButton({ onClick, disabled, children, gridArea }) {
+export default function IconButton({
+  onClick,
+  onMouseEnter,
+  disabled,
+  children,
+  gridArea,
+  hoverAndActive,
+  photoDeleteIcon,
+}) {
   return (
-    <IconWrapper gridArea={gridArea} disabled={disabled} onClick={onClick} type="button">
+    <IconWrapper
+      hoverAndActive={hoverAndActive}
+      photoDeleteIcon={photoDeleteIcon}
+      gridArea={gridArea}
+      disabled={disabled}
+      onClick={onClick}
+      type="button"
+      onMouseEnter={onMouseEnter}
+    >
       {children}
     </IconWrapper>
   );
@@ -24,13 +40,31 @@ const IconWrapper = styled.button`
   opacity: 0.8;
   cursor: pointer;
 
-  &:hover {
+  ${props =>
+    props.hoverAndActive &&
+    css`
+      :hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+      :active {
+        transform: scale(0.9);
+        background: transparent;
+        transition: all 0.2s ease-out;
+      }
+    `}
+
+  ${props =>
+    props.photoDeleteIcon &&
+    `
+    background-color: #DE0C47;
+    position: absolute;
+    border-radius: 50%;
+    padding: 0.175rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     opacity: 1;
-    transform: scale(1.1);
-  }
-  &:active {
-    transform: scale(0.9);
-    background: transparent;
-    transition: all 0.2s ease-out;
-  }
+
+    `}
 `;
