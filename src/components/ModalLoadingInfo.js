@@ -22,11 +22,9 @@ const Wrapper = styled.article`
   justify-content: center;
   align-items: flex-start;
   position: absolute;
-  width: 100%;
   border-radius: 20px;
   padding: 1rem;
   gap: 1rem;
-  width: 100%;
   z-index: 1;
   top: 50%;
   left: 50%;
@@ -34,9 +32,6 @@ const Wrapper = styled.article`
   width: 100%;
   h2 {
     font-size: 1.2rem;
-  }
-  p {
-    font-size: 1rem;
   }
 `;
 
