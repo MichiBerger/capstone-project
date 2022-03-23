@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import ModalLoadingInfo from '../ModalLoadingInfo.js';
 import PhraseCard from '../PhraseCard.js';
 import ModalEmptyPhraseMessage from '../ModalEmptyPhraseMessage.js';
-import breakpoint from '../commons/breakpoints.js';
 
 export default function FavoritePhrases({
   onBookmarkClick,
@@ -69,8 +68,4 @@ const PhrasesList = styled.ul`
 
 const PhraseItem = styled.li`
   width: 100%;
-
-  @media only screen and (${breakpoint.device.sm}) {
-    width: 47%;
-  }
 `;

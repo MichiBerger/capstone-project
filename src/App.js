@@ -129,14 +129,14 @@ function App() {
         },
       })
       .then(response => {
-          setPhrases(
-            phrases.map(item => {
-              if (item.id === phraseId) {
-                return { ...item, photo: response.data.public_id };
-              } else {
-                return item;
-              }
-            })
+        setPhrases(
+          phrases.map(item => {
+            if (item.id === phraseId) {
+              return { ...item, photo: response.data.public_id };
+            } else {
+              return item;
+            }
+          })
         );
         if (response.status === 200) {
           setIsLoading(false);

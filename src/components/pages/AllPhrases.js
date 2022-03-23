@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ModalLoadingInfo from '../ModalLoadingInfo.js';
 import PhraseCard from '../PhraseCard.js';
-import breakpoint from '../commons/breakpoints.js';
 import AddIcon from '../icons/AddIcon.js';
 
 export default function AllPhrases({
@@ -66,9 +65,6 @@ const PhrasesList = styled.ul`
 
 const PhraseItem = styled.li`
   width: 100%;
-  @media only screen and (${breakpoint.device.sm}) {
-    width: 47%;
-  }
 `;
 
 const AddButtonLink = styled(Link)`
