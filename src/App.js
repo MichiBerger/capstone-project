@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import styled from 'styled-components';
+import Header from './components/Header.js';
 import Navigation from './components/Navigation.js';
 import AllPhrases from './components/pages/AllPhrases.js';
 import AddPhrases from './components/pages/AddPhrases.js';
@@ -23,8 +24,7 @@ function App() {
 
   return (
     <AppGrid>
-      <Header>LittleSunshine</Header>
-
+      <Header />
       <Main>
         <Routes>
           <Route
@@ -59,6 +59,10 @@ function App() {
           />
           <Route
             path="/addphrases"
+            element={<AddPhrases phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
+          />
+          <Route
+            path="/createkids"
             element={<AddPhrases phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
           />
         </Routes>
@@ -169,18 +173,6 @@ const AppGrid = styled.div`
   }
 `;
 
-const Header = styled.h1`
-  position: sticky;
-  top: 0px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background-color: #19337a;
-  color: #fff;
-  font-size: 2rem;
-`;
 const Main = styled.main`
   height: 100vh;
   overflow-y: scroll;
