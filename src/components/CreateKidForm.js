@@ -5,14 +5,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 
-export default function CreateKidForm({handlePhraseSubmit }) {
+export default function CreateKidForm({ handlePhraseSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
-  const [phraseText, setPhraseText] = useState('');
+  const [nameInput, setNameInput] = useState('');
+  const [isName, setIsName] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
 
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
-  const disabledButton = (phraseText.length === 0 || startDate === null) ?? true;
+  const disabledButton = nameInput.length === 0 || startDate === null ? true : false;
 
   useEffect(() => {
     if (successMessage) {
@@ -22,19 +23,29 @@ export default function CreateKidForm({handlePhraseSubmit }) {
     }
   }, [successMessage]);
 
-  function onTextareaChange(e) {
-    setPhraseText(e.target.value);
+  function handleTextInput(e) {
+    setIsName(false)
+    setNameInput(e.target.value);
+    console.log(e.target.value);
   }
 
   function onFormSubmit(e) {
     e.preventDefault();
     let newDate = startDate.toLocaleDateString('de-DE', options);
 
-    handlePhraseSubmit({ date: newDate, text: phraseText.trim() });
+    handlePhraseSubmit({ date: newDate, text: nameInput.trim() });
 
-    setPhraseText('');
+    setNameInput('');
     setStartDate(new Date());
     setSuccessMessage(true);
+  }
+
+  function handleOnBlurName() {
+    if (nameInput.length === 0) {
+      setIsName(true);
+    } else {
+      setIsName(false);
+    }
   }
 
   return (
@@ -42,7 +53,18 @@ export default function CreateKidForm({handlePhraseSubmit }) {
       <h2>Füge Dein Kind hinzu!</h2>
       <FormWrapper onSubmit={onFormSubmit}>
         <LabelInputText htmlFor="kids-name">Wie heisst Dein Kind?</LabelInputText>
-        <TextInput type="text" id="kids-name" name="kids-name" />
+        <TextInput
+          type="text"
+          id="kids-name"
+          name="kids-name"
+          onChange={handleTextInput}
+          onBlur={handleOnBlurName}
+          maxLength="20"
+        />
+
+        {isName ? <ErrorMessage>Bitte gebe einen Namen ein!</ErrorMessage> : null}
+        {nameInput.length >= 20 ? <ErrorMessage>Die maximale Eingabe an Zeichen ist erreicht!</ErrorMessage>  : null}
+
         <LabelDate htmlFor="birthdate">Wann ist Dein Kind geboren</LabelDate>
         <DayPicker
           id="birthdate"
@@ -53,7 +75,6 @@ export default function CreateKidForm({handlePhraseSubmit }) {
           dateFormat="dd-MM-yyyy"
           showYearDropdown
           dropdownMode="select"
-
           maxDate={new Date()}
         />
 
@@ -68,20 +89,18 @@ export default function CreateKidForm({handlePhraseSubmit }) {
         /> */}
         {startDate === null ? <ErrorMessage>Bitte wähle ein Datum!</ErrorMessage> : null}
 
-        <LabelInputText htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelInputText>
+        {/* <LabelInputText htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelInputText>
         <TextInput
           onChange={onTextareaChange}
-          value={phraseText}
+          value={nameInput}
           name="phrase-text"
           id="phrase-text"
           cols="20"
           rows="10"
           placeholder="...das ist mein papapa!"
           maxLength="300"
-        ></TextInput>
-        {phraseText.length === 300 ? (
-          <ErrorMessage>Du hast die maximale Anzahl an Buchstaben erreicht!</ErrorMessage>
-        ) : null}
+        ></TextInput> */}
+
         <AddButton disabled={disabledButton}>
           <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
 
