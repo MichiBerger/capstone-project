@@ -9,6 +9,7 @@ import AllPhrases from './components/pages/AllPhrases.js';
 import AddPhrases from './components/pages/AddPhrases.js';
 import FavoritePhrases from './components/pages/FavoritePhrases.js';
 import breakpoint from './components/commons/breakpoints.js';
+import CreateKidForm from './components/CreateKidForm.js';
 
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -63,7 +64,7 @@ function App() {
           />
           <Route
             path="/createkids"
-            element={<AddPhrases phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
+            element={<CreateKidForm phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
           />
         </Routes>
       </Main>
