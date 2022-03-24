@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import AddIcon from './icons/AddIcon.js';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,6 +12,7 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
   const [nameInput, setNameInput] = useState('');
   const [isName, setIsName] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
+  const navigate = useNavigate();
 
   const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
   const newDate = startDate.toLocaleDateString('de-DE', options);
@@ -21,7 +23,6 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
   );
 
   const disabledButton = nameInput.length <= 1 || startDate === null || filteredNameAndDate.length > 0 ? true : false;
-
 
   if (filteredNameAndDate.length > 0) {
     console.log('Filtered:', filteredNameAndDate);
@@ -39,21 +40,18 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
     setNameInput(e.target.value);
   }
 
-  console.log('KidsData: ', kidsData);
-
   function onCreateKidFormSubmit(event) {
     event.preventDefault();
-
     let id = nanoid();
-
     setKidsData([...kidsData, { id: id, name: nameInput.trim(), birthDate: newDate }]);
 
     setStartDate(new Date());
     setSuccessMessage(true);
     setNameInput('');
+    navigate('/addphrases', { replace: true });
   }
 
-  function handleOnBlurName() {
+  function handleEmptyNameOnFocusDate() {
     if (nameInput.length === 0) {
       setIsName(true);
     } else {
@@ -63,7 +61,6 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
 
   return (
     <Wrapper>
-      <h2>Füge Dein Kind hinzu!</h2>
       <FormWrapper onSubmit={onCreateKidFormSubmit}>
         <LabelInputText htmlFor="kids-name">Wie heisst Dein Kind?</LabelInputText>
         <TextInput
@@ -71,28 +68,29 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
           id="kids-name"
           name="kids-name"
           onChange={handleTextInput}
-          onBlur={handleOnBlurName}
           onFocus={() => setIsName(false)}
           maxLength="20"
           placeholder="Vorname (erforderlich)"
           autoFocus
           autoComplete="off"
+          value={nameInput}
         />
         {filteredName.length > 0 ? <ErrorMessage>Achtung! Der eingegebene Name existiert bereits!</ErrorMessage> : null}
         {isName ? <ErrorMessage>Bitte gebe einen Namen ein!</ErrorMessage> : null}
         {nameInput.length >= 20 ? <ErrorMessage>Die maximale Eingabe an Zeichen ist erreicht!</ErrorMessage> : null}
 
-        <LabelDate htmlFor="birthdate">Wann ist Dein Kind geboren</LabelDate>
+        <LabelDate htmlFor="birthdate">Wann ist Dein Kind geboren?</LabelDate>
         <DayPicker
           id="birthdate"
           name="birthdate"
           selected={startDate}
           onChange={date => setStartDate(date)}
           peekNextMonth
-          dateFormat="dd-MM-yyyy"
+          dateFormat="dd.MM.yyyy"
           showYearDropdown
           dropdownMode="select"
           maxDate={new Date()}
+          onFocus={handleEmptyNameOnFocusDate}
         />
         {startDate === null ? <ErrorMessage>Bitte wähle ein Geburtsdatum aus!</ErrorMessage> : null}
         {filteredNameAndDate.length > 0 ? (
