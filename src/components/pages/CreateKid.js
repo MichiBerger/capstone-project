@@ -1,5 +1,5 @@
 import CreateKidForm from '../CreateKidForm.js';
 
-export default function AddPhrases({ phrases, handlePhraseSubmit }) {
-  return <CreateKidForm />;
+export default function AddPhrases({ kidsData, setKidsData }) {
+  return <CreateKidForm kidsData={kidsData} setKidsData={setKidsData} />;
 }

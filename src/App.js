@@ -16,12 +16,14 @@ const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 function App() {
   const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
+  const [kidsData, setKidsData] = useState(loadFromLocal('kidsData') ?? []);
   const [loadingStatus, setLoadingStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
-  }, [phrases]);
+    saveToLocal('kidsData', kidsData);
+  }, [phrases, kidsData]);
 
   return (
     <AppGrid>
@@ -64,7 +66,7 @@ function App() {
           />
           <Route
             path="/createkids"
-            element={<CreateKidForm phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
+            element={<CreateKidForm kidsData={kidsData} setKidsData={setKidsData} handlePhraseSubmit={handlePhraseSubmit} />}
           />
         </Routes>
       </Main>

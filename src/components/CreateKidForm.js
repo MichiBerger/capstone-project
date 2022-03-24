@@ -1,19 +1,21 @@
 import styled from 'styled-components';
 import AddIcon from './icons/AddIcon.js';
 import { useEffect, useState } from 'react';
+import { nanoid } from 'nanoid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 
-export default function CreateKidForm({ handlePhraseSubmit }) {
+export default function CreateKidForm({ kidsData, setKidsData }) {
   const [startDate, setStartDate] = useState(new Date());
   const [nameInput, setNameInput] = useState('');
   const [isName, setIsName] = useState(false);
+  const [isNameExisting, setIsNameExisting] = useState(false)
   const [successMessage, setSuccessMessage] = useState(false);
 
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
-  const disabledButton = nameInput.length === 0 || startDate === null ? true : false;
+  const disabledButton = nameInput.length <= 1 || startDate === null ? true : false;
 
   useEffect(() => {
     if (successMessage) {
@@ -24,21 +26,25 @@ export default function CreateKidForm({ handlePhraseSubmit }) {
   }, [successMessage]);
 
   function handleTextInput(e) {
-    setIsName(false)
+    kidsData.filter(name =>
+      name.kidsName.toLowerCase() === e.target.value.toLowerCase() ? setIsNameExisting(true) : setIsNameExisting(false)
+    );
+
+    setIsName(false);
     setNameInput(e.target.value);
-    console.log(e.target.value);
   }
 
-  function onFormSubmit(e) {
-    e.preventDefault();
+  function onCreateKidFormSubmit(event) {
+    event.preventDefault();
     let newDate = startDate.toLocaleDateString('de-DE', options);
+    let id = nanoid();
 
-    handlePhraseSubmit({ date: newDate, text: nameInput.trim() });
-
+    setKidsData([...kidsData, { id: id, kidsName: nameInput.trim(), birthDate: newDate }]);
     setNameInput('');
     setStartDate(new Date());
     setSuccessMessage(true);
   }
+  console.log(kidsData);
 
   function handleOnBlurName() {
     if (nameInput.length === 0) {
@@ -51,7 +57,7 @@ export default function CreateKidForm({ handlePhraseSubmit }) {
   return (
     <Wrapper>
       <h2>Füge Dein Kind hinzu!</h2>
-      <FormWrapper onSubmit={onFormSubmit}>
+      <FormWrapper onSubmit={onCreateKidFormSubmit}>
         <LabelInputText htmlFor="kids-name">Wie heisst Dein Kind?</LabelInputText>
         <TextInput
           type="text"
@@ -60,10 +66,13 @@ export default function CreateKidForm({ handlePhraseSubmit }) {
           onChange={handleTextInput}
           onBlur={handleOnBlurName}
           maxLength="20"
+          placeholder="Vorname (erforderlich)"
+          autoFocus
+          autoComplete="off"
         />
-
+        {isNameExisting ? <ErrorMessage>Achtung! Der eingegebene Name existiert bereits!</ErrorMessage> : null}
         {isName ? <ErrorMessage>Bitte gebe einen Namen ein!</ErrorMessage> : null}
-        {nameInput.length >= 20 ? <ErrorMessage>Die maximale Eingabe an Zeichen ist erreicht!</ErrorMessage>  : null}
+        {nameInput.length >= 20 ? <ErrorMessage>Die maximale Eingabe an Zeichen ist erreicht!</ErrorMessage> : null}
 
         <LabelDate htmlFor="birthdate">Wann ist Dein Kind geboren</LabelDate>
         <DayPicker
@@ -78,16 +87,7 @@ export default function CreateKidForm({ handlePhraseSubmit }) {
           maxDate={new Date()}
         />
 
-        {/* <LabelDate htmlFor="date">Wann ist Dein Kind geboren</LabelDate>
-        <DayPicker
-          id="date"
-          name="date"
-          dateFormat="dd-MM-yyyy"
-          selected={startDate}
-          onChange={date => setStartDate(date)}
-          maxDate={new Date()}
-        /> */}
-        {startDate === null ? <ErrorMessage>Bitte wähle ein Datum!</ErrorMessage> : null}
+        {startDate === null ? <ErrorMessage>Bitte wähle ein Geburtsdatum!</ErrorMessage> : null}
 
         {/* <LabelInputText htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelInputText>
         <TextInput
@@ -103,8 +103,7 @@ export default function CreateKidForm({ handlePhraseSubmit }) {
 
         <AddButton disabled={disabledButton}>
           <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
-
-          <p disabled={disabledButton}>Füge einen Spruch hinzu!</p>
+          <p disabled={disabledButton}>Erstelle ein Kind</p>
         </AddButton>
       </FormWrapper>
       {successMessage ? <ModalPhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
