@@ -2,20 +2,18 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import AddKidsIcon from './icons/AddKidsIcon.js';
-import IconButton from './IconButton.js';
 import HomeIcon from './icons/HomeIcon.js';
 
 export default function Header() {
   return (
     <HeaderWrapper>
-      <IconButton>
-        <HomeIcon />
-      </IconButton>
-      <Link to="/">home</Link>
+      <StyledLink to="/">
+        <HomeIcon fill="#fff" height="24px" width="24px" />
+      </StyledLink>
       <h1>littleSunshine</h1>
-      <Link style={{ display: 'flex', alignItems: 'center' }} to="/createkids">
+      <StyledLink to="/createkids">
         <AddKidsIcon fill="#fff" height="24px" width="24px" />
-      </Link>
+      </StyledLink>
     </HeaderWrapper>
   );
 }
@@ -35,4 +33,9 @@ const HeaderWrapper = styled.header`
   h1 {
     font-size: 1.2rem;
   }
+`;
+
+const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
 `;

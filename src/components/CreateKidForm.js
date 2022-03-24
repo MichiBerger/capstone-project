@@ -1,18 +1,17 @@
 import styled from 'styled-components';
 import AddIcon from './icons/AddIcon.js';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 
-export default function CreateKidForm({ kidsData, setKidsData }) {
+export default function CreateKidForm({ kidsData, setKidsData, setShowMessage }) {
+  const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date());
   const [nameInput, setNameInput] = useState('');
   const [isName, setIsName] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(false);
-  const navigate = useNavigate();
+
 
   const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
   const newDate = startDate.toLocaleDateString('de-DE', options);
@@ -28,14 +27,6 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
     console.log('Filtered:', filteredNameAndDate);
   }
 
-  useEffect(() => {
-    if (successMessage) {
-      setTimeout(() => {
-        setSuccessMessage(false);
-      }, 2000);
-    }
-  }, [successMessage]);
-
   function handleTextInput(e) {
     setNameInput(e.target.value);
   }
@@ -46,10 +37,12 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
     setKidsData([...kidsData, { id: id, name: nameInput.trim(), birthDate: newDate }]);
 
     setStartDate(new Date());
-    setSuccessMessage(true);
     setNameInput('');
-    navigate('/addphrases', { replace: true });
+
+    setShowMessage(true)
+    navigate('/addphrases');
   }
+  
 
   function handleEmptyNameOnFocusDate() {
     if (nameInput.length === 0) {
@@ -102,7 +95,7 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
           <p disabled={disabledButton}>Erstelle ein Kind</p>
         </AddButton>
       </FormWrapper>
-      {successMessage ? <ModalPhraseAddedMessage message="Dein Kind wurde erfolgreich angelegt" /> : null}
+      {/* {successMessage ? <ModalPhraseAddedMessage message="Dein Kind wurde erfolgreich angelegt" /> : null} */}
     </Wrapper>
   );
 }

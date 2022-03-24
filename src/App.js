@@ -11,8 +11,6 @@ import CreateKidsPage from './components/pages/CreateKidsPage.js';
 import FavoritePhrases from './components/pages/FavoritePhrases.js';
 import breakpoint from './components/commons/breakpoints.js';
 
-
-
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
@@ -21,6 +19,7 @@ function App() {
   const [kidsData, setKidsData] = useState(loadFromLocal('kidsData') ?? []);
   const [loadingStatus, setLoadingStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
@@ -64,11 +63,25 @@ function App() {
           />
           <Route
             path="/addphrases"
-            element={<AddPhrases phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
+            element={
+              <AddPhrases
+                showMessage={showMessage}
+                setShowMessage={setShowMessage}
+                phrases={phrases}
+                handlePhraseSubmit={handlePhraseSubmit}
+              />
+            }
           />
           <Route
             path="/createkids"
-            element={<CreateKidsPage kidsData={kidsData} setKidsData={setKidsData} handlePhraseSubmit={handlePhraseSubmit} />}
+            element={
+              <CreateKidsPage
+                kidsData={kidsData}
+                setKidsData={setKidsData}
+                showMessage={showMessage}
+                setShowMessage={setShowMessage}
+              />
+            }
           />
         </Routes>
       </Main>
