@@ -10,12 +10,22 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
   const [startDate, setStartDate] = useState(new Date());
   const [nameInput, setNameInput] = useState('');
   const [isName, setIsName] = useState(false);
-  const [isNameExisting, setIsNameExisting] = useState(false)
   const [successMessage, setSuccessMessage] = useState(false);
 
   const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  const newDate = startDate.toLocaleDateString('de-DE', options);
 
-  const disabledButton = nameInput.length <= 1 || startDate === null ? true : false;
+  const filteredName = kidsData.filter(item => item.name.toLowerCase().trim() === nameInput.toLowerCase().trim());
+  const filteredNameAndDate = kidsData.filter(
+    item => item.birthDate === newDate && item.name.toLowerCase().trim() === nameInput.toLowerCase().trim()
+  );
+
+  const disabledButton = nameInput.length <= 1 || startDate === null || filteredNameAndDate.length > 0 ? true : false;
+
+
+  if (filteredNameAndDate.length > 0) {
+    console.log('Filtered:', filteredNameAndDate);
+  }
 
   useEffect(() => {
     if (successMessage) {
@@ -26,25 +36,22 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
   }, [successMessage]);
 
   function handleTextInput(e) {
-    kidsData.filter(name =>
-      name.kidsName.toLowerCase() === e.target.value.toLowerCase() ? setIsNameExisting(true) : setIsNameExisting(false)
-    );
-
-    setIsName(false);
     setNameInput(e.target.value);
   }
 
+  console.log('KidsData: ', kidsData);
+
   function onCreateKidFormSubmit(event) {
     event.preventDefault();
-    let newDate = startDate.toLocaleDateString('de-DE', options);
+
     let id = nanoid();
 
-    setKidsData([...kidsData, { id: id, kidsName: nameInput.trim(), birthDate: newDate }]);
-    setNameInput('');
+    setKidsData([...kidsData, { id: id, name: nameInput.trim(), birthDate: newDate }]);
+
     setStartDate(new Date());
     setSuccessMessage(true);
+    setNameInput('');
   }
-  console.log(kidsData);
 
   function handleOnBlurName() {
     if (nameInput.length === 0) {
@@ -65,12 +72,13 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
           name="kids-name"
           onChange={handleTextInput}
           onBlur={handleOnBlurName}
+          onFocus={() => setIsName(false)}
           maxLength="20"
           placeholder="Vorname (erforderlich)"
           autoFocus
           autoComplete="off"
         />
-        {isNameExisting ? <ErrorMessage>Achtung! Der eingegebene Name existiert bereits!</ErrorMessage> : null}
+        {filteredName.length > 0 ? <ErrorMessage>Achtung! Der eingegebene Name existiert bereits!</ErrorMessage> : null}
         {isName ? <ErrorMessage>Bitte gebe einen Namen ein!</ErrorMessage> : null}
         {nameInput.length >= 20 ? <ErrorMessage>Die maximale Eingabe an Zeichen ist erreicht!</ErrorMessage> : null}
 
@@ -86,27 +94,17 @@ export default function CreateKidForm({ kidsData, setKidsData }) {
           dropdownMode="select"
           maxDate={new Date()}
         />
-
-        {startDate === null ? <ErrorMessage>Bitte wähle ein Geburtsdatum!</ErrorMessage> : null}
-
-        {/* <LabelInputText htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelInputText>
-        <TextInput
-          onChange={onTextareaChange}
-          value={nameInput}
-          name="phrase-text"
-          id="phrase-text"
-          cols="20"
-          rows="10"
-          placeholder="...das ist mein papapa!"
-          maxLength="300"
-        ></TextInput> */}
+        {startDate === null ? <ErrorMessage>Bitte wähle ein Geburtsdatum aus!</ErrorMessage> : null}
+        {filteredNameAndDate.length > 0 ? (
+          <ErrorMessage>Dein Kind existiert bereits. Eine doppelte Eingabe ist nicht möglich!</ErrorMessage>
+        ) : null}
 
         <AddButton disabled={disabledButton}>
           <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
           <p disabled={disabledButton}>Erstelle ein Kind</p>
         </AddButton>
       </FormWrapper>
-      {successMessage ? <ModalPhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
+      {successMessage ? <ModalPhraseAddedMessage message="Dein Kind wurde erfolgreich angelegt" /> : null}
     </Wrapper>
   );
 }
