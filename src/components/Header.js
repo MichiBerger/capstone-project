@@ -6,12 +6,12 @@ import HomeIcon from './icons/HomeIcon.js';
 
 export default function Header() {
   return (
-    <HeaderWrapper>
+    <HeaderWrapper style>
       <StyledLink to="/">
         <HomeIcon fill="#fff" height="24px" width="24px" />
       </StyledLink>
       <h1>littleSunshine</h1>
-      <StyledLink to="/createkids">
+      <StyledLink style={{}} to="/createkids">
         <AddKidsIcon fill="#fff" height="24px" width="24px" />
       </StyledLink>
     </HeaderWrapper>
@@ -25,10 +25,10 @@ const HeaderWrapper = styled.header`
   color: white;
   background-color: #19337a;
   color: #fff;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  place-items: center;
-  grid-template-areas: '. headerTitle icon';
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
 
   h1 {
     font-size: 1.2rem;

@@ -3,11 +3,14 @@ import IconButton from './IconButton.js';
 import DeleteIcon from './icons/DeleteIcon.js';
 
 export default function CreateKidCard({ name, birthDate, kidsId, kidsData, setKidsData }) {
+
+
   function handleDelteKidClick(event) {
     event.stopPropagation();
     setKidsData(kidsData.filter(item => item.id !== kidsId));
   }
-
+  
+console.log(kidsData)
   return (
     <KidsCard>
       <h2>{name}</h2>
