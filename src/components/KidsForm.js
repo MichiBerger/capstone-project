@@ -6,43 +6,38 @@ import { nanoid } from 'nanoid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function CreateKidForm({ kidsData, setKidsData, setShowMessage }) {
-  const navigate = useNavigate();
+export default function KidsForm({ kidsData, setKidsData, setShowMessage }) {
   const [startDate, setStartDate] = useState(new Date());
   const [nameInput, setNameInput] = useState('');
   const [isName, setIsName] = useState(false);
-
+  const navigate = useNavigate();
 
   const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-  const newDate = startDate.toLocaleDateString('de-DE', options);
 
   const filteredName = kidsData.filter(item => item.name.toLowerCase().trim() === nameInput.toLowerCase().trim());
   const filteredNameAndDate = kidsData.filter(
-    item => item.birthDate === newDate && item.name.toLowerCase().trim() === nameInput.toLowerCase().trim()
+    item =>
+      item.birthDate === startDate.toLocaleDateString('de-DE', options) &&
+      item.name.toLowerCase().trim() === nameInput.toLowerCase().trim()
   );
 
   const disabledButton = nameInput.length <= 1 || startDate === null || filteredNameAndDate.length > 0 ? true : false;
-
-  if (filteredNameAndDate.length > 0) {
-    console.log('Filtered:', filteredNameAndDate);
-  }
 
   function handleTextInput(e) {
     setNameInput(e.target.value);
   }
 
-  function onCreateKidFormSubmit(event) {
+  async function onCreateKidFormSubmit(event) {
     event.preventDefault();
     let id = nanoid();
-    setKidsData([...kidsData, { id: id, name: nameInput.trim(), birthDate: newDate }]);
+    let newDate = startDate.toLocaleDateString('de-DE', options);
 
+    setKidsData([...kidsData, { id: id, name: nameInput.trim(), birthDate: newDate }]);
     setStartDate(new Date());
     setNameInput('');
-
-    setShowMessage(true)
+    setShowMessage(true);
     navigate('/addphrases');
   }
-  
 
   function handleEmptyNameOnFocusDate() {
     if (nameInput.length === 0) {
@@ -77,8 +72,13 @@ export default function CreateKidForm({ kidsData, setKidsData, setShowMessage })
           id="birthdate"
           name="birthdate"
           selected={startDate}
-          onChange={date => setStartDate(date)}
-          peekNextMonth
+          onChange={date => {
+            if (date === null) {
+              setStartDate(new Date());
+            } else {
+              setStartDate(date);
+            }
+          }}
           dateFormat="dd.MM.yyyy"
           showYearDropdown
           dropdownMode="select"
@@ -90,12 +90,11 @@ export default function CreateKidForm({ kidsData, setKidsData, setShowMessage })
           <ErrorMessage>Dein Kind existiert bereits. Eine doppelte Eingabe ist nicht möglich!</ErrorMessage>
         ) : null}
 
-        <AddButton disabled={disabledButton}>
+        <AddButton type="submit" disabled={disabledButton}>
           <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
           <p disabled={disabledButton}>Erstelle ein Kind</p>
         </AddButton>
       </FormWrapper>
-      {/* {successMessage ? <ModalPhraseAddedMessage message="Dein Kind wurde erfolgreich angelegt" /> : null} */}
     </Wrapper>
   );
 }

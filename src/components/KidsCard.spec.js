@@ -1,8 +1,8 @@
 import { userEvent } from '@storybook/testing-library';
 import { render, screen } from '@testing-library/react';
-import CreateKidCard from './CreateKidCard.js';
+import KidsCard from './KidsCard.js';
 
-describe('CreateKidCard', () => {
+describe('KidsCard', () => {
   const kidsData = [
     {
       id: 0,
@@ -17,7 +17,7 @@ describe('CreateKidCard', () => {
   ];
 
   it('renders a card with name, birthdate and a button', () => {
-    render(<CreateKidCard name={kidsData[0].name} birthDate={kidsData[0].birthDate} kidsId={kidsData[0].id} />);
+    render(<KidsCard name={kidsData[0].name} birthDate={kidsData[0].birthDate} kidsId={kidsData[0].id} />);
 
     const name = screen.getByText(/Max/i);
     const birthDate = screen.getByText(/24.3.2022/i);
@@ -32,7 +32,7 @@ describe('CreateKidCard', () => {
 
     const handleDelteKidClick = jest.fn()
 
-    render(<CreateKidCard kidsData={kidsData} setKidsData={handleDelteKidClick} />);
+    render(<KidsCard kidsData={kidsData} setKidsData={handleDelteKidClick} />);
 
     const buttonDelete = screen.getByRole('button', { name: /Delete/i });
 

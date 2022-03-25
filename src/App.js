@@ -14,8 +14,16 @@ import breakpoint from './components/commons/breakpoints.js';
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
+const initialPhrase = {
+  date: '25. März 2022',
+  id: 'PYaHT9ymtyVHW2tCollee',
+  isBookmarked: false,
+  photo: 'sybgbgokbdhkutb2xbx5',
+  text: 'ahh kackscheisse!',
+};
+
 function App() {
-  const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
+  const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? [initialPhrase]);
   const [kidsData, setKidsData] = useState(loadFromLocal('kidsData') ?? []);
   const [loadingStatus, setLoadingStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false);

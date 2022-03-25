@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import ModalPhraseAddedMessage from '../ModalPhraseAddedMessage.js';
 
 export default function AddPhrases({ phrases, handlePhraseSubmit, showMessage, setShowMessage }) {
-  console.log(showMessage);
 
   useEffect(() => {
     if (showMessage) {

@@ -2,34 +2,32 @@ import styled from 'styled-components';
 import IconButton from './IconButton.js';
 import DeleteIcon from './icons/DeleteIcon.js';
 
-export default function CreateKidCard({ name, birthDate, kidsId, kidsData, setKidsData }) {
-
-
+export default function KidsCard({ name, birthDate, kidsId, kidsData, setKidsData }) {
   function handleDelteKidClick(event) {
     event.stopPropagation();
     setKidsData(kidsData.filter(item => item.id !== kidsId));
   }
-  
-console.log(kidsData)
+
   return (
-    <KidsCard>
+    <KidsCardWrapper>
       <h2>{name}</h2>
       <p>Geburtstag: {birthDate}</p>
       <IconButton gridArea="delete" hoverAndActive onClick={handleDelteKidClick}>
         <DeleteIcon fill="#DE0C47" height="35" width="35" />
         <span className="sr-only">Delete</span>
       </IconButton>
-    </KidsCard>
+    </KidsCardWrapper>
   );
 }
 
-const KidsCard = styled.li`
+const KidsCardWrapper = styled.li`
   min-height: 100px;
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: 1fr 1fr;
-  grid-template-areas: "kidsName delete"
-  "birthdate .";
+  grid-template-areas:
+    'kidsName delete'
+    'birthdate .';
 
   gap: 5px;
   border-radius: 15px;
@@ -38,7 +36,7 @@ const KidsCard = styled.li`
   background-color: #f9f9f9;
   color: #19337a;
 
-  h2{
+  h2 {
     grid-area: kidsName;
   }
 
