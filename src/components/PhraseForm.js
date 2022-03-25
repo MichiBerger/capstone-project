@@ -22,12 +22,12 @@ export default function PhraseForm({ handlePhraseSubmit }) {
     }
   }, [successMessage]);
 
-  function onTextareaChange(e) {
-    setPhraseText(e.target.value);
+  function onTextareaChange(event) {
+    setPhraseText(event.target.value);
   }
 
-  function onFormSubmit(e) {
-    e.preventDefault();
+  function onFormSubmit(event) {
+    event.preventDefault();
     let newDate = startDate.toLocaleDateString('de-DE', options);
 
     handlePhraseSubmit({ date: newDate, text: phraseText.trim() });

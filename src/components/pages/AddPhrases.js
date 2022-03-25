@@ -2,15 +2,15 @@ import PhraseForm from '../PhraseForm.js';
 import { useEffect } from 'react';
 import ModalPhraseAddedMessage from '../ModalPhraseAddedMessage.js';
 
-export default function AddPhrases({ phrases, handlePhraseSubmit, showMessage, setShowMessage }) {
+export default function AddPhrases({ phrases, handlePhraseSubmit, showMessage, handleShowMessage }) {
 
   useEffect(() => {
     if (showMessage) {
       setTimeout(() => {
-        setShowMessage(false);
+        handleShowMessage(false);
       }, 2500);
     }
-  }, [setShowMessage, showMessage]);
+  }, [handleShowMessage, showMessage]);
   return (
     <>
       {showMessage ? (

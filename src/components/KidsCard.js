@@ -2,17 +2,13 @@ import styled from 'styled-components';
 import IconButton from './IconButton.js';
 import DeleteIcon from './icons/DeleteIcon.js';
 
-export default function KidsCard({ name, birthDate, kidsId, kidsData, setKidsData }) {
-  function handleDelteKidClick(event) {
-    event.stopPropagation();
-    setKidsData(kidsData.filter(item => item.id !== kidsId));
-  }
+export default function KidsCard({ name, birthDate, kidsId, handleDeleteKid }) {
 
   return (
     <KidsCardWrapper>
       <h2>{name}</h2>
       <p>Geburtstag: {birthDate}</p>
-      <IconButton gridArea="delete" hoverAndActive onClick={handleDelteKidClick}>
+      <IconButton gridArea="delete" hoverAndActive onClick={() => handleDeleteKid(kidsId)}>
         <DeleteIcon fill="#DE0C47" height="35" width="35" />
         <span className="sr-only">Delete</span>
       </IconButton>

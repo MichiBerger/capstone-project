@@ -15,7 +15,7 @@ describe('KidsForm', () => {
 
     render(
       <MemoryRouter>
-        <KidsForm kidsData={kidsData} setKidsData={mockFunction} />
+        <KidsForm kidsData={kidsData} handleKidSubmit={mockFunction} />
       </MemoryRouter>
     );
 

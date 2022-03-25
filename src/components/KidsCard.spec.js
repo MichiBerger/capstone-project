@@ -32,7 +32,7 @@ describe('KidsCard', () => {
 
     const handleDelteKidClick = jest.fn()
 
-    render(<KidsCard kidsData={kidsData} setKidsData={handleDelteKidClick} />);
+    render(<KidsCard handleDeleteKid={handleDelteKidClick} />);
 
     const buttonDelete = screen.getByRole('button', { name: /Delete/i });
 

@@ -2,25 +2,31 @@ import styled from 'styled-components';
 import KidsForm from '../KidsForm.js';
 import KidsCard from '../KidsCard.js';
 
-export default function CreateKidsPage({ kidsData, setKidsData, showMessage, setShowMessage }) {
-
-
+export default function CreateKidsPage({
+  kidsData,
+  handleShowMessage,
+  handleDeleteKid,
+  handleKidSubmit,
+}) {
   return (
     <Wrapper>
       <h2>Füge ein Kind hinzu!</h2>
-      <KidsForm kidsData={kidsData} setKidsData={setKidsData} showMessage={showMessage} setShowMessage={setShowMessage} />
+      <KidsForm
+        handleKidSubmit={handleKidSubmit}
+        kidsData={kidsData}
+        handleShowMessage={handleShowMessage}
+      />
       {kidsData.length > 0 ? (
         <>
           <h3>Deine Kinder</h3>
           <KidsCardWrapper>
             {kidsData.map(item => (
               <KidsCard
-                setKidsData={setKidsData}
+                handleDeleteKid={handleDeleteKid}
                 kidsId={item.id}
                 key={item.id}
                 name={item.name}
                 birthDate={item.birthDate}
-                kidsData={kidsData}
               />
             ))}
           </KidsCardWrapper>{' '}

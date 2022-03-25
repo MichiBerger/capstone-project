@@ -6,12 +6,12 @@ import HomeIcon from './icons/HomeIcon.js';
 
 export default function Header() {
   return (
-    <HeaderWrapper style>
+    <HeaderWrapper>
       <StyledLink to="/">
         <HomeIcon fill="#fff" height="24px" width="24px" />
       </StyledLink>
       <h1>littleSunshine</h1>
-      <StyledLink style={{}} to="/createkids">
+      <StyledLink to="/createkids">
         <AddKidsIcon fill="#fff" height="24px" width="24px" />
       </StyledLink>
     </HeaderWrapper>

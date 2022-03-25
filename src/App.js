@@ -14,16 +14,18 @@ import breakpoint from './components/commons/breakpoints.js';
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
-const initialPhrase = {
-  date: '25. März 2022',
-  id: 'PYaHT9ymtyVHW2tCollee',
-  isBookmarked: false,
-  photo: 'sybgbgokbdhkutb2xbx5',
-  text: 'ahh kackscheisse!',
-};
+const initialPhrase = [
+  {
+    date: '25. März 2022',
+    id: 'PYaHT9ymtyVHW2tCollee',
+    isBookmarked: false,
+    photo: 'sybgbgokbdhkutb2xbx5',
+    text: 'ahh kackscheisse!',
+  },
+];
 
 function App() {
-  const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? [initialPhrase]);
+  const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? initialPhrase);
   const [kidsData, setKidsData] = useState(loadFromLocal('kidsData') ?? []);
   const [loadingStatus, setLoadingStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,10 +75,10 @@ function App() {
             path="/addphrases"
             element={
               <AddPhrases
-                showMessage={showMessage}
-                setShowMessage={setShowMessage}
                 phrases={phrases}
+                showMessage={showMessage}
                 handlePhraseSubmit={handlePhraseSubmit}
+                handleShowMessage={handleShowMessage}
               />
             }
           />
@@ -85,9 +87,11 @@ function App() {
             element={
               <CreateKidsPage
                 kidsData={kidsData}
-                setKidsData={setKidsData}
                 showMessage={showMessage}
+                handleDeleteKid={handleDeleteKid}
+                handleKidSubmit={handleKidSubmit}
                 setShowMessage={setShowMessage}
+                handleShowMessage={handleShowMessage}
               />
             }
           />
@@ -96,6 +100,17 @@ function App() {
       <NavBar />
     </AppGrid>
   );
+
+  //Adding a kid
+  function handleKidSubmit({ name, birthDate }) {
+    const id = nanoid();
+    setKidsData([{ id, name, birthDate }, ...kidsData]);
+  }
+
+  //Delete a kid
+  function handleDeleteKid(kidsId) {
+    setKidsData(kidsData.filter(item => item.id !== kidsId));
+  }
 
   //Bookmark a phrase
   function handleBookmarkClick(phraseId) {
@@ -173,6 +188,10 @@ function App() {
         }
       })
       .catch(error => console.error(error));
+  }
+  // Set showMessage
+  function handleShowMessage(value) {
+    setShowMessage(value);
   }
 
   // Local Storage

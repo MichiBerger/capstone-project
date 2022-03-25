@@ -1,12 +1,11 @@
-import styled from 'styled-components';
-import AddIcon from './icons/AddIcon.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import styled from 'styled-components';
+import AddIcon from './icons/AddIcon.js';
 
-export default function KidsForm({ kidsData, setKidsData, setShowMessage }) {
+export default function KidsForm({ kidsData, handleShowMessage, handleKidSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
   const [nameInput, setNameInput] = useState('');
   const [isName, setIsName] = useState(false);
@@ -23,19 +22,20 @@ export default function KidsForm({ kidsData, setKidsData, setShowMessage }) {
 
   const disabledButton = nameInput.length <= 1 || startDate === null || filteredNameAndDate.length > 0 ? true : false;
 
-  function handleTextInput(e) {
-    setNameInput(e.target.value);
+  function handleTextInput(event) {
+    setNameInput(event.target.value);
   }
 
-  async function onCreateKidFormSubmit(event) {
+  async function createKidFormSubmit(event) {
     event.preventDefault();
-    let id = nanoid();
-    let newDate = startDate.toLocaleDateString('de-DE', options);
+    const newDate = startDate.toLocaleDateString('de-DE', options);
 
-    setKidsData([...kidsData, { id: id, name: nameInput.trim(), birthDate: newDate }]);
+    handleKidSubmit({ name: nameInput.trim(), birthDate: newDate });
+
     setStartDate(new Date());
     setNameInput('');
-    setShowMessage(true);
+    handleShowMessage(true);
+
     navigate('/addphrases');
   }
 
@@ -49,7 +49,7 @@ export default function KidsForm({ kidsData, setKidsData, setShowMessage }) {
 
   return (
     <Wrapper>
-      <FormWrapper onSubmit={onCreateKidFormSubmit}>
+      <FormWrapper onSubmit={createKidFormSubmit}>
         <LabelInputText htmlFor="kids-name">Wie heisst Dein Kind?</LabelInputText>
         <TextInput
           type="text"
@@ -92,7 +92,7 @@ export default function KidsForm({ kidsData, setKidsData, setShowMessage }) {
 
         <AddButton type="submit" disabled={disabledButton}>
           <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
-          <p disabled={disabledButton}>Erstelle ein Kind</p>
+          <span>Erstelle ein Kind</span>
         </AddButton>
       </FormWrapper>
     </Wrapper>
