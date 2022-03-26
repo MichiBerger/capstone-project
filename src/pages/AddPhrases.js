@@ -1,6 +1,6 @@
-import PhraseForm from '../PhraseForm.js';
 import { useEffect } from 'react';
-import ModalPhraseAddedMessage from '../ModalPhraseAddedMessage.js';
+import ModalPhraseAddedMessage from '../components/ModalPhraseAddedMessage.js';
+import PhraseForm from '../components/PhraseForm.js';
 
 export default function AddPhrases({ phrases, handlePhraseSubmit, showMessage, handleShowMessage }) {
 

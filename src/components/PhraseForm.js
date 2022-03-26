@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import AddIcon from './icons/AddIcon.js';
 import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
+import AddIcon from '../icons/AddIcon.js';
 
 export default function PhraseForm({ handlePhraseSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
@@ -67,7 +67,7 @@ export default function PhraseForm({ handlePhraseSubmit }) {
         <AddButton disabled={disabledButton}>
           <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
 
-          <p disabled={disabledButton}>Füge einen Spruch hinzu!</p>
+          <span>Füge einen Spruch hinzu!</span>
         </AddButton>
       </FormWrapper>
       {successMessage ? <ModalPhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
@@ -142,7 +142,8 @@ const AddButton = styled.button`
   border-radius: 25px;
   cursor: pointer;
 
-  p {
+  span {
+    display: block;
     font-size: 0.75rem;
     color: ${props => (props.disabled ? '#19337a' : '#fff')};
   }

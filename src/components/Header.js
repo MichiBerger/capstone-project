@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-import AddKidsIcon from './icons/AddKidsIcon.js';
-import HomeIcon from './icons/HomeIcon.js';
+import AddKidsIcon from '../icons/AddKidsIcon.js';
+import HomeIcon from '../icons/HomeIcon.js';
 
 export default function Header() {
   return (

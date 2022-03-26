@@ -3,10 +3,10 @@ import { useState } from 'react';
 import IconButton from './IconButton.js';
 import ModalDeleteMessage from './ModalDeleteMessage.js';
 import PhraseImage from './PhraseImage.js';
-import AddPhotoIcon from './icons/AddPhotoIcon.js';
-import DeleteIcon from './icons/DeleteIcon.js';
-import HeartFilledIcon from './icons/HeartFilledIcon.js';
-import HeartOutlinedIcon from './icons/HeartOutlinedIcon.js';
+import AddPhotoIcon from '../icons/AddPhotoIcon.js';
+import DeleteIcon from '../icons/DeleteIcon.js';
+import HeartFilledIcon from '../icons/HeartFilledIcon.js';
+import HeartOutlinedIcon from '../icons/HeartOutlinedIcon.js';
 
 export default function PhraseCard({
   date,
@@ -104,9 +104,9 @@ const PhraseCardWrapper = styled.article`
   background-color: #f9f9f9;
   color: #19337a;
   gap: 1rem 0.5rem;
-
   position: relative;
   width: 100%;
+  min-height: 200px;
 `;
 
 const PhraseCardDate = styled.time`

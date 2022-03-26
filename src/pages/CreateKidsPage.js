@@ -1,21 +1,12 @@
 import styled from 'styled-components';
-import KidsForm from '../KidsForm.js';
-import KidsCard from '../KidsCard.js';
+import KidsForm from '../components/KidsForm.js';
+import KidsCard from '../components/KidsCard.js';
 
-export default function CreateKidsPage({
-  kidsData,
-  handleShowMessage,
-  handleDeleteKid,
-  handleKidSubmit,
-}) {
+export default function CreateKidsPage({ kidsData, handleShowMessage, handleDeleteKid, handleKidSubmit }) {
   return (
     <Wrapper>
       <h2>Füge ein Kind hinzu!</h2>
-      <KidsForm
-        handleKidSubmit={handleKidSubmit}
-        kidsData={kidsData}
-        handleShowMessage={handleShowMessage}
-      />
+      <KidsForm handleKidSubmit={handleKidSubmit} kidsData={kidsData} handleShowMessage={handleShowMessage} />
       {kidsData.length > 0 ? (
         <>
           <h3>Deine Kinder</h3>

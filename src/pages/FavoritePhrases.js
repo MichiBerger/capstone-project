@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import ModalLoadingInfo from '../ModalLoadingInfo.js';
-import PhraseCard from '../PhraseCard.js';
-import ModalEmptyPhraseMessage from '../ModalEmptyPhraseMessage.js';
+import ModalLoadingInfo from '../components/ModalLoadingInfo.js';
+import PhraseCard from '../components/PhraseCard.js';
+import ModalEmptyPhraseMessage from '../components/ModalEmptyPhraseMessage.js';
 
 export default function FavoritePhrases({
   onBookmarkClick,

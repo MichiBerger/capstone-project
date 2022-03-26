@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
-import AddIcon from './icons/AddIcon.js';
+import AddIcon from '../icons/AddIcon.js'
 
 export default function KidsForm({ kidsData, handleShowMessage, handleKidSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
@@ -85,7 +85,7 @@ export default function KidsForm({ kidsData, handleShowMessage, handleKidSubmit 
           maxDate={new Date()}
           onFocus={handleEmptyNameOnFocusDate}
         />
-        {startDate === null ? <ErrorMessage>Bitte wähle ein Geburtsdatum aus!</ErrorMessage> : null}
+        {startDate === null ? <ErrorMessage data-testid="birthdate">Bitte wähle ein Geburtsdatum aus!</ErrorMessage> : null}
         {filteredNameAndDate.length > 0 ? (
           <ErrorMessage>Dein Kind existiert bereits. Eine doppelte Eingabe ist nicht möglich!</ErrorMessage>
         ) : null}
@@ -166,7 +166,8 @@ const AddButton = styled.button`
   border-radius: 25px;
   cursor: pointer;
 
-  p {
+  span {
+    display: block;
     font-size: 0.75rem;
     color: ${props => (props.disabled ? '#19337a' : '#fff')};
   }

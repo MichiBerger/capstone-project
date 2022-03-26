@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import IconButton from './IconButton.js';
-import DeleteIcon from './icons/DeleteIcon.js';
+import DeleteIcon from '../icons/DeleteIcon.js';
 
 export default function KidsCard({ name, birthDate, kidsId, handleDeleteKid }) {
 

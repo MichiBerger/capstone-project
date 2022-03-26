@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ModalLoadingInfo from '../ModalLoadingInfo.js';
-import PhraseCard from '../PhraseCard.js';
+import ModalLoadingInfo from '../components/ModalLoadingInfo.js';
+import PhraseCard from '../components/PhraseCard.js';
 import AddIcon from '../icons/AddIcon.js';
 
 export default function AllPhrases({

@@ -11,7 +11,7 @@ body {
   font-size: 112.5%;
   line-height: 1.5;
   color: #19337A;
-  background-color: #efefef;
+  margin: 0 auto;
 }
 h1,
 h2,
@@ -30,7 +30,7 @@ ul{
   padding: 0;
   list-style: none;
 }
-input, textarea {
+input[type="text"], textarea {
   font-family: sans-serif;
   font-size: 1rem;
 }

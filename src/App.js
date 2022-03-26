@@ -5,11 +5,11 @@ import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import Header from './components/Header.js';
 import Navigation from './components/Navigation.js';
-import AllPhrases from './components/pages/AllPhrases.js';
-import AddPhrases from './components/pages/AddPhrases.js';
-import CreateKidsPage from './components/pages/CreateKidsPage.js';
-import FavoritePhrases from './components/pages/FavoritePhrases.js';
-import breakpoint from './components/commons/breakpoints.js';
+import AllPhrases from './pages/AllPhrases.js';
+import AddPhrases from './pages/AddPhrases.js';
+import CreateKidsPage from './pages/CreateKidsPage.js';
+import FavoritePhrases from './pages/FavoritePhrases.js';
+import breakpoint from './commons/breakpoints.js';
 
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -210,11 +210,13 @@ function App() {
 
 const AppGrid = styled.div`
   display: grid;
-  grid-template-rows: 48px 1fr 48px;
+  grid-template-rows: 50px 1fr 60px;
+  max-width: 1024px;
+  background-color: #efefef;
+  margin: 0 auto;
 
   @media only screen and (${breakpoint.device.sm}) {
-    max-width: 760px;
-    margin: 0 auto;
+    grid-template-rows: 60px 1fr 60px;
   }
 `;
 
