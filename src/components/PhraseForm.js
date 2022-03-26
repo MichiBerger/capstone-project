@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 import AddIcon from '../icons/AddIcon.js';
 import AddKidsIcon from '../icons/AddKidsIcon.js';
 
-
 export default function PhraseForm({ kidsData, handlePhraseSubmit }) {
+  const [selectedName, setSelectedName] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [phraseText, setPhraseText] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
@@ -24,15 +26,19 @@ export default function PhraseForm({ kidsData, handlePhraseSubmit }) {
     }
   }, [successMessage]);
 
-  function onTextareaChange(event) {
+  function handleTextAreaChange(event) {
     setPhraseText(event.target.value);
+  }
+
+  function handleNameSelectChange(event) {
+    setSelectedName(event.target.value);
   }
 
   function onFormSubmit(event) {
     event.preventDefault();
     let newDate = startDate.toLocaleDateString('de-DE', options);
 
-    handlePhraseSubmit({ date: newDate, text: phraseText.trim() });
+    handlePhraseSubmit({ name: selectedName, date: newDate, text: phraseText.trim() });
     setPhraseText('');
     setStartDate(new Date());
     setSuccessMessage(true);
@@ -42,16 +48,19 @@ export default function PhraseForm({ kidsData, handlePhraseSubmit }) {
     <Wrapper>
       <FormWrapper onSubmit={onFormSubmit}>
         <label htmlFor="kids">Wähle ein Kind!</label>
-        <select name="kids" id="kids">
-          <option value="">Wähle ein Kind</option>
-          {kidsData.map(item => (
-            <option key={item.id} value={item.name}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-
-        <AddKidsIcon fill="#fff" height="24px" width="24px" />
+        <div style={{ display: 'grid', gridTemplateColumns: '70% 30%', placeItems: 'center' }}>
+          <NameSelect name="kids" id="kids" onChange={handleNameSelectChange}>
+            <option value="">Wähle ein Kind</option>
+            {kidsData.map(item => (
+              <option key={item.id} value={item.name}>
+                {item.name}
+              </option>
+            ))}
+          </NameSelect>
+          <StyledLink to="/createkids">
+            <AddKidsIcon fill="#19337a" height="30px" width="30px" />
+          </StyledLink>
+        </div>
 
         <LabelDate htmlFor="date">Wähle ein Datum</LabelDate>
         <DayPicker
@@ -65,7 +74,7 @@ export default function PhraseForm({ kidsData, handlePhraseSubmit }) {
         {startDate === null ? <ErrorMessage>Bitte wähle ein Datum!</ErrorMessage> : null}
         <LabelTextArea htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelTextArea>
         <TextInput
-          onChange={onTextareaChange}
+          onChange={handleTextAreaChange}
           value={phraseText}
           name="phrase-text"
           id="phrase-text"
@@ -93,8 +102,24 @@ const Wrapper = styled.section`
 `;
 
 const NameSelect = styled.select`
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #19337a;
+  color: #19337a;
+  resize: none;
+  padding: 1rem;
+  justify-self: start;
+  width: 100%;
+  &:focus {
+    outline: none;
+    border: 1px solid #9ad21c;
+  }
+`;
 
-`
+const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+`;
 
 const FormWrapper = styled.form`
   display: flex;

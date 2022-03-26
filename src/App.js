@@ -16,6 +16,7 @@ const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 const initialPhrase = [
   {
+    name: "Max",
     date: '25. März 2022',
     id: 'PYaHT9ymtyVHW2tCollee',
     isBookmarked: false,
@@ -36,6 +37,7 @@ function App() {
     saveToLocal('kidsData', kidsData);
   }, [phrases, kidsData]);
 
+  console.log(phrases)
   return (
     <AppGrid>
       <Header />
@@ -145,12 +147,12 @@ function App() {
   }
 
   //Adding a phrase
-  function handlePhraseSubmit({ date, text }) {
+  function handlePhraseSubmit({ name, date, text,  }) {
     let id = nanoid();
     let isBookmarked = false;
     let photo = '';
 
-    setPhrases([{ id, date, text, isBookmarked, photo }, ...phrases]);
+    setPhrases([{ id,name, date, text, isBookmarked, photo }, ...phrases]);
   }
 
   // Photoupload to phraseCard

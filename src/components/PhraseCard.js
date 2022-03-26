@@ -10,6 +10,7 @@ import HeartOutlinedIcon from '../icons/HeartOutlinedIcon.js';
 
 export default function PhraseCard({
   date,
+  name,
   text,
   isBookmarked,
   onBookmarkClick,
@@ -57,7 +58,8 @@ export default function PhraseCard({
           </label>
         </IconButton>
         <PhraseCardDate>{date}</PhraseCardDate>
-        <PhraseCardText>{text}</PhraseCardText>
+        <PhraseCardText>{name}:<br/>
+        {text}</PhraseCardText>
         {image ? (
           <PhraseImage
             gridArea="image"
@@ -95,7 +97,7 @@ const PhraseCardWrapper = styled.article`
   grid-template-columns: minmax(100px, 100px) minmax(100px, auto) repeat(3, 5%);
   grid-template-rows: auto 1f auto;
   grid-template-areas:
-    'date . heartIconButton deleteIconButton addPhotoIconButton'
+    'date name heartIconButton deleteIconButton addPhotoIconButton'
     'image text text text .'
     '. . . . .';
   border-radius: 15px;

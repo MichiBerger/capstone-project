@@ -30,7 +30,7 @@ ul{
   padding: 0;
   list-style: none;
 }
-input[type="text"], textarea {
+input[type="text"], textarea, select, option {
   font-family: sans-serif;
   font-size: 1rem;
 }

@@ -40,6 +40,7 @@ export default function AllPhrases({
                 onUpload={event => onUpload(phrase.id, event)}
                 isBookmarked={phrase.isBookmarked}
                 date={phrase.date}
+                name={phrase.name}
                 image={phrase.photo}
                 text={phrase.text}
               />
