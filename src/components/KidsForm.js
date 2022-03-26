@@ -31,11 +31,9 @@ export default function KidsForm({ kidsData, handleShowMessage, handleKidSubmit 
     const newDate = startDate.toLocaleDateString('de-DE', options);
 
     handleKidSubmit({ name: nameInput.trim(), birthDate: newDate });
-
     setStartDate(new Date());
     setNameInput('');
     handleShowMessage(true);
-
     navigate('/addphrases');
   }
 
