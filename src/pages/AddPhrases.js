@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import ModalPhraseAddedMessage from '../components/ModalPhraseAddedMessage.js';
 import PhraseForm from '../components/PhraseForm.js';
 
-export default function AddPhrases({ phrases, handlePhraseSubmit, showMessage, handleShowMessage }) {
+export default function AddPhrases({ kidsData, phrases, handlePhraseSubmit, showMessage, handleShowMessage }) {
 
   useEffect(() => {
     if (showMessage) {
@@ -16,7 +16,7 @@ export default function AddPhrases({ phrases, handlePhraseSubmit, showMessage, h
       {showMessage ? (
         <ModalPhraseAddedMessage message="Dein Kind wurde erfolgreich hinzugefügt! Füge nun einen Spruch hinzu!" />
       ) : null}
-      <PhraseForm phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />
+      <PhraseForm kidsData={kidsData} phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />
     </>
   );
 }

@@ -4,8 +4,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 import AddIcon from '../icons/AddIcon.js';
+import AddKidsIcon from '../icons/AddKidsIcon.js';
 
-export default function PhraseForm({ handlePhraseSubmit }) {
+
+export default function PhraseForm({ kidsData, handlePhraseSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
   const [phraseText, setPhraseText] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
@@ -31,7 +33,6 @@ export default function PhraseForm({ handlePhraseSubmit }) {
     let newDate = startDate.toLocaleDateString('de-DE', options);
 
     handlePhraseSubmit({ date: newDate, text: phraseText.trim() });
-
     setPhraseText('');
     setStartDate(new Date());
     setSuccessMessage(true);
@@ -40,6 +41,18 @@ export default function PhraseForm({ handlePhraseSubmit }) {
   return (
     <Wrapper>
       <FormWrapper onSubmit={onFormSubmit}>
+        <label htmlFor="kids">Wähle ein Kind!</label>
+        <select name="kids" id="kids">
+          <option value="">Wähle ein Kind</option>
+          {kidsData.map(item => (
+            <option key={item.id} value={item.name}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+
+        <AddKidsIcon fill="#fff" height="24px" width="24px" />
+
         <LabelDate htmlFor="date">Wähle ein Datum</LabelDate>
         <DayPicker
           id="date"
@@ -78,6 +91,10 @@ export default function PhraseForm({ handlePhraseSubmit }) {
 const Wrapper = styled.section`
   position: relative;
 `;
+
+const NameSelect = styled.select`
+
+`
 
 const FormWrapper = styled.form`
   display: flex;

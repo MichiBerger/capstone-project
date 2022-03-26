@@ -75,6 +75,7 @@ function App() {
             path="/addphrases"
             element={
               <AddPhrases
+                kidsData={kidsData}
                 phrases={phrases}
                 showMessage={showMessage}
                 handlePhraseSubmit={handlePhraseSubmit}
