@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 export default function LoadingInfo({ loadingStatus }) {
   return (
     <Wrapper>

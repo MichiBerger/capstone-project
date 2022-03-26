@@ -1,5 +1,5 @@
 import { userEvent } from '@storybook/testing-library';
-import { getByRole, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import PhraseCard from './PhraseCard.js';
 
 describe('PhraseCard', () => {

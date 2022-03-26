@@ -1,7 +1,7 @@
-import CancelIcon from './icons/CancelIcon.js';
-import DeleteIcon from './icons/DeleteIcon.js';
+import CancelIcon from '../icons/CancelIcon.js';
+import DeleteIcon from '../icons/DeleteIcon.js';
 import styled from 'styled-components';
-import CancelIconCircle from './icons/CancelIconCircle.js';
+import CancelIconCircle from '../icons/CancelIconCircle.js';
 
 export default function ModalDeleteMessage({
   onDeleteClick,

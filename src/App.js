@@ -3,28 +3,42 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import styled from 'styled-components';
+import Header from './components/Header.js';
 import Navigation from './components/Navigation.js';
-import AllPhrases from './components/pages/AllPhrases.js';
-import AddPhrases from './components/pages/AddPhrases.js';
-import FavoritePhrases from './components/pages/FavoritePhrases.js';
-import breakpoint from './components/commons/breakpoints.js';
+import AllPhrases from './pages/AllPhrases.js';
+import AddPhrases from './pages/AddPhrases.js';
+import CreateKidsPage from './pages/CreateKidsPage.js';
+import FavoritePhrases from './pages/FavoritePhrases.js';
+import breakpoint from './commons/breakpoints.js';
 
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
+const initialPhrase = [
+  {
+    date: '25. März 2022',
+    id: 'PYaHT9ymtyVHW2tCollee',
+    isBookmarked: false,
+    photo: 'sybgbgokbdhkutb2xbx5',
+    text: 'ahh kackscheisse!',
+  },
+];
+
 function App() {
-  const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? []);
+  const [phrases, setPhrases] = useState(loadFromLocal('allPhrases') ?? initialPhrase);
+  const [kidsData, setKidsData] = useState(loadFromLocal('kidsData') ?? []);
   const [loadingStatus, setLoadingStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
-  }, [phrases]);
+    saveToLocal('kidsData', kidsData);
+  }, [phrases, kidsData]);
 
   return (
     <AppGrid>
-      <Header>LittleSunshine</Header>
-
+      <Header />
       <Main>
         <Routes>
           <Route
@@ -59,13 +73,44 @@ function App() {
           />
           <Route
             path="/addphrases"
-            element={<AddPhrases phrases={phrases} handlePhraseSubmit={handlePhraseSubmit} />}
+            element={
+              <AddPhrases
+                phrases={phrases}
+                showMessage={showMessage}
+                handlePhraseSubmit={handlePhraseSubmit}
+                handleShowMessage={handleShowMessage}
+              />
+            }
+          />
+          <Route
+            path="/createkids"
+            element={
+              <CreateKidsPage
+                kidsData={kidsData}
+                showMessage={showMessage}
+                handleDeleteKid={handleDeleteKid}
+                handleKidSubmit={handleKidSubmit}
+                setShowMessage={setShowMessage}
+                handleShowMessage={handleShowMessage}
+              />
+            }
           />
         </Routes>
       </Main>
       <NavBar />
     </AppGrid>
   );
+
+  //Adding a kid
+  function handleKidSubmit({ name, birthDate }) {
+    const id = nanoid();
+    setKidsData([{ id, name, birthDate }, ...kidsData]);
+  }
+
+  //Delete a kid
+  function handleDeleteKid(kidsId) {
+    setKidsData(kidsData.filter(item => item.id !== kidsId));
+  }
 
   //Bookmark a phrase
   function handleBookmarkClick(phraseId) {
@@ -129,20 +174,24 @@ function App() {
         },
       })
       .then(response => {
-          setPhrases(
-            phrases.map(item => {
-              if (item.id === phraseId) {
-                return { ...item, photo: response.data.public_id };
-              } else {
-                return item;
-              }
-            })
+        setPhrases(
+          phrases.map(item => {
+            if (item.id === phraseId) {
+              return { ...item, photo: response.data.public_id };
+            } else {
+              return item;
+            }
+          })
         );
         if (response.status === 200) {
           setIsLoading(false);
         }
       })
       .catch(error => console.error(error));
+  }
+  // Set showMessage
+  function handleShowMessage(value) {
+    setShowMessage(value);
   }
 
   // Local Storage
@@ -161,26 +210,16 @@ function App() {
 
 const AppGrid = styled.div`
   display: grid;
-  grid-template-rows: 48px 1fr 48px;
+  grid-template-rows: 50px 1fr 60px;
+  max-width: 1024px;
+  background-color: #efefef;
+  margin: 0 auto;
 
   @media only screen and (${breakpoint.device.sm}) {
-    max-width: 760px;
-    margin: 0 auto;
+    grid-template-rows: 60px 1fr 60px;
   }
 `;
 
-const Header = styled.h1`
-  position: sticky;
-  top: 0px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background-color: #19337a;
-  color: #fff;
-  font-size: 2rem;
-`;
 const Main = styled.main`
   height: 100vh;
   overflow-y: scroll;

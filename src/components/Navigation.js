@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import AllPhrasesIcon from './icons/AllPhrasesIcon.js';
+import AllPhrasesIcon from '../icons/AllPhrasesIcon.js';
 
 export default function Navigation() {
   return (
@@ -55,6 +55,8 @@ const StyledNavLink = styled(NavLink)`
   }
   &.active {
     color: #19337a;
+      background-color: #d7d7d750;
+
 
     opacity: 1;
     svg {
