@@ -15,6 +15,8 @@ export default function PhraseForm({
   handleImageUrl,
   handlePhraseSubmit,
   handleImageUploadInPhraseForm,
+  isPreviewLoading,
+  loadingProcess
 }) {
   const [selectedName, setSelectedName] = useState('');
   const [startDate, setStartDate] = useState(new Date());
@@ -36,37 +38,12 @@ export default function PhraseForm({
     }
   }, [successMessage, navigate]);
 
-  function handleTextAreaChange(event) {
-    setPhraseText(event.target.value);
-  }
-
-  function handleNameSelectChange(event) {
-    setSelectedName(event.target.value);
-  }
-
-  function onFormSubmit(event) {
-    event.preventDefault();
-    let newDate = startDate.toLocaleDateString('de-DE', options);
-
-    handlePhraseSubmit({ name: selectedName, date: newDate, text: phraseText.trim() });
-    setPhraseText('');
-    handleImageUrl('');
-    setStartDate(new Date());
-    setSuccessMessage(true);
-  }
-
-  console.log(selectedName);
 
   return (
     <Wrapper>
       <FormWrapper onSubmit={onFormSubmit}>
         <LabelKid htmlFor="kids">Wähle ein Kind!</LabelKid>
-        <NameSelect
-          autoFocus
-          name="kids"
-          id="kids"
-          onChange={handleNameSelectChange}
-        >
+        <NameSelect autoFocus name="kids" id="kids" onChange={handleNameSelectChange}>
           <option value="Wähle ein Kind!">Wähle ein Kind!</option>
           {kidsData?.map(item => (
             <option key={item.id} value={item.name}>
@@ -74,6 +51,7 @@ export default function PhraseForm({
             </option>
           ))}
         </NameSelect>
+
         <LabelDate htmlFor="date">Wähle ein Datum</LabelDate>
         <DayPicker
           id="date"
@@ -84,6 +62,7 @@ export default function PhraseForm({
           maxDate={new Date()}
         />
         {startDate === null ? <ErrorMessage>Bitte wähle ein Datum!</ErrorMessage> : null}
+
         <LabelTextArea htmlFor="phrase-text">Was hat Dein Kind gesagt?</LabelTextArea>
         <TextInput
           onChange={handleTextAreaChange}
@@ -102,7 +81,7 @@ export default function PhraseForm({
         {imageUrl ? (
           <>
             <PreviewImage img={imageUrl}>
-              <IconButton data-testid="delete-image" previewDeleteIcon onClick={() => handleImageUrl('')}>
+              <IconButton previewDeleteIcon onClick={() => handleImageUrl('')}>
                 <DeleteIcon fill="#fff" height="20" width="20" />
                 <span className="sr-only">Foto löschen</span>
               </IconButton>
@@ -111,7 +90,7 @@ export default function PhraseForm({
         ) : (
           <>
             <LabelImage htmlFor="file-upload">
-              <span style={{ display: 'block', marginBottom: '0.5rem' }}> Wähle ein Bild (optional)</span>
+              <span> Wähle ein Bild (optional)</span>
               <input
                 id="file-upload"
                 type="file"
@@ -126,6 +105,7 @@ export default function PhraseForm({
             </LabelImage>
           </>
         )}
+        {isPreviewLoading ? <p>Dein Bild wird hochgeladen: {loadingProcess}%</p> : null}
 
         <AddButton disabled={disabledButton}>
           <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
@@ -135,6 +115,25 @@ export default function PhraseForm({
       {successMessage ? <ModalPhraseAddedMessage message="Dein Spruch wurde erfolgreich hinzugefügt!" /> : null}
     </Wrapper>
   );
+
+  function handleTextAreaChange(event) {
+    setPhraseText(event.target.value);
+  }
+
+  function handleNameSelectChange(event) {
+    setSelectedName(event.target.value);
+  }
+
+  function onFormSubmit(event) {
+    event.preventDefault();
+    let newDate = startDate.toLocaleDateString('de-DE', options);
+
+    handlePhraseSubmit({ name: selectedName, date: newDate, text: phraseText.trim() });
+    setPhraseText('');
+    handleImageUrl('');
+    setStartDate(new Date());
+    setSuccessMessage(true);
+  }
 }
 
 const PreviewImage = styled.div`
@@ -161,12 +160,8 @@ const PhotoUploadField = styled.div`
   align-items: center;
   padding: 0.75rem;
   justify-content: center;
-
-  &:focus {
-    outline: none;
-    border: 1px solid #9ad21c;
-  }
 `;
+
 const NameSelect = styled.select`
   border-radius: 10px;
   background-color: #f9f9f9;
@@ -197,6 +192,11 @@ const LabelTextArea = styled(LabelKid)`
 
 const LabelImage = styled(LabelKid)`
   margin-top: 1.5rem;
+
+  span {
+    display: block;
+    marginbottom: 0.5rem;
+  }
 `;
 
 const DayPicker = styled(DatePicker)`

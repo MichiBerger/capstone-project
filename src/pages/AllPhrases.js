@@ -14,7 +14,6 @@ export default function AllPhrases({
   loadingStatus,
   isLoading,
 }) {
-  console.log(phrases);
   return (
     <AllPhrasesWrapper>
       {phrases.length === 0 ? (

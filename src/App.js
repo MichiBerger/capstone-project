@@ -30,6 +30,7 @@ function App() {
   const [kidsData, setKidsData] = useState(loadFromLocal('kidsData') ?? []);
   const [loadingStatus, setLoadingStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false)
   const [showMessage, setShowMessage] = useState(false);
   const [imagePublicId, setImagePublicId] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -82,6 +83,8 @@ function App() {
                 kidsData={kidsData}
                 phrases={phrases}
                 showMessage={showMessage}
+                isPreviewLoading={isPreviewLoading}
+                loadingProcess={loadingStatus}
                 handleImageUrl={handleImageUrl}
                 handlePhraseSubmit={handlePhraseSubmit}
                 handleShowMessage={handleShowMessage}
@@ -216,22 +219,25 @@ function App() {
           let percentage = Math.round((loaded * 100) / total);
 
           setLoadingStatus(percentage);
-          setIsLoading(true);
+          handlePreviewLoading(true);
         },
       })
       .then(response => {
         handleImagePublicId(response.data.public_id);
         handleImageUrl(response.data.url);
+        handlePreviewLoading(false)
       })
       .catch(error => console.error(error));
   }
-
 
   function handleImagePublicId(response) {
     setImagePublicId(response);
   }
   function handleImageUrl(response) {
     setImageUrl(response);
+  }
+  function handlePreviewLoading(value){
+    setIsPreviewLoading(value)
   }
 
   // Set showMessage

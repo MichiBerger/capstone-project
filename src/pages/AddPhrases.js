@@ -9,6 +9,8 @@ export default function AddPhrases({
   kidsData,
   phrases,
   handlePhraseSubmit,
+  loadingProcess,
+  isPreviewLoading,
   showMessage,
   handleImageUrl,
   handleShowMessage,
@@ -36,7 +38,9 @@ export default function AddPhrases({
         <PhraseForm
           imageUrl={imageUrl}
           kidsData={kidsData}
+          loadingProcess={loadingProcess}
           phrases={phrases}
+          isPreviewLoading={isPreviewLoading}
           handleImageUrl={handleImageUrl}
           handlePhraseSubmit={handlePhraseSubmit}
           handleImageUploadInPhraseForm={handleImageUploadInPhraseForm}
