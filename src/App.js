@@ -211,6 +211,13 @@ function App() {
         headers: {
           'Content-type': 'multipart/form-data',
         },
+        onUploadProgress: progressEvent => {
+          const { loaded, total } = progressEvent;
+          let percentage = Math.round((loaded * 100) / total);
+
+          setLoadingStatus(percentage);
+          setIsLoading(true);
+        },
       })
       .then(response => {
         handleImagePublicId(response.data.public_id);

@@ -20,11 +20,10 @@ export default function PhraseCard({
   onUpload,
   cloudname,
   phraseId,
-d,
+  d,
 }) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [hover, setHover] = useState(false);
-
 
   return (
     <>
@@ -62,7 +61,8 @@ d,
         </IconButton>
         <PhraseCardDate>{date}</PhraseCardDate>
         <PhraseCardText>
-          {name}:<br />
+          {name}
+          <br />
           {text}
         </PhraseCardText>
         {image ? (

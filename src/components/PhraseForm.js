@@ -6,6 +6,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import ModalPhraseAddedMessage from './ModalPhraseAddedMessage.js';
 import AddIcon from '../icons/AddIcon.js';
 import AddPhotoIcon from '../icons/AddPhotoIcon.js';
+import IconButton from './IconButton.js';
+import DeleteIcon from '../icons/DeleteIcon.js';
 
 export default function PhraseForm({
   imageUrl,
@@ -15,7 +17,6 @@ export default function PhraseForm({
   handleImageUploadInPhraseForm,
 }) {
   const [selectedName, setSelectedName] = useState('');
-  const [isSelectedName, setIsSelectedName] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [phraseText, setPhraseText] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
@@ -25,10 +26,6 @@ export default function PhraseForm({
   const disabledButton =
     (phraseText.length === 0 || startDate === null || selectedName === '' || selectedName === 'Wähle ein Kind!') ??
     true;
-
-  const emptyKidsData = kidsData.length === 0;
-
-  console.log(emptyKidsData);
 
   useEffect(() => {
     if (successMessage) {
@@ -69,10 +66,9 @@ export default function PhraseForm({
           name="kids"
           id="kids"
           onChange={handleNameSelectChange}
-          onFocus={() => setIsSelectedName(false)}
         >
           <option value="Wähle ein Kind!">Wähle ein Kind!</option>
-          {kidsData.map(item => (
+          {kidsData?.map(item => (
             <option key={item.id} value={item.name}>
               {item.name}
             </option>
@@ -105,16 +101,17 @@ export default function PhraseForm({
 
         {imageUrl ? (
           <>
-            <PreviewImage img={imageUrl}></PreviewImage>
-            <button type="button" onClick={() => handleImageUrl('')}>
-              delete
-            </button>
+            <PreviewImage img={imageUrl}>
+              <IconButton data-testid="delete-image" previewDeleteIcon onClick={() => handleImageUrl('')}>
+                <DeleteIcon fill="#fff" height="20" width="20" />
+                <span className="sr-only">Foto löschen</span>
+              </IconButton>
+            </PreviewImage>
           </>
         ) : (
           <>
             <LabelImage htmlFor="file-upload">
               <span style={{ display: 'block', marginBottom: '0.5rem' }}> Wähle ein Bild (optional)</span>
-
               <input
                 id="file-upload"
                 type="file"
@@ -124,6 +121,7 @@ export default function PhraseForm({
               />
               <PhotoUploadField>
                 <AddPhotoIcon height="24px" width="24px" fill="#19337a" />
+                <span className="sr-only">Fotoupload</span>
               </PhotoUploadField>
             </LabelImage>
           </>
@@ -131,7 +129,6 @@ export default function PhraseForm({
 
         <AddButton disabled={disabledButton}>
           <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
-
           <span>Füge einen Spruch hinzu!</span>
         </AddButton>
       </FormWrapper>
@@ -141,12 +138,13 @@ export default function PhraseForm({
 }
 
 const PreviewImage = styled.div`
+  position: relative;
   background-image: url(${props => props.img});
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
   background-size: cover;
   margin-top: 1.5rem;
-  height: 150px;
+  height: 200px;
 `;
 
 const Wrapper = styled.section`

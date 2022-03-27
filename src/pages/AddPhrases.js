@@ -15,8 +15,6 @@ export default function AddPhrases({
   handleImageUploadInPhraseForm,
   imageUrl,
 }) {
-  const emptyKidsData = kidsData.length === 0;
-
   useEffect(() => {
     if (showMessage) {
       setTimeout(() => {
@@ -29,8 +27,8 @@ export default function AddPhrases({
       {showMessage ? (
         <ModalPhraseAddedMessage message="Dein Kind wurde erfolgreich hinzugefügt! Füge nun einen Spruch hinzu!" />
       ) : null}
-      {emptyKidsData ? (
-        <StyledLinkEmptyKidsData to="/createkids">
+      {kidsData.length === 0 ? (
+        <StyledLinkEmptyKidsData to="/createkids" onClick={() => handleImageUrl('')}>
           <AddKidsIcon fill="#19337a" height="40px" width="40px" />
           <span>Füge ein Kind hinzu!</span>
         </StyledLinkEmptyKidsData>
