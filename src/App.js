@@ -16,7 +16,7 @@ const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 const initialPhrase = [
   {
-    name: "Max",
+    name: 'Max',
     date: '25. März 2022',
     id: 'PYaHT9ymtyVHW2tCollee',
     isBookmarked: false,
@@ -31,13 +31,14 @@ function App() {
   const [loadingStatus, setLoadingStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [imagePublicId, setImagePublicId] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
     saveToLocal('kidsData', kidsData);
   }, [phrases, kidsData]);
 
-  console.log(phrases)
   return (
     <AppGrid>
       <Header />
@@ -77,11 +78,14 @@ function App() {
             path="/addphrases"
             element={
               <AddPhrases
+                imageUrl={imageUrl}
                 kidsData={kidsData}
                 phrases={phrases}
                 showMessage={showMessage}
+                handleImageUrl={handleImageUrl}
                 handlePhraseSubmit={handlePhraseSubmit}
                 handleShowMessage={handleShowMessage}
+                handleImageUploadInPhraseForm={handleImageUploadInPhraseForm}
               />
             }
           />
@@ -147,15 +151,15 @@ function App() {
   }
 
   //Adding a phrase
-  function handlePhraseSubmit({ name, date, text,  }) {
+  function handlePhraseSubmit({ name, date, text }) {
     let id = nanoid();
     let isBookmarked = false;
-    let photo = '';
+    let photo = imagePublicId;
 
-    setPhrases([{ id,name, date, text, isBookmarked, photo }, ...phrases]);
+    setPhrases([{ id, name, date, text, isBookmarked, photo }, ...phrases]);
   }
 
-  // Photoupload to phraseCard
+  //Photoupload to phraseCard
   function upload(phraseId, event) {
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`;
 
@@ -192,6 +196,37 @@ function App() {
       })
       .catch(error => console.error(error));
   }
+
+  //Photo upload general
+
+  function handleImageUploadInPhraseForm(event) {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`;
+
+    const formData = new FormData();
+    formData.append('file', event.target.files[0]);
+    formData.append('upload_preset', PRESET);
+
+    axios
+      .post(url, formData, {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        handleImagePublicId(response.data.public_id);
+        handleImageUrl(response.data.url);
+      })
+      .catch(error => console.error(error));
+  }
+
+
+  function handleImagePublicId(response) {
+    setImagePublicId(response);
+  }
+  function handleImageUrl(response) {
+    setImageUrl(response);
+  }
+
   // Set showMessage
   function handleShowMessage(value) {
     setShowMessage(value);

@@ -19,14 +19,17 @@ export default function PhraseCard({
   image,
   onUpload,
   cloudname,
+  phraseId,
+d,
 }) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [hover, setHover] = useState(false);
 
+
   return (
     <>
       <PhraseCardWrapper>
-        <IconButton hoverAndActive type="button" onClick={onBookmarkClick} gridArea="heartIconButton">
+        <IconButton hoverAndActive type="button" onClick={() => onBookmarkClick(phraseId)} gridArea="heartIconButton">
           {isBookmarked ? (
             <HeartFilledIcon fill="#9AD21C" height="30" width="30" />
           ) : (
@@ -47,7 +50,7 @@ export default function PhraseCard({
           <label>
             <input
               data-testid="photo-upload"
-              onChange={onUpload}
+              onChange={event => onUpload(phraseId, event)}
               id="image-upload"
               type="file"
               className="sr-only"
@@ -58,25 +61,27 @@ export default function PhraseCard({
           </label>
         </IconButton>
         <PhraseCardDate>{date}</PhraseCardDate>
-        <PhraseCardText>{name}:<br/>
-        {text}</PhraseCardText>
+        <PhraseCardText>
+          {name}:<br />
+          {text}
+        </PhraseCardText>
         {image ? (
           <PhraseImage
-            gridArea="image"
             cloudname={cloudname}
-            hover={hover}
             image={image}
-            onImageClick={() => setHover(!hover)}
-            onDeleteImageIconClick={() => {
-              onImageDeleteClick();
-              setHover(false);
-            }}
+            onImageDeleteClick={onImageDeleteClick}
+            phraseId={phraseId}
+            gridArea="image"
+            hover={hover}
+            onImageClick={handleHover}
+            handleHover={handleHover}
           />
         ) : null}
         {showDeleteMessage ? (
           <ModalDeleteMessage
+            phraseId={phraseId}
             onDeleteClick={onDeleteClick}
-            onCancleClick={handleCancel}
+            onCancelClick={handleCancel}
             deleteText="Löschen"
             cancelText="Abbrechen"
             messageTitle="Spruch löschen"
@@ -87,8 +92,12 @@ export default function PhraseCard({
     </>
   );
 
-  function handleCancel() {
-    setShowDeleteMessage(false);
+  function handleHover(value) {
+    setHover(value);
+  }
+
+  function handleCancel(value) {
+    setShowDeleteMessage(value);
   }
 }
 

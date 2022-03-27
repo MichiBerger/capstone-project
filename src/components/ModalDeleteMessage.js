@@ -5,11 +5,12 @@ import CancelIconCircle from '../icons/CancelIconCircle.js';
 
 export default function ModalDeleteMessage({
   onDeleteClick,
-  onCancleClick,
+  onCancelClick,
   deleteText,
   cancelText,
   messageTitle,
   messageText,
+  phraseId,
 }) {
   return (
     <div
@@ -18,19 +19,19 @@ export default function ModalDeleteMessage({
       }}
     >
       <Wrapper>
-        <CancelCircleButton onClick={onCancleClick}>
+        <CancelCircleButton onClick={() => onCancelClick(false)}>
           <CancelIconCircle height="24px" width="24px" fill="#19337A" />
           <span className="sr-only">Cancel</span>
         </CancelCircleButton>
         <h2>{messageTitle}</h2>
         <p>{messageText}</p>
         <ButtonWrapper>
-          <CancelButton onClick={onCancleClick}>
+          <CancelButton onClick={() => onCancelClick(false)}>
             <CancelIcon height="20px" width="20px" fill="#19337A" />
             <span className="sr-only">Cancel</span>
             <p>{cancelText}</p>
           </CancelButton>
-          <DeleteButton onClick={onDeleteClick}>
+          <DeleteButton onClick={() => onDeleteClick(phraseId)}>
             <DeleteIcon height="20px" width="20px" fill="#fff" />
             <span className="sr-only">Delete</span>
             <p>{deleteText}</p>

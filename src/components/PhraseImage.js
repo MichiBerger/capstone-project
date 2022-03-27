@@ -3,15 +3,30 @@ import { Image, Transformation } from 'cloudinary-react';
 import IconButton from './IconButton.js';
 import DeleteIcon from '../icons/DeleteIcon.js';
 
-export default function PhraseImage({ hover, image, cloudname, onDeleteImageIconClick, onImageClick, gridArea }) {
+export default function PhraseImage({
+  phraseId,
+  hover,
+  image,
+  cloudname,
+  onImageDeleteClick,
+  onImageClick,
+  gridArea,
+  handleHover,
+}) {
   return (
     <PhraseImageWrapper gridArea={gridArea}>
-      <Image onClick={onImageClick} publicId={`${image}.png`} cloudName={cloudname} loading="lazy">
+      <Image onClick={() => onImageClick(!hover)} publicId={`${image}.png`} cloudName={cloudname} loading="lazy">
         <Transformation width={100} height={100} crop="thumb" />
         <Transformation radius="max" />
       </Image>
       {hover ? (
-        <IconButton photoDeleteIcon onClick={onDeleteImageIconClick}>
+        <IconButton
+          photoDeleteIcon
+          onClick={() => {
+            onImageDeleteClick(phraseId);
+            handleHover(false);
+          }}
+        >
           <DeleteIcon fill="#fff" height="20" width="20" />
         </IconButton>
       ) : null}
