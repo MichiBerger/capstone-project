@@ -31,8 +31,6 @@ export default function PhraseCard({
     setIsFlipped(!isFlipped);
   }
 
-
-
   return (
     <>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
@@ -131,12 +129,38 @@ export default function PhraseCard({
 
         {/* Back */}
 
-        <PhraseCardWrapperBack >
-          <div style={{border: "1px solid black"}} img={image}>
-            <IconButton onClick={handleFlipClick}>
-              <SwitchIcon height="30" width="30" fill="#DE0C47"/>
-            </IconButton>
-          </div>
+        <PhraseCardWrapperBack>
+          {image ? (
+            <BackgroundImageBack img={image}>
+              <IconButton alignSelf justifySelf onClick={handleFlipClick}>
+                <SwitchIcon height="30" width="30" fill="#DE0C47" />
+              </IconButton>
+            </BackgroundImageBack>
+          ) : (
+            <NoBackgroundImageWrapper>
+              <div>
+                <IconButton hoverAndActive>
+                  <label>
+                    <input
+                      data-testid="photo-upload"
+                      onChange={event => onUpload(phraseId, event)}
+                      id="image-upload"
+                      type="file"
+                      className="sr-only"
+                      accept="image/*"
+                    />
+                    <AddPhotoIcon height="30" width="30" fill="#19337a" />
+                    <span className="sr-only">Upload</span>
+                  </label>
+                </IconButton>
+                <span>Füge ein Bild hinzu</span>
+              </div>
+
+              <IconButton alignSelf justifySelf onClick={handleFlipClick}>
+                <SwitchIcon height="30" width="30" fill="#DE0C47" />
+              </IconButton>
+            </NoBackgroundImageWrapper>
+          )}
         </PhraseCardWrapperBack>
       </ReactCardFlip>
     </>
@@ -151,37 +175,48 @@ export default function PhraseCard({
   }
 }
 
-const PhraseCardWrapper = styled.article`
+const PhraseCardWrapperBack = styled.article`
   display: grid;
-  grid-template-columns: 1fr 2fr;
   border-radius: 15px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  background-color: #f9f9f9;
-  color: #19337a;
   gap: 1rem 0.5rem;
   position: relative;
   width: 100%;
   min-height: 250px;
+  background-color: #f9f9f9;
+
 `;
 
-const PhraseCardWrapperBack = styled.article`
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+const PhraseCardWrapper = styled(PhraseCardWrapperBack)`
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  color: #19337a;
+`;
+
+const NoBackgroundImageWrapper = styled.div`
+  display: grid;
+  grid-template-rows: 1fr auto;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 15px;
+
+  div {
+    display: grid;
+    place-items: center;
+    gap: 5px;
+  }
+`;
+
+const BackgroundImageBack = styled(NoBackgroundImageWrapper)`
   background-image: url(${props => props.img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  border-radius: 15px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  gap: 1rem 0.5rem;
-  position: relative;
-  width: 100%;
-  min-height: 250px;
-  padding: 1rem;
 `;
 
-const BackgroundImage = styled.section`
+const BackgroundImage = styled.div`
   position: relative;
   background-image: url(${props => props.img});
   background-repeat: no-repeat;

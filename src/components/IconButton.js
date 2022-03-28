@@ -6,6 +6,8 @@ export default function IconButton({
   disabled,
   children,
   gridArea,
+  alignSelf,
+  justifySelf,
   hoverAndActive,
   previewDeleteIcon,
   photoDeleteIcon,
@@ -16,6 +18,8 @@ export default function IconButton({
       previewDeleteIcon={previewDeleteIcon}
       photoDeleteIcon={photoDeleteIcon}
       gridArea={gridArea}
+      alignSelf={alignSelf}
+      justifySelf={justifySelf}
       disabled={disabled}
       onClick={onClick}
       type="button"
@@ -34,8 +38,8 @@ const IconWrapper = styled.button`
   padding: 0;
   width: 24px;
   height: 24px;
-  justify-self: center;
-  align-self: center;
+  justify-self: ${props => props.justifySelf ? "end" : "center"};
+  align-self: ${props => props.alignSelf ? "end" : "center"};
   display: flex;
   align-items: center;
   justify-content: center;
