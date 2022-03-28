@@ -7,7 +7,7 @@ import DeleteIcon from '../icons/DeleteIcon.js';
 import HeartFilledIcon from '../icons/HeartFilledIcon.js';
 import HeartOutlinedIcon from '../icons/HeartOutlinedIcon.js';
 import ReactCardFlip from 'react-card-flip';
-import CardBack from './CardBack.js';
+import SwitchIcon from '../icons/SwitchIcon.js';
 
 export default function PhraseCard({
   date,
@@ -31,7 +31,7 @@ export default function PhraseCard({
     setIsFlipped(!isFlipped);
   }
 
-  console.log(isFlipped);
+
 
   return (
     <>
@@ -92,11 +92,7 @@ export default function PhraseCard({
                 )}
                 <span className="sr-only">Bookmark</span>
               </IconButton>
-              <IconButton
-                hoverAndActive
-                disabled={showDeleteMessage}
-                onClick={() => setShowDeleteMessage(!showDeleteMessage)}
-              >
+              <IconButton hoverAndActive onClick={() => setShowDeleteMessage(!showDeleteMessage)}>
                 <DeleteIcon fill="#DE0C47" height="30" width="30" />
                 <span className="sr-only">Delete</span>
               </IconButton>
@@ -114,7 +110,9 @@ export default function PhraseCard({
                   <span className="sr-only">Upload</span>
                 </label>
               </IconButton>
-              <button onClick={handleFlipClick}>flip</button>
+              <IconButton onClick={handleFlipClick}>
+                <SwitchIcon height="30" width="30" />
+              </IconButton>
             </ButtonWrapper>
           </ContextWrapper>
 
@@ -133,15 +131,12 @@ export default function PhraseCard({
 
         {/* Back */}
 
-        <PhraseCardWrapperBack>
-
-
-
-
-              <button onClick={handleFlipClick}>flip</button>
-
-
-
+        <PhraseCardWrapperBack >
+          <div style={{border: "1px solid black"}} img={image}>
+            <IconButton onClick={handleFlipClick}>
+              <SwitchIcon height="30" width="30" fill="#DE0C47"/>
+            </IconButton>
+          </div>
         </PhraseCardWrapperBack>
       </ReactCardFlip>
     </>
@@ -166,11 +161,25 @@ const PhraseCardWrapper = styled.article`
   gap: 1rem 0.5rem;
   position: relative;
   width: 100%;
-  min-height: 200px;
+  min-height: 250px;
 `;
 
-const PhraseCardWrapperBack = styled(PhraseCardWrapper)`
-`
+const PhraseCardWrapperBack = styled.article`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  background-image: url(${props => props.img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  gap: 1rem 0.5rem;
+  position: relative;
+  width: 100%;
+  min-height: 250px;
+  padding: 1rem;
+`;
 
 const BackgroundImage = styled.section`
   position: relative;
