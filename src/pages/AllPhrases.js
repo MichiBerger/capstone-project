@@ -14,17 +14,14 @@ export default function AllPhrases({
   loadingStatus,
   isLoading,
 }) {
-  const noPhrases =
-    phrases.length === 0 ? (
-      <AddButtonLink to="/addphrases">
-        <AddIcon fill="#19337a" height="40px" width="40px" />
-        <p>Füge einen Spruch hinzu!</p>
-      </AddButtonLink>
-    ) : null;
-
   return (
     <AllPhrasesWrapper>
-      {noPhrases}
+      {phrases.length === 0 ? (
+        <AddButtonLink to="/addphrases">
+          <AddIcon fill="#19337a" height="40px" width="40px" />
+          <p>Füge einen Spruch hinzu!</p>
+        </AddButtonLink>
+      ) : null}
 
       {isLoading ? <ModalLoadingInfo loadingStatus={loadingStatus} /> : null}
 
@@ -34,12 +31,14 @@ export default function AllPhrases({
             <PhraseItem aria-label="phrase-item" key={phrase.id}>
               <PhraseCard
                 cloudname={cloudname}
-                onBookmarkClick={() => onBookmarkClick(phrase.id)}
-                onDeleteClick={() => onDeleteClick(phrase.id)}
-                onImageDeleteClick={() => onImageDeleteClick(phrase.id)}
-                onUpload={event => onUpload(phrase.id, event)}
+                onBookmarkClick={onBookmarkClick}
+                onDeleteClick={onDeleteClick}
+                onImageDeleteClick={onImageDeleteClick}
+                onUpload={onUpload}
                 isBookmarked={phrase.isBookmarked}
+                phraseId={phrase.id}
                 date={phrase.date}
+                name={phrase.name}
                 image={phrase.photo}
                 text={phrase.text}
               />
@@ -80,5 +79,8 @@ const AddButtonLink = styled(Link)`
   left: 50%;
   transform: translate(-50%, -50%);
   min-height: 250px;
-  min-width: 250px;
+  min-width: 300px;
+  border: 1px dashed #19337a;
+  background-color: #f9f9f9;
+  border-radius: 10px;
 `;

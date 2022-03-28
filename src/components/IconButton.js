@@ -7,11 +7,13 @@ export default function IconButton({
   children,
   gridArea,
   hoverAndActive,
+  previewDeleteIcon,
   photoDeleteIcon,
 }) {
   return (
     <IconWrapper
       hoverAndActive={hoverAndActive}
+      previewDeleteIcon={previewDeleteIcon}
       photoDeleteIcon={photoDeleteIcon}
       gridArea={gridArea}
       disabled={disabled}
@@ -64,6 +66,19 @@ const IconWrapper = styled.button`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    opacity: 1;
+
+    `}
+
+    ${props =>
+    props.previewDeleteIcon &&
+    `
+    background-color: #DE0C47;
+    position: absolute;
+    border-radius: 50%;
+    padding: 0.175rem;
+    top: 5px;
+    right:5px;
     opacity: 1;
 
     `}

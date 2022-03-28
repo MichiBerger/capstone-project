@@ -37,12 +37,14 @@ export default function FavoritePhrases({
               <PhraseItem aria-label="phrase-item" key={phrase.id}>
                 <PhraseCard
                   cloudname={cloudname}
-                  onBookmarkClick={() => onBookmarkClick(phrase.id)}
-                  onDeleteClick={() => onDeleteClick(phrase.id)}
-                  onImageDeleteClick={() => onImageDeleteClick(phrase.id)}
-                  onUpload={event => onUpload(phrase.id, event)}
+                  onBookmarkClick={onBookmarkClick}
+                  onDeleteClick={onDeleteClick}
+                  onImageDeleteClick={onImageDeleteClick}
+                  onUpload={onUpload}
                   isBookmarked={phrase.isBookmarked}
+                  phraseId={phrase.id}
                   date={phrase.date}
+                  name={phrase.name}
                   image={phrase.photo}
                   text={phrase.text}
                 />

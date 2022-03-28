@@ -1,7 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -30,8 +32,8 @@ ul{
   padding: 0;
   list-style: none;
 }
-input[type="text"], textarea {
-  font-family: sans-serif;
+input[type="text"], textarea, select, option {
+  font-family: inherit;
   font-size: 1rem;
 }
 
