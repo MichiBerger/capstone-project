@@ -20,7 +20,7 @@ const initialPhrase = [
     date: '25. März 2022',
     id: 'PYaHT9ymtyVHW2tCollee',
     isBookmarked: false,
-    photo: 'sybgbgokbdhkutb2xbx5',
+    photo: "https://source.unsplash.com/random",
     text: 'ahh kackscheisse!',
   },
 ];
@@ -154,10 +154,9 @@ function App() {
   }
 
   //Adding a phrase
-  function handlePhraseSubmit({ name, date, text }) {
+  function handlePhraseSubmit({ name, date, text, photo }) {
     let id = nanoid();
     let isBookmarked = false;
-    let photo = imagePublicId;
 
     setPhrases([{ id, name, date, text, isBookmarked, photo }, ...phrases]);
   }
@@ -187,7 +186,7 @@ function App() {
         setPhrases(
           phrases.map(item => {
             if (item.id === phraseId) {
-              return { ...item, photo: response.data.public_id };
+              return { ...item, photo: response.data.url };
             } else {
               return item;
             }

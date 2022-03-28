@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import IconButton from './IconButton.js';
 import ModalDeleteMessage from './ModalDeleteMessage.js';
-import PhraseImage from './PhraseImage.js';
 import AddPhotoIcon from '../icons/AddPhotoIcon.js';
 import DeleteIcon from '../icons/DeleteIcon.js';
 import HeartFilledIcon from '../icons/HeartFilledIcon.js';
@@ -18,9 +17,7 @@ export default function PhraseCard({
   onImageDeleteClick,
   image,
   onUpload,
-  cloudname,
   phraseId,
-  d,
 }) {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [hover, setHover] = useState(false);
@@ -28,55 +25,86 @@ export default function PhraseCard({
   return (
     <>
       <PhraseCardWrapper>
-        <IconButton hoverAndActive type="button" onClick={() => onBookmarkClick(phraseId)} gridArea="heartIconButton">
-          {isBookmarked ? (
-            <HeartFilledIcon fill="#9AD21C" height="30" width="30" />
-          ) : (
-            <HeartOutlinedIcon fill="#9AD21C" height="30" width="30" />
-          )}
-          <span className="sr-only">Bookmark</span>
-        </IconButton>
-        <IconButton
-          hoverAndActive
-          gridArea="deleteIconButton"
-          disabled={showDeleteMessage}
-          onClick={() => setShowDeleteMessage(!showDeleteMessage)}
-        >
-          <DeleteIcon fill="#DE0C47" height="30" width="30" />
-          <span className="sr-only">Delete</span>
-        </IconButton>
-        <IconButton hoverAndActive gridArea="addPhotoIconButton">
-          <label>
-            <input
-              data-testid="photo-upload"
-              onChange={event => onUpload(phraseId, event)}
-              id="image-upload"
-              type="file"
-              className="sr-only"
-              accept="image/*"
-            />
-            <AddPhotoIcon height="30" width="30" fill="#19337a" />
-            <span className="sr-only">Upload</span>
-          </label>
-        </IconButton>
-        <PhraseCardDate>{date}</PhraseCardDate>
-        <PhraseCardText>
-          {name}
-          <br />
-          {text}
-        </PhraseCardText>
-        {image ? (
-          <PhraseImage
-            cloudname={cloudname}
-            image={image}
-            onImageDeleteClick={onImageDeleteClick}
-            phraseId={phraseId}
-            gridArea="image"
-            hover={hover}
-            onImageClick={handleHover}
-            handleHover={handleHover}
-          />
-        ) : null}
+        {!image ? (
+          <div
+            style={{
+              borderRight: '1px dashed #19337a',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <IconButton hoverAndActive>
+              <label>
+                <input
+                  data-testid="photo-upload"
+                  onChange={event => onUpload(phraseId, event)}
+                  id="image-upload"
+                  type="file"
+                  className="sr-only"
+                  accept="image/*"
+                />
+                <AddPhotoIcon height="30" width="30" fill="#19337a" />
+                <span className="sr-only">Upload</span>
+              </label>
+            </IconButton>
+          </div>
+        ) : (
+          <BackgroundImage img={image} onClick={() => handleHover(!hover)}>
+            {hover ? (
+              <IconButton
+                photoDeleteIcon
+                onClick={() => {
+                  onImageDeleteClick(phraseId);
+                  handleHover(false);
+                }}
+              >
+                <DeleteIcon fill="#fff" height="20" width="20" />
+              </IconButton>
+            ) : null}
+          </BackgroundImage>
+        )}
+
+        <ContextWrapper>
+          <ContentWrapper>
+            <PhraseCardDate>{date}</PhraseCardDate>
+            <PhraseCardName>{name}</PhraseCardName>
+            <PhraseCardText>"{text}"</PhraseCardText>
+          </ContentWrapper>
+          <ButtonWrapper>
+            <IconButton hoverAndActive type="button" onClick={() => onBookmarkClick(phraseId)}>
+              {isBookmarked ? (
+                <HeartFilledIcon fill="#9AD21C" height="30" width="30" />
+              ) : (
+                <HeartOutlinedIcon fill="#9AD21C" height="30" width="30" />
+              )}
+              <span className="sr-only">Bookmark</span>
+            </IconButton>
+            <IconButton
+              hoverAndActive
+              disabled={showDeleteMessage}
+              onClick={() => setShowDeleteMessage(!showDeleteMessage)}
+            >
+              <DeleteIcon fill="#DE0C47" height="30" width="30" />
+              <span className="sr-only">Delete</span>
+            </IconButton>
+            <IconButton hoverAndActive>
+              <label>
+                <input
+                  data-testid="photo-upload"
+                  onChange={event => onUpload(phraseId, event)}
+                  id="image-upload"
+                  type="file"
+                  className="sr-only"
+                  accept="image/*"
+                />
+                <AddPhotoIcon height="30" width="30" fill="#19337a" />
+                <span className="sr-only">Upload</span>
+              </label>
+            </IconButton>
+          </ButtonWrapper>
+        </ContextWrapper>
+
         {showDeleteMessage ? (
           <ModalDeleteMessage
             phraseId={phraseId}
@@ -103,14 +131,8 @@ export default function PhraseCard({
 
 const PhraseCardWrapper = styled.article`
   display: grid;
-  grid-template-columns: minmax(100px, 100px) minmax(100px, auto) repeat(3, 5%);
-  grid-template-rows: auto 1f auto;
-  grid-template-areas:
-    'date name heartIconButton deleteIconButton addPhotoIconButton'
-    'image text text text .'
-    '. . . . .';
+  grid-template-columns: 1fr 2fr;
   border-radius: 15px;
-  padding: 1rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   background-color: #f9f9f9;
   color: #19337a;
@@ -118,15 +140,53 @@ const PhraseCardWrapper = styled.article`
   position: relative;
   width: 100%;
   min-height: 200px;
+
+`;
+const BackgroundImage = styled.section`
+  position: relative;
+  background-image: url(${props => props.img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+`;
+
+const ContextWrapper = styled.section`
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 10px;
 `;
 
 const PhraseCardDate = styled.time`
-  grid-area: date;
   font-size: 0.75rem;
-  align-self: center;
+  align-self: flex-end;
 `;
 
 const PhraseCardText = styled.p`
-  grid-area: text;
+  font-size: 1rem;
   word-wrap: break-word;
+`;
+
+const PhraseCardName = styled.h2`
+  font-size: 1.2rem;
+  text-decoration: underline;
+`;
+
+const ButtonWrapper = styled.div`
+  justify-self: end;
+  display: flex;
+  align-self: flex-end;
+  gap: 5px;
 `;
