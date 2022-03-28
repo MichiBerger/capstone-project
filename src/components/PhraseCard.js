@@ -6,6 +6,8 @@ import AddPhotoIcon from '../icons/AddPhotoIcon.js';
 import DeleteIcon from '../icons/DeleteIcon.js';
 import HeartFilledIcon from '../icons/HeartFilledIcon.js';
 import HeartOutlinedIcon from '../icons/HeartOutlinedIcon.js';
+import ReactCardFlip from 'react-card-flip';
+import CardBack from './CardBack.js';
 
 export default function PhraseCard({
   date,
@@ -22,185 +24,126 @@ export default function PhraseCard({
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [hover, setHover] = useState(false);
 
+  const [isFlipped, setIsFlipped] = useState(false);
 
-   return (
+  function handleFlipClick(event) {
+    event.preventDefault();
+    setIsFlipped(!isFlipped);
+  }
+
+  console.log(isFlipped);
+
+  return (
     <>
-      <PhraseCardWrapper>
-
-
-        {!image ? (
-          <div
-            style={{
-              borderRight: '1px dashed #19337a',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <IconButton hoverAndActive>
-              <label>
-                <input
-                  data-testid="photo-upload"
-                  onChange={event => onUpload(phraseId, event)}
-                  id="image-upload"
-                  type="file"
-                  className="sr-only"
-                  accept="image/*"
-                />
-                <AddPhotoIcon height="30" width="30" fill="#19337a" />
-                <span className="sr-only">Upload</span>
-              </label>
-            </IconButton>
-          </div>
-        ) : (
-          <BackgroundImage img={image} onClick={() => handleHover(!hover)}>
-            {hover ? (
-              <IconButton
-                photoDeleteIcon
-                onClick={() => {
-                  onImageDeleteClick(phraseId);
-                  handleHover(false);
-                }}
-              >
-                <DeleteIcon fill="#fff" height="20" width="20" />
-              </IconButton>
-            ) : null}
-          </BackgroundImage>
-        )}
-
-        <ContextWrapper>
-          <ContentWrapper>
-            <PhraseCardDate>{date}</PhraseCardDate>
-            <PhraseCardName>{name}</PhraseCardName>
-            <PhraseCardText>"{text}"</PhraseCardText>
-          </ContentWrapper>
-          <ButtonWrapper>
-            <IconButton hoverAndActive type="button" onClick={() => onBookmarkClick(phraseId)}>
-              {isBookmarked ? (
-                <HeartFilledIcon fill="#9AD21C" height="30" width="30" />
-              ) : (
-                <HeartOutlinedIcon fill="#9AD21C" height="30" width="30" />
-              )}
-              <span className="sr-only">Bookmark</span>
-            </IconButton>
-            <IconButton
-              hoverAndActive
-              disabled={showDeleteMessage}
-              onClick={() => setShowDeleteMessage(!showDeleteMessage)}
+      <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+        <PhraseCardWrapper>
+          {!image ? (
+            <div
+              style={{
+                borderRight: '1px dashed #19337a',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
             >
-              <DeleteIcon fill="#DE0C47" height="30" width="30" />
-              <span className="sr-only">Delete</span>
-            </IconButton>
-            <IconButton hoverAndActive>
-              <label>
-                <input
-                  data-testid="photo-upload"
-                  onChange={event => onUpload(phraseId, event)}
-                  id="image-upload"
-                  type="file"
-                  className="sr-only"
-                  accept="image/*"
-                />
-                <AddPhotoIcon height="30" width="30" fill="#19337a" />
-                <span className="sr-only">Upload</span>
-              </label>
-            </IconButton>
-          </ButtonWrapper>
-        </ContextWrapper>
-
-
-        {/* {!image ? (
-          <div
-            style={{
-              borderRight: '1px dashed #19337a',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <IconButton hoverAndActive>
-              <label>
-                <input
-                  data-testid="photo-upload"
-                  onChange={event => onUpload(phraseId, event)}
-                  id="image-upload"
-                  type="file"
-                  className="sr-only"
-                  accept="image/*"
-                />
-                <AddPhotoIcon height="30" width="30" fill="#19337a" />
-                <span className="sr-only">Upload</span>
-              </label>
-            </IconButton>
-          </div>
-        ) : (
-          <BackgroundImage img={image} onClick={() => handleHover(!hover)}>
-            {hover ? (
-              <IconButton
-                photoDeleteIcon
-                onClick={() => {
-                  onImageDeleteClick(phraseId);
-                  handleHover(false);
-                }}
-              >
-                <DeleteIcon fill="#fff" height="20" width="20" />
+              <IconButton hoverAndActive>
+                <label>
+                  <input
+                    data-testid="photo-upload"
+                    onChange={event => onUpload(phraseId, event)}
+                    id="image-upload"
+                    type="file"
+                    className="sr-only"
+                    accept="image/*"
+                  />
+                  <AddPhotoIcon height="30" width="30" fill="#19337a" />
+                  <span className="sr-only">Upload</span>
+                </label>
               </IconButton>
-            ) : null}
-          </BackgroundImage>
-        )}
+            </div>
+          ) : (
+            <BackgroundImage img={image} onClick={() => handleHover(!hover)}>
+              {hover ? (
+                <IconButton
+                  photoDeleteIcon
+                  onClick={() => {
+                    onImageDeleteClick(phraseId);
+                    handleHover(false);
+                  }}
+                >
+                  <DeleteIcon fill="#fff" height="20" width="20" />
+                </IconButton>
+              ) : null}
+            </BackgroundImage>
+          )}
 
-        <ContextWrapper>
-          <ContentWrapper>
-            <PhraseCardDate>{date}</PhraseCardDate>
-            <PhraseCardName>{name}</PhraseCardName>
-            <PhraseCardText>"{text}"</PhraseCardText>
-          </ContentWrapper>
-          <ButtonWrapper>
-            <IconButton hoverAndActive type="button" onClick={() => onBookmarkClick(phraseId)}>
-              {isBookmarked ? (
-                <HeartFilledIcon fill="#9AD21C" height="30" width="30" />
-              ) : (
-                <HeartOutlinedIcon fill="#9AD21C" height="30" width="30" />
-              )}
-              <span className="sr-only">Bookmark</span>
-            </IconButton>
-            <IconButton
-              hoverAndActive
-              disabled={showDeleteMessage}
-              onClick={() => setShowDeleteMessage(!showDeleteMessage)}
-            >
-              <DeleteIcon fill="#DE0C47" height="30" width="30" />
-              <span className="sr-only">Delete</span>
-            </IconButton>
-            <IconButton hoverAndActive>
-              <label>
-                <input
-                  data-testid="photo-upload"
-                  onChange={event => onUpload(phraseId, event)}
-                  id="image-upload"
-                  type="file"
-                  className="sr-only"
-                  accept="image/*"
-                />
-                <AddPhotoIcon height="30" width="30" fill="#19337a" />
-                <span className="sr-only">Upload</span>
-              </label>
-            </IconButton>
-          </ButtonWrapper>
-        </ContextWrapper> */}
+          <ContextWrapper>
+            <ContentWrapper>
+              <PhraseCardDate>{date}</PhraseCardDate>
+              <PhraseCardName>{name}</PhraseCardName>
+              <PhraseCardText>"{text}"</PhraseCardText>
+            </ContentWrapper>
+            <ButtonWrapper>
+              <IconButton hoverAndActive type="button" onClick={() => onBookmarkClick(phraseId)}>
+                {isBookmarked ? (
+                  <HeartFilledIcon fill="#9AD21C" height="30" width="30" />
+                ) : (
+                  <HeartOutlinedIcon fill="#9AD21C" height="30" width="30" />
+                )}
+                <span className="sr-only">Bookmark</span>
+              </IconButton>
+              <IconButton
+                hoverAndActive
+                disabled={showDeleteMessage}
+                onClick={() => setShowDeleteMessage(!showDeleteMessage)}
+              >
+                <DeleteIcon fill="#DE0C47" height="30" width="30" />
+                <span className="sr-only">Delete</span>
+              </IconButton>
+              <IconButton hoverAndActive>
+                <label>
+                  <input
+                    data-testid="photo-upload"
+                    onChange={event => onUpload(phraseId, event)}
+                    id="image-upload"
+                    type="file"
+                    className="sr-only"
+                    accept="image/*"
+                  />
+                  <AddPhotoIcon height="30" width="30" fill="#19337a" />
+                  <span className="sr-only">Upload</span>
+                </label>
+              </IconButton>
+              <button onClick={handleFlipClick}>flip</button>
+            </ButtonWrapper>
+          </ContextWrapper>
 
-        {showDeleteMessage ? (
-          <ModalDeleteMessage
-            phraseId={phraseId}
-            onDeleteClick={onDeleteClick}
-            onCancelClick={handleCancel}
-            deleteText="Löschen"
-            cancelText="Abbrechen"
-            messageTitle="Spruch löschen"
-            messageText="Bist Du sicher, dass Du den Spruch löschen möchtest? Das kann nicht rückgängig gemacht werden!"
-          />
-        ) : null}
-      </PhraseCardWrapper>
+          {showDeleteMessage ? (
+            <ModalDeleteMessage
+              phraseId={phraseId}
+              onDeleteClick={onDeleteClick}
+              onCancelClick={handleCancel}
+              deleteText="Löschen"
+              cancelText="Abbrechen"
+              messageTitle="Spruch löschen"
+              messageText="Bist Du sicher, dass Du den Spruch löschen möchtest? Das kann nicht rückgängig gemacht werden!"
+            />
+          ) : null}
+        </PhraseCardWrapper>
+
+        {/* Back */}
+
+        <PhraseCardWrapperBack>
+
+
+
+
+              <button onClick={handleFlipClick}>flip</button>
+
+
+
+        </PhraseCardWrapperBack>
+      </ReactCardFlip>
     </>
   );
 
@@ -224,8 +167,11 @@ const PhraseCardWrapper = styled.article`
   position: relative;
   width: 100%;
   min-height: 200px;
-
 `;
+
+const PhraseCardWrapperBack = styled(PhraseCardWrapper)`
+`
+
 const BackgroundImage = styled.section`
   position: relative;
   background-image: url(${props => props.img});
