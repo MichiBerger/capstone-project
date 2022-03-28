@@ -36,14 +36,7 @@ export default function PhraseCard({
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <PhraseCardWrapper>
           {!image ? (
-            <div
-              style={{
-                borderRight: '1px dashed #19337a',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
+            <NoBackgroundImageFrontWrapper>
               <IconButton hoverAndActive>
                 <label>
                   <input
@@ -58,7 +51,7 @@ export default function PhraseCard({
                   <span className="sr-only">Upload</span>
                 </label>
               </IconButton>
-            </div>
+            </NoBackgroundImageFrontWrapper>
           ) : (
             <BackgroundImage img={image} onClick={() => handleHover(!hover)}>
               {hover ? (
@@ -70,6 +63,7 @@ export default function PhraseCard({
                   }}
                 >
                   <DeleteIcon fill="#fff" height="20" width="20" />
+                  <span className="sr-only">Photo delete</span>
                 </IconButton>
               ) : null}
             </BackgroundImage>
@@ -116,6 +110,7 @@ export default function PhraseCard({
 
           {showDeleteMessage ? (
             <ModalDeleteMessage
+              data-testid="modal"
               phraseId={phraseId}
               onDeleteClick={onDeleteClick}
               onCancelClick={handleCancel}
@@ -137,7 +132,7 @@ export default function PhraseCard({
               </IconButton>
             </BackgroundImageBack>
           ) : (
-            <NoBackgroundImageWrapper>
+            <NoBackgroundImageBackWrapper>
               <div>
                 <IconButton hoverAndActive>
                   <label>
@@ -159,7 +154,7 @@ export default function PhraseCard({
               <IconButton alignSelf justifySelf onClick={handleFlipClick}>
                 <SwitchIcon height="30" width="30" fill="#DE0C47" />
               </IconButton>
-            </NoBackgroundImageWrapper>
+            </NoBackgroundImageBackWrapper>
           )}
         </PhraseCardWrapperBack>
       </ReactCardFlip>
@@ -184,7 +179,6 @@ const PhraseCardWrapperBack = styled.article`
   width: 100%;
   min-height: 250px;
   background-color: #f9f9f9;
-
 `;
 
 const PhraseCardWrapper = styled(PhraseCardWrapperBack)`
@@ -193,7 +187,13 @@ const PhraseCardWrapper = styled(PhraseCardWrapperBack)`
   color: #19337a;
 `;
 
-const NoBackgroundImageWrapper = styled.div`
+const NoBackgroundImageFrontWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid dashed #19337a;
+`;
+const NoBackgroundImageBackWrapper = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
   place-items: center;
@@ -209,7 +209,7 @@ const NoBackgroundImageWrapper = styled.div`
   }
 `;
 
-const BackgroundImageBack = styled(NoBackgroundImageWrapper)`
+const BackgroundImageBack = styled(NoBackgroundImageBackWrapper)`
   background-image: url(${props => props.img});
   background-repeat: no-repeat;
   background-size: cover;
