@@ -128,7 +128,7 @@ export default function PhraseForm({
     event.preventDefault();
     let newDate = startDate.toLocaleDateString('de-DE', options);
 
-    handlePhraseSubmit({ name: selectedName, date: newDate, text: phraseText.trim() });
+    handlePhraseSubmit({ name: selectedName, date: newDate, text: phraseText.trim(), photo: imageUrl });
     setPhraseText('');
     handleImageUrl('');
     setStartDate(new Date());
