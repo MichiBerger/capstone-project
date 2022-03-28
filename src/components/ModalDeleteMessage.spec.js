@@ -52,16 +52,15 @@ describe('ModalDeleteMessage', () => {
       </Router>
     );
 
-    const cancelButtonOne = screen.getByRole('button', { name: 'Cancel' });
-    const deleteButton = screen.getByRole('button', { name: 'Delete Loeschen' });
-    const cancelButtonTwo = screen.getByRole('button', { name: 'Cancel Abbrechen' });
 
-    // userEvent.click(cancelButtonOne);
-    // userEvent.click(cancelButtonTwo);
+    const deleteButton = screen.getByRole('button', { name: 'Delete Loeschen' });
+
+
+
     userEvent.click(deleteButton);
 
     expect(deleteClick).toHaveBeenCalled();
-    // expect(cancelClick).toHaveBeenCalled();
-    // expect(cancelClick).toHaveBeenCalled();
+
+
   });
 });

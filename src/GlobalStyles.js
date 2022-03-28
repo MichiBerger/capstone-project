@@ -33,7 +33,7 @@ ul{
   list-style: none;
 }
 input[type="text"], textarea, select, option {
-  font-family: sans-serif;
+  font-family: inherit;
   font-size: 1rem;
 }
 
