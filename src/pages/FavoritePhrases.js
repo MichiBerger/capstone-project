@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import ModalLoadingInfo from '../components/ModalLoadingInfo.js';
 import PhraseCard from '../components/PhraseCard.js';
 import ModalEmptyPhraseMessage from '../components/ModalEmptyPhraseMessage.js';
+import FilterList from '../components/FilterList.js';
 
 export default function FavoritePhrases({
   onBookmarkClick,
@@ -29,6 +30,7 @@ export default function FavoritePhrases({
 
       {isLoading ? <ModalLoadingInfo loadingStatus={loadingStatus} /> : null}
 
+      <FilterList phrases={emptyPhrases} />
       <PhrasesList isLoading={isLoading} role="list" aria-label="phrases">
         {phrases
           .filter(phrase => phrase.isBookmarked)
