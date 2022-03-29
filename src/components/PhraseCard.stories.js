@@ -9,8 +9,10 @@ const Template = args => <PhraseCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  name: "Max",
-  text: 'Das ist mein Papapa!',
-  date: '22. Feb. 2022',
-  isBookmarked: true
+  name: 'Max',
+  date: '25. März 2022',
+  id: 'PYaHT9ymtyVHW2tCollee',
+  isBookmarked: false,
+  photo: "https://source.unsplash.com/random",
+  text: 'ahh kackscheisse!',
 };
