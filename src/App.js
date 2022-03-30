@@ -20,8 +20,16 @@ const initialPhrase = [
     date: '25. März 2022',
     id: 'PYaHT9ymtyVHW2tCollee',
     isBookmarked: false,
-    photo: "https://source.unsplash.com/random",
+    photo: 'https://source.unsplash.com/random',
     text: 'ahh kackscheisse!',
+  },
+  {
+    name: 'Hannah',
+    date: '25. März 2022',
+    id: 'PYaHT9ymtyVHW2tColler',
+    isBookmarked: false,
+    photo: 'https://source.unsplash.com/random',
+    text: 'Mama ich will einen Godschilla haben...die sind so süß!',
   },
 ];
 
@@ -30,15 +38,20 @@ function App() {
   const [kidsData, setKidsData] = useState(loadFromLocal('kidsData') ?? []);
   const [loadingStatus, setLoadingStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPreviewLoading, setIsPreviewLoading] = useState(false)
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [imagePublicId, setImagePublicId] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [filterButtons, setFilterButtons] = useState('Alle');
 
   useEffect(() => {
     saveToLocal('allPhrases', phrases);
     saveToLocal('kidsData', kidsData);
   }, [phrases, kidsData]);
+
+  function handleFilterClick(name) {
+    setFilterButtons(name);
+  }
 
   return (
     <AppGrid>
@@ -50,6 +63,7 @@ function App() {
             element={
               <AllPhrases
                 cloudname={CLOUDNAME}
+                filterButtons={filterButtons}
                 loadingStatus={loadingStatus}
                 isLoading={isLoading}
                 phrases={phrases}
@@ -57,6 +71,7 @@ function App() {
                 onDeleteClick={handleDelete}
                 onImageDeleteClick={handleImageDelete}
                 onUpload={upload}
+                onFilterClick={handleFilterClick}
               />
             }
           />
@@ -65,11 +80,13 @@ function App() {
             element={
               <FavoritePhrases
                 cloudname={CLOUDNAME}
+                filterButtons={filterButtons}
                 loadingStatus={loadingStatus}
                 isLoading={isLoading}
                 phrases={phrases}
                 onBookmarkClick={handleBookmarkClick}
                 onDeleteClick={handleDelete}
+                onFilterClick={handleFilterClick}
                 onImageDeleteClick={handleImageDelete}
                 onUpload={upload}
               />
@@ -224,7 +241,7 @@ function App() {
       .then(response => {
         handleImagePublicId(response.data.public_id);
         handleImageUrl(response.data.url);
-        handlePreviewLoading(false)
+        handlePreviewLoading(false);
       })
       .catch(error => console.error(error));
   }
@@ -235,8 +252,8 @@ function App() {
   function handleImageUrl(response) {
     setImageUrl(response);
   }
-  function handlePreviewLoading(value){
-    setIsPreviewLoading(value)
+  function handlePreviewLoading(value) {
+    setIsPreviewLoading(value);
   }
 
   // Set showMessage

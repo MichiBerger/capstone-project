@@ -52,7 +52,7 @@ export default function PhraseForm({
           ))}
         </NameSelect>
 
-        <LabelDate htmlFor="date">Wähle ein Datum</LabelDate>
+        <LabelDate htmlFor="date">Wähle ein Datum!</LabelDate>
         <DayPicker
           id="date"
           name="date"

@@ -3,49 +3,57 @@ import { Link } from 'react-router-dom';
 import ModalLoadingInfo from '../components/ModalLoadingInfo.js';
 import PhraseCard from '../components/PhraseCard.js';
 import AddIcon from '../icons/AddIcon.js';
+import FilterList from '../components/FilterList.js';
 
 export default function AllPhrases({
-  onBookmarkClick,
-  phrases,
-  onDeleteClick,
-  onUpload,
   cloudname,
-  onImageDeleteClick,
+  filterButtons,
   loadingStatus,
+  phrases,
   isLoading,
+  onBookmarkClick,
+  onDeleteClick,
+  onFilterClick,
+  onImageDeleteClick,
+  onUpload,
 }) {
   return (
     <AllPhrasesWrapper>
+      {isLoading && <ModalLoadingInfo loadingStatus={loadingStatus} />}
+
       {phrases.length === 0 ? (
         <AddButtonLink to="/addphrases">
           <AddIcon fill="#19337a" height="40px" width="40px" />
           <p>Füge einen Spruch hinzu!</p>
         </AddButtonLink>
-      ) : null}
-
-      {isLoading ? <ModalLoadingInfo loadingStatus={loadingStatus} /> : null}
-
-      <PhrasesList isLoading={isLoading} role="list" aria-label="phrases">
-        {phrases.map(phrase => {
-          return (
-            <PhraseItem aria-label="phrase-item" key={phrase.id}>
-              <PhraseCard
-                cloudname={cloudname}
-                onBookmarkClick={onBookmarkClick}
-                onDeleteClick={onDeleteClick}
-                onImageDeleteClick={onImageDeleteClick}
-                onUpload={onUpload}
-                isBookmarked={phrase.isBookmarked}
-                phraseId={phrase.id}
-                date={phrase.date}
-                name={phrase.name}
-                image={phrase.photo}
-                text={phrase.text}
-              />
-            </PhraseItem>
-          );
-        })}
-      </PhrasesList>
+      ) : (
+        <>
+          <FilterList phrases={phrases} onFilterClick={onFilterClick} filterButtons={filterButtons} />
+          <PhrasesList isLoading={isLoading} role="list" aria-label="phrases">
+            {phrases
+              .filter(item => item.name.includes(filterButtons) || filterButtons === 'Alle')
+              .map(phrase => {
+                return (
+                  <PhraseItem aria-label="phrase-item" key={phrase.id}>
+                    <PhraseCard
+                      cloudname={cloudname}
+                      onBookmarkClick={onBookmarkClick}
+                      onDeleteClick={onDeleteClick}
+                      onImageDeleteClick={onImageDeleteClick}
+                      onUpload={onUpload}
+                      isBookmarked={phrase.isBookmarked}
+                      phraseId={phrase.id}
+                      date={phrase.date}
+                      name={phrase.name}
+                      image={phrase.photo}
+                      text={phrase.text}
+                    />
+                  </PhraseItem>
+                );
+              })}
+          </PhrasesList>
+        </>
+      )}
     </AllPhrasesWrapper>
   );
 }
@@ -54,6 +62,7 @@ const AllPhrasesWrapper = styled.section`
   position: relative;
   height: calc(100% - 96px);
 `;
+
 const PhrasesList = styled.ul`
   display: flex;
   gap: 1rem;

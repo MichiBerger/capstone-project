@@ -191,7 +191,7 @@ const NoBackgroundImageFrontWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid dashed #19337a;
+  border-right: 1px dashed #19337a;
 `;
 const NoBackgroundImageBackWrapper = styled.div`
   display: grid;
