@@ -21,7 +21,7 @@ export default function FavoritePhrases({
 
   return (
     <AllPhrasesWrapper>
-      {isLoading ? <ModalLoadingInfo loadingStatus={loadingStatus} /> : null}
+      {isLoading && <ModalLoadingInfo loadingStatus={loadingStatus} />}
 
       {emptyPhrases.length === 0 ? (
         <AddButtonLink to="/">

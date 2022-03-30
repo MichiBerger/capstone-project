@@ -1,17 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export default function FilterList({ phrases, onFilterClick, filterButtons }) {
   const allExistingNames = [...new Set(phrases.map(item => item.name))];
   const categoryTagsAndAll = ['Alle', ...allExistingNames].sort();
-  function handleFilterCick(name) {
-    onFilterClick(name);
-  }
+
   return (
     <>
       <FilterNameList role="list">
         {categoryTagsAndAll.map((item, index) => (
           <li key={index}>
-            <StyledButton type="button" active={item === filterButtons} onClick={() => handleFilterCick(item)}>
+            <StyledButton type="button" active={item === filterButtons} onClick={() => onFilterClick(item)}>
               {item}
             </StyledButton>
           </li>
@@ -26,9 +24,15 @@ const StyledButton = styled.button`
   border-radius: 25px;
   min-width: 80px;
   border: 1px solid #19337a;
+  background: transparent;
   color: #19337a;
-  background: ${props => (props.active ? '#19337a' : 'transparent')};
-  color: ${props => (props.active ? '#fff' : '#19337a')};
+  ${props =>
+    props.active &&
+    css`
+      background: #19337a;
+      color: #fff;
+    `}
+
   cursor: pointer;
 `;
 

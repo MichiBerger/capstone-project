@@ -23,6 +23,14 @@ const initialPhrase = [
     photo: 'https://source.unsplash.com/random',
     text: 'ahh kackscheisse!',
   },
+  {
+    name: 'Hannah',
+    date: '25. März 2022',
+    id: 'PYaHT9ymtyVHW2tColler',
+    isBookmarked: false,
+    photo: 'https://source.unsplash.com/random',
+    text: 'Mama ich will einen Godschilla haben...die sind so süß!',
+  },
 ];
 
 function App() {
@@ -44,8 +52,6 @@ function App() {
   function handleFilterClick(name) {
     setFilterButtons(name);
   }
-
-  console.log(filterButtons);
 
   return (
     <AppGrid>

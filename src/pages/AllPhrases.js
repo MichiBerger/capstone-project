@@ -19,7 +19,7 @@ export default function AllPhrases({
 }) {
   return (
     <AllPhrasesWrapper>
-      {isLoading ? <ModalLoadingInfo loadingStatus={loadingStatus} /> : null}
+      {isLoading && <ModalLoadingInfo loadingStatus={loadingStatus} />}
 
       {phrases.length === 0 ? (
         <AddButtonLink to="/addphrases">
