@@ -1,59 +1,61 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import ModalLoadingInfo from '../components/ModalLoadingInfo.js';
 import PhraseCard from '../components/PhraseCard.js';
-import ModalEmptyPhraseMessage from '../components/ModalEmptyPhraseMessage.js';
 import FilterList from '../components/FilterList.js';
+import HeartOutlinedIcon from '../icons/HeartOutlinedIcon.js';
 
 export default function FavoritePhrases({
-  onBookmarkClick,
-  phrases,
-  onDeleteClick,
-  onUpload,
   cloudname,
-  onImageDeleteClick,
+  filterButtons,
   loadingStatus,
+  phrases,
   isLoading,
+  onBookmarkClick,
+  onDeleteClick,
+  onFilterClick,
+  onImageDeleteClick,
+  onUpload,
 }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
 
-  const emptyPhrasesMessage =
-    emptyPhrases.length === 0 ? (
-      <ModalEmptyPhraseMessage
-        emptyPhrasetext="Gehe zurück und markiere deinen Lieblingspruch einfach durch klicken auf das Herzsymbol!"
-        titleText="Upps...da fehlt noch was!"
-      />
-    ) : null;
-
   return (
     <AllPhrasesWrapper>
-      {emptyPhrasesMessage}
-
       {isLoading ? <ModalLoadingInfo loadingStatus={loadingStatus} /> : null}
 
-      <FilterList phrases={emptyPhrases} />
-      <PhrasesList isLoading={isLoading} role="list" aria-label="phrases">
-        {phrases
-          .filter(phrase => phrase.isBookmarked)
-          .map(phrase => {
-            return (
-              <PhraseItem aria-label="phrase-item" key={phrase.id}>
-                <PhraseCard
-                  cloudname={cloudname}
-                  onBookmarkClick={onBookmarkClick}
-                  onDeleteClick={onDeleteClick}
-                  onImageDeleteClick={onImageDeleteClick}
-                  onUpload={onUpload}
-                  isBookmarked={phrase.isBookmarked}
-                  phraseId={phrase.id}
-                  date={phrase.date}
-                  name={phrase.name}
-                  image={phrase.photo}
-                  text={phrase.text}
-                />
-              </PhraseItem>
-            );
-          })}
-      </PhrasesList>
+      {emptyPhrases.length === 0 ? (
+        <AddButtonLink to="/">
+          <HeartOutlinedIcon fill="#19337a" height="40px" width="40px" />
+          <p>Markiere Deinen Lieblingsspruch!</p>
+        </AddButtonLink>
+      ) : (
+        <>
+          <FilterList phrases={emptyPhrases} onFilterClick={onFilterClick} filterButtons={filterButtons} />
+          <PhrasesList isLoading={isLoading} role="list" aria-label="phrases">
+            {emptyPhrases
+              .filter(item => item.name.includes(filterButtons) || filterButtons === 'Alle')
+              .map(phrase => {
+                return (
+                  <PhraseItem aria-label="phrase-item" key={phrase.id}>
+                    <PhraseCard
+                      cloudname={cloudname}
+                      onBookmarkClick={onBookmarkClick}
+                      onDeleteClick={onDeleteClick}
+                      onImageDeleteClick={onImageDeleteClick}
+                      onUpload={onUpload}
+                      isBookmarked={phrase.isBookmarked}
+                      phraseId={phrase.id}
+                      date={phrase.date}
+                      name={phrase.name}
+                      image={phrase.photo}
+                      text={phrase.text}
+                    />
+                  </PhraseItem>
+                );
+              })}
+          </PhrasesList>
+        </>
+      )}
     </AllPhrasesWrapper>
   );
 }
@@ -72,4 +74,25 @@ const PhrasesList = styled.ul`
 
 const PhraseItem = styled.li`
   width: 100%;
+`;
+
+const AddButtonLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  padding: 0.5rem;
+  gap: 10px;
+  color: #19337a;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 250px;
+  min-width: 300px;
+  border: 1px dashed #19337a;
+  background-color: #f9f9f9;
+  border-radius: 10px;
 `;

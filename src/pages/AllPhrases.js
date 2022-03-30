@@ -6,16 +6,16 @@ import AddIcon from '../icons/AddIcon.js';
 import FilterList from '../components/FilterList.js';
 
 export default function AllPhrases({
-  onBookmarkClick,
-  phrases,
-  onDeleteClick,
-  onUpload,
   cloudname,
-  onImageDeleteClick,
-  onFilterClick,
-  loadingStatus,
-  isLoading,
   filterButtons,
+  loadingStatus,
+  phrases,
+  isLoading,
+  onBookmarkClick,
+  onDeleteClick,
+  onFilterClick,
+  onImageDeleteClick,
+  onUpload,
 }) {
   return (
     <AllPhrasesWrapper>

@@ -57,6 +57,7 @@ function App() {
             element={
               <AllPhrases
                 cloudname={CLOUDNAME}
+                filterButtons={filterButtons}
                 loadingStatus={loadingStatus}
                 isLoading={isLoading}
                 phrases={phrases}
@@ -65,7 +66,6 @@ function App() {
                 onImageDeleteClick={handleImageDelete}
                 onUpload={upload}
                 onFilterClick={handleFilterClick}
-                filterButtons={filterButtons}
               />
             }
           />
@@ -74,11 +74,13 @@ function App() {
             element={
               <FavoritePhrases
                 cloudname={CLOUDNAME}
+                filterButtons={filterButtons}
                 loadingStatus={loadingStatus}
                 isLoading={isLoading}
                 phrases={phrases}
                 onBookmarkClick={handleBookmarkClick}
                 onDeleteClick={handleDelete}
+                onFilterClick={handleFilterClick}
                 onImageDeleteClick={handleImageDelete}
                 onUpload={upload}
               />
