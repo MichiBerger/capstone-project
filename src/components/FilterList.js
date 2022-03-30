@@ -8,7 +8,7 @@ export default function FilterList({ phrases, onFilterClick, filterButtons }) {
   }
   return (
     <>
-      <FilterNameList>
+      <FilterNameList role="list">
         {categoryTagsAndAll.map((item, index) => (
           <li key={index}>
             <StyledButton type="button" active={item === filterButtons} onClick={() => handleFilterCick(item)}>
