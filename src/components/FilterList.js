@@ -11,7 +11,7 @@ export default function FilterList({ phrases, onFilterClick, filterButtons }) {
       <FilterNameList>
         {categoryTagsAndAll.map((item, index) => (
           <li key={index}>
-            <StyledButton active={item === filterButtons} onClick={() => handleFilterCick(item)}>
+            <StyledButton type="button" active={item === filterButtons} onClick={() => handleFilterCick(item)}>
               {item}
             </StyledButton>
           </li>
@@ -29,6 +29,7 @@ const StyledButton = styled.button`
   color: #19337a;
   background: ${props => (props.active ? '#19337a' : 'transparent')};
   color: ${props => (props.active ? '#fff' : '#19337a')};
+  cursor: pointer;
 `;
 
 const FilterNameList = styled.ul`
