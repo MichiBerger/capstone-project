@@ -38,8 +38,8 @@ const IconWrapper = styled.button`
   padding: 0;
   width: 24px;
   height: 24px;
-  justify-self: ${props => props.justifySelf ? "end" : "center"};
-  align-self: ${props => props.alignSelf ? "end" : "center"};
+  justify-self: ${props => (props.justifySelf ? 'end' : 'center')};
+  align-self: ${props => (props.alignSelf ? 'end' : 'center')};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,7 +63,7 @@ const IconWrapper = styled.button`
   ${props =>
     props.photoDeleteIcon &&
     `
-    background-color: #DE0C47;
+    background-color: var(--color-amaranth-red);
     position: absolute;
     border-radius: 50%;
     padding: 0.175rem;
@@ -77,7 +77,7 @@ const IconWrapper = styled.button`
     ${props =>
     props.previewDeleteIcon &&
     `
-    background-color: #DE0C47;
+    background-color: var(--color-amaranth-red);
     position: absolute;
     border-radius: 50%;
     padding: 0.175rem;

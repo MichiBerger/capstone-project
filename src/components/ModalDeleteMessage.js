@@ -20,14 +20,14 @@ export default function ModalDeleteMessage({
     >
       <Wrapper>
         <CancelCircleButton onClick={() => onCancelClick(false)}>
-          <CancelIconCircle height="24px" width="24px" fill="#19337A" />
+          <CancelIconCircle height="24px" width="24px" fill="var(--color-indigo-blue);" />
           <span className="sr-only">Cancel</span>
         </CancelCircleButton>
         <h2>{messageTitle}</h2>
         <p>{messageText}</p>
         <ButtonWrapper>
           <CancelButton onClick={() => onCancelClick(false)}>
-            <CancelIcon height="20px" width="20px" fill="#19337A" />
+            <CancelIcon height="20px" width="20px" fill="var(--color-indigo-blue);" />
             <span className="sr-only">Cancel</span>
             <p>{cancelText}</p>
           </CancelButton>
@@ -43,7 +43,7 @@ export default function ModalDeleteMessage({
 }
 
 const Wrapper = styled.article`
-  border: 1px solid #19337a;
+  border: 1px solid var(--color-indigo-blue);
   background-color: #fff;
   position: relative;
   display: flex;
@@ -83,9 +83,9 @@ const ButtonWrapper = styled.div`
 `;
 
 const CancelButton = styled.button`
-  color: #19337a;
+  color: var(--color-indigo-blue);
   background-color: transparent;
-  border: 1px solid #19337a;
+  border: 1px solid var(--color-indigo-blue);
   padding: 0.2rem 0;
   border-radius: 10px;
   width: 50%;
@@ -97,8 +97,8 @@ const CancelButton = styled.button`
 
 const DeleteButton = styled.button`
   color: #fff;
-  background-color: #de0c47;
-  border: 1px solid #19337a;
+  background-color: var(--color-amaranth-red);
+  border: 1px solid var(--color-indigo-blue);
   padding: 0.2rem 1rem;
   border-radius: 10px;
   width: 50%;

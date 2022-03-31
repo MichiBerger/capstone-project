@@ -23,13 +23,13 @@ const StyledButton = styled.button`
   padding: 0.5rem;
   border-radius: 25px;
   min-width: 80px;
-  border: 1px solid #19337a;
+  border: 1px solid var(--color-indigo-blue);
   background: transparent;
-  color: #19337a;
+  color: var(--color-indigo-blue);
   ${props =>
     props.active &&
     css`
-      background: #19337a;
+      background: var(--color-indigo-blue);
       color: #fff;
     `}
 

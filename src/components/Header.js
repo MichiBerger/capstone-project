@@ -21,8 +21,8 @@ const HeaderWrapper = styled.header`
   position: sticky;
   top: 0px;
   z-index: 2;
-  color: white;
-  background-color: #19337a;
+  color: #fff;
+  background-color: var(--color-indigo-blue);
   color: #fff;
   display: flex;
   align-items: center;

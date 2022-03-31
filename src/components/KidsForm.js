@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
-import AddIcon from '../icons/AddIcon.js'
+import AddIcon from '../icons/AddIcon.js';
 
 export default function KidsForm({ kidsData, handleShowMessage, handleKidSubmit }) {
   const [startDate, setStartDate] = useState(new Date());
@@ -83,13 +83,15 @@ export default function KidsForm({ kidsData, handleShowMessage, handleKidSubmit 
           maxDate={new Date()}
           onFocus={handleEmptyNameOnFocusDate}
         />
-        {startDate === null ? <ErrorMessage data-testid="birthdate">Bitte wähle ein Geburtsdatum aus!</ErrorMessage> : null}
+        {startDate === null ? (
+          <ErrorMessage data-testid="birthdate">Bitte wähle ein Geburtsdatum aus!</ErrorMessage>
+        ) : null}
         {filteredNameAndDate.length > 0 ? (
           <ErrorMessage>Dein Kind existiert bereits. Eine doppelte Eingabe ist nicht möglich!</ErrorMessage>
         ) : null}
 
         <AddButton type="submit" disabled={disabledButton}>
-          <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
+          <AddIcon fill={disabledButton ? 'var(--color-indigo-blue)' : '#fff'} height="30px" width="30px" />
           <span>Erstelle ein Kind</span>
         </AddButton>
       </FormWrapper>
@@ -116,34 +118,34 @@ const LabelInputText = styled.label`
 
 const DayPicker = styled(DatePicker)`
   padding: 1rem 1rem;
-  background-color: #f9f9f9;
+  background-color: var(--color-alabaster-grey);
   border-radius: 10px;
   border: none;
-  border: 1px solid #19337a;
-  color: #19337a;
+  border: 1px solid var(--color-indigo-blue);
+  color: var(--color-indigo-blue);
   width: 100%;
   &:focus {
     outline: none;
-    border: 1px solid #9ad21c;
+    border: 1px solid var(--color-atlantis-green);
   }
 `;
 
 const TextInput = styled.input`
   border-radius: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #19337a;
-  color: #19337a;
+  background-color: var(--color-alabaster-grey);
+  border: 1px solid var(--color-indigo-blue);
+  color: var(--color-indigo-blue);
   resize: none;
   padding: 1rem;
 
   &:focus {
     outline: none;
-    border: 1px solid #9ad21c;
+    border: 1px solid var(--color-atlantis-green);
   }
 `;
 
 const ErrorMessage = styled.p`
-  color: #de0c47;
+  color: var(--color-amaranth-red);
   margin-top: 0.375rem;
   font-size: 0.75rem;
 `;
@@ -155,11 +157,11 @@ const AddButton = styled.button`
   :disabled {
     opacity: 0.5;
     border: none;
-    color: #19337a;
+    color: var(--color-indigo-blue);
     background: none;
   }
 
-  background-color: #19337a;
+  background-color: var(--color-indigo-blue);
   padding: 0.5rem 0;
   border-radius: 25px;
   cursor: pointer;
@@ -167,6 +169,6 @@ const AddButton = styled.button`
   span {
     display: block;
     font-size: 0.75rem;
-    color: ${props => (props.disabled ? '#19337a' : '#fff')};
+    color: ${props => (props.disabled ? 'var(--color-indigo-blue);' : '#fff')};
   }
 `;

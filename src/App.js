@@ -40,7 +40,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isPreviewLoading, setIsPreviewLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const [imagePublicId, setImagePublicId] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [filterButtons, setFilterButtons] = useState('Alle');
 
@@ -75,6 +74,7 @@ function App() {
               />
             }
           />
+
           <Route
             path="/favorites"
             element={
@@ -239,16 +239,12 @@ function App() {
         },
       })
       .then(response => {
-        handleImagePublicId(response.data.public_id);
         handleImageUrl(response.data.url);
         handlePreviewLoading(false);
       })
       .catch(error => console.error(error));
   }
 
-  function handleImagePublicId(response) {
-    setImagePublicId(response);
-  }
   function handleImageUrl(response) {
     setImageUrl(response);
   }
@@ -277,9 +273,10 @@ function App() {
 
 const AppGrid = styled.div`
   display: grid;
+  height: 100vh;
   grid-template-rows: 50px 1fr 60px;
   max-width: 1024px;
-  background-color: #efefef;
+  background-color: var(--color-gallery-grey);
   margin: 0 auto;
 
   @media only screen and (${breakpoint.device.sm}) {
@@ -288,13 +285,12 @@ const AppGrid = styled.div`
 `;
 
 const Main = styled.main`
-  height: 100vh;
-  overflow-y: scroll;
+  overflow-x: auto;
   padding: 1rem 0.5rem;
 `;
 
 const NavBar = styled(Navigation)`
-  position: sticky;
+  position: fixed;
   bottom: 0;
   z-index: 1;
 `;

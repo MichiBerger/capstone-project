@@ -13,7 +13,7 @@ const AddMessageWrapper = styled.article`
   padding: 1rem;
   font-size: 1rem;
   border-radius: 20px;
-  background-color: #9ad21c;
+  background-color: var(--color-atlantis-green);
   display: flex;
   justify-content: center;
   align-items: center;

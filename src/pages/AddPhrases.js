@@ -21,7 +21,7 @@ export default function AddPhrases({
     if (showMessage) {
       setTimeout(() => {
         handleShowMessage(false);
-      }, 2500);
+      }, 1500);
     }
   }, [handleShowMessage, showMessage]);
   return (
@@ -31,7 +31,7 @@ export default function AddPhrases({
       ) : null}
       {kidsData.length === 0 ? (
         <StyledLinkEmptyKidsData to="/createkids" onClick={() => handleImageUrl('')}>
-          <AddKidsIcon fill="#19337a" height="40px" width="40px" />
+          <AddKidsIcon fill="var(--color-indigo-blue)" height="40px" width="40px" />
           <span>Füge ein Kind hinzu!</span>
         </StyledLinkEmptyKidsData>
       ) : (
@@ -57,20 +57,20 @@ const StyledLinkEmptyKidsData = styled(Link)`
   justify-content: center;
   padding: 0.5rem 0;
   gap: 10px;
-  color: #19337a;
+  color: var(--color-indigo-blue);
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   min-height: 250px;
   min-width: 300px;
-  border: 1px dashed #19337a;
-  background-color: #f9f9f9;
+  border: 1px dashed var(--color-indigo-blue);
+  background-color: var(--color-alabaster-grey);
   border-radius: 10px;
 
   span {
     display: block;
     font-size: 1.2rem;
-    color: #19337a;
+    color: var(--color-indigo-blue);
   }
 `;

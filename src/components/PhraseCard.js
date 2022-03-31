@@ -47,7 +47,8 @@ export default function PhraseCard({
                     className="sr-only"
                     accept="image/*"
                   />
-                  <AddPhotoIcon height="30" width="30" fill="#19337a" />
+
+                  <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue)" />
                   <span className="sr-only">Upload</span>
                 </label>
               </IconButton>
@@ -78,14 +79,14 @@ export default function PhraseCard({
             <ButtonWrapper>
               <IconButton hoverAndActive type="button" onClick={() => onBookmarkClick(phraseId)}>
                 {isBookmarked ? (
-                  <HeartFilledIcon fill="#9AD21C" height="30" width="30" />
+                  <HeartFilledIcon fill="var(--color-atlantis-green)" height="30" width="30" />
                 ) : (
-                  <HeartOutlinedIcon fill="#9AD21C" height="30" width="30" />
+                  <HeartOutlinedIcon fill="var(--color-atlantis-green)" height="30" width="30" />
                 )}
                 <span className="sr-only">Bookmark</span>
               </IconButton>
               <IconButton hoverAndActive onClick={() => setShowDeleteMessage(!showDeleteMessage)}>
-                <DeleteIcon fill="#DE0C47" height="30" width="30" />
+                <DeleteIcon fill="var(--color-amaranth-red)" height="30" width="30" />
                 <span className="sr-only">Delete</span>
               </IconButton>
               <IconButton hoverAndActive>
@@ -98,12 +99,12 @@ export default function PhraseCard({
                     className="sr-only"
                     accept="image/*"
                   />
-                  <AddPhotoIcon height="30" width="30" fill="#19337a" />
+                  <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue)" />
                   <span className="sr-only">Upload</span>
                 </label>
               </IconButton>
-              <IconButton onClick={handleFlipClick}>
-                <SwitchIcon height="30" width="30" />
+              <IconButton hoverAndActive onClick={handleFlipClick}>
+                <SwitchIcon height="30" width="30" fill="var(--color-trinidad-orange)" />
               </IconButton>
             </ButtonWrapper>
           </ContextWrapper>
@@ -128,7 +129,7 @@ export default function PhraseCard({
           {image ? (
             <BackgroundImageBack img={image}>
               <IconButton alignSelf justifySelf onClick={handleFlipClick}>
-                <SwitchIcon height="30" width="30" fill="#DE0C47" />
+                <SwitchIcon height="30" width="30" fill="var(--color-amaranth-red)" />
               </IconButton>
             </BackgroundImageBack>
           ) : (
@@ -144,7 +145,7 @@ export default function PhraseCard({
                       className="sr-only"
                       accept="image/*"
                     />
-                    <AddPhotoIcon height="30" width="30" fill="#19337a" />
+                    <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue)" />
                     <span className="sr-only">Upload</span>
                   </label>
                 </IconButton>
@@ -152,7 +153,7 @@ export default function PhraseCard({
               </div>
 
               <IconButton alignSelf justifySelf onClick={handleFlipClick}>
-                <SwitchIcon height="30" width="30" fill="#DE0C47" />
+                <SwitchIcon height="30" width="30" fill="var(--color-amaranth-red)" />
               </IconButton>
             </NoBackgroundImageBackWrapper>
           )}
@@ -177,21 +178,21 @@ const PhraseCardWrapperBack = styled.article`
   gap: 1rem 0.5rem;
   position: relative;
   width: 100%;
-  min-height: 250px;
-  background-color: #f9f9f9;
+  min-height: 200px;
+  background-color: var(--color-alabaster-grey);
 `;
 
 const PhraseCardWrapper = styled(PhraseCardWrapperBack)`
   display: grid;
   grid-template-columns: 1fr 2fr;
-  color: #19337a;
+  color: var(--color-indigo-blue); ;
 `;
 
 const NoBackgroundImageFrontWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px dashed #19337a;
+  border-right: 1px dashed var(--color-indigo-blue); ;
 `;
 const NoBackgroundImageBackWrapper = styled.div`
   display: grid;
@@ -232,7 +233,7 @@ const BackgroundImage = styled.div`
 const ContextWrapper = styled.section`
   padding: 1rem;
   display: grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 2fr auto;
 `;
 
 const ContentWrapper = styled.div`

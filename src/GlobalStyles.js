@@ -8,13 +8,25 @@ export default createGlobalStyle`
   padding: 0;
   margin: 0;
 }
+
+:root {
+--color-gallery-grey: #efefef;
+--color-alabaster-grey: #F9F9F9;
+--color-indigo-blue: #19337a;
+--color-indigo-blue-light: #19337a70;
+--color-amaranth-red:#DE0C47;
+--color-trinidad-orange: #E64B07;
+--color-atlantis-green: #9AD21C;
+}
+
 body {
   font-family: sans-serif;
   font-size: 112.5%;
   line-height: 1.5;
-  color: #19337A;
+  color: var(--color-indigo-blue);;
   margin: 0 auto;
 }
+
 h1,
 h2,
 h3,
@@ -23,15 +35,18 @@ h5,
 h6 {
   line-height: 1.2;
 }
+
 a {
   text-decoration: none;
   color: black;
 }
+
 ul{
   margin: 0;
   padding: 0;
   list-style: none;
 }
+
 input[type="text"], textarea, select, option {
   font-family: inherit;
   font-size: 1rem;
