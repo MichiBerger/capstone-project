@@ -23,7 +23,7 @@ export default function AllPhrases({
 
       {phrases.length === 0 ? (
         <AddButtonLink to="/addphrases">
-          <AddIcon fill="#19337a" height="40px" width="40px" />
+          <AddIcon fill="var(--color-indigo-blue);" height="40px" width="40px" />
           <p>Füge einen Spruch hinzu!</p>
         </AddButtonLink>
       ) : (
@@ -60,7 +60,7 @@ export default function AllPhrases({
 
 const AllPhrasesWrapper = styled.section`
   position: relative;
-  height: calc(100% - 96px);
+  height: calc(100% - 110px);
 `;
 
 const PhrasesList = styled.ul`
@@ -82,14 +82,14 @@ const AddButtonLink = styled(Link)`
   justify-content: center;
   padding: 0.5rem 0;
   gap: 10px;
-  color: #19337a;
+  color: var(--color-indigo-blue);
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   min-height: 250px;
   min-width: 300px;
-  border: 1px dashed #19337a;
-  background-color: #f9f9f9;
+  border: 1px dashed var(--color-indigo-blue);
+  background-color: var(--color-alabaster-grey);
   border-radius: 10px;
 `;

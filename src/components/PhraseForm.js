@@ -16,7 +16,7 @@ export default function PhraseForm({
   handlePhraseSubmit,
   handleImageUploadInPhraseForm,
   isPreviewLoading,
-  loadingProcess
+  loadingProcess,
 }) {
   const [selectedName, setSelectedName] = useState('');
   const [startDate, setStartDate] = useState(new Date());
@@ -25,6 +25,7 @@ export default function PhraseForm({
   const navigate = useNavigate();
 
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
   const disabledButton =
     (phraseText.length === 0 || startDate === null || selectedName === '' || selectedName === 'Wähle ein Kind!') ??
     true;
@@ -34,10 +35,9 @@ export default function PhraseForm({
       setTimeout(() => {
         setSuccessMessage(false);
         navigate('/');
-      }, 2000);
+      }, 1000);
     }
   }, [successMessage, navigate]);
-
 
   return (
     <Wrapper>
@@ -69,8 +69,8 @@ export default function PhraseForm({
           value={phraseText}
           name="phrase-text"
           id="phrase-text"
-          cols="20"
-          rows="10"
+          cols="5"
+          rows="3"
           placeholder="...das ist mein papapa!"
           maxLength="300"
         ></TextInput>
@@ -99,7 +99,7 @@ export default function PhraseForm({
                 accept="image/*"
               />
               <PhotoUploadField>
-                <AddPhotoIcon height="24px" width="24px" fill="#19337a" />
+                <AddPhotoIcon height="24px" width="24px" fill="var(--color-indigo-blue);" />
                 <span className="sr-only">Fotoupload</span>
               </PhotoUploadField>
             </LabelImage>
@@ -108,7 +108,7 @@ export default function PhraseForm({
         {isPreviewLoading ? <p>Dein Bild wird hochgeladen: {loadingProcess}%</p> : null}
 
         <AddButton disabled={disabledButton}>
-          <AddIcon fill={disabledButton ? '#19337a' : '#fff'} height="30px" width="30px" />
+          <AddIcon fill={disabledButton ? 'var(--color-indigo-blue);' : '#fff'} height="30px" width="30px" />
           <span>Füge einen Spruch hinzu!</span>
         </AddButton>
       </FormWrapper>
@@ -153,9 +153,9 @@ const Wrapper = styled.section`
 const PhotoUploadField = styled.div`
   width: 100%;
   border-radius: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #19337a;
-  color: #19337a;
+  background-color: var(--color-alabaster-grey);
+  border: 1px solid var(--color-indigo-blue);
+  color: var(--color-indigo-blue);
   display: flex;
   align-items: center;
   padding: 0.75rem;
@@ -164,21 +164,22 @@ const PhotoUploadField = styled.div`
 
 const NameSelect = styled.select`
   border-radius: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #19337a;
-  color: #19337a;
+  background-color: var(--color-alabaster-grey);
+  border: 1px solid var(--color-indigo-blue);
+  color: var(--color-indigo-blue);
   padding: 1rem;
   justify-self: start;
   width: 100%;
   &:focus {
     outline: none;
-    border: 1px solid #9ad21c;
+    border: 1px solid var(--color-atlantis-green);
   }
 `;
 
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
+  height: calc(100% - 120px);
 `;
 const LabelKid = styled.label`
   margin-bottom: 0.5rem;
@@ -201,34 +202,34 @@ const LabelImage = styled(LabelKid)`
 
 const DayPicker = styled(DatePicker)`
   padding: 1rem 1rem;
-  background-color: #f9f9f9;
+  background-color: var(--color-alabaster-grey);
   border-radius: 10px;
   border: none;
-  border: 1px solid #19337a;
-  color: #19337a;
+  border: 1px solid var(--color-indigo-blue);
+  color: var(--color-indigo-blue);
   width: 100%;
   &:focus {
     outline: none;
-    border: 1px solid #9ad21c;
+    border: 1px solid var(--color-atlantis-green);
   }
 `;
 
 const TextInput = styled.textarea`
   border-radius: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #19337a;
-  color: #19337a;
+  background-color: var(--color-alabaster-grey);
+  border: 1px solid var(--color-indigo-blue);
+  color: var(--color-indigo-blue);
   resize: none;
   padding: 1rem;
 
   &:focus {
     outline: none;
-    border: 1px solid #9ad21c;
+    border: 1px solid var(--color-atlantis-green);
   }
 `;
 
 const ErrorMessage = styled.p`
-  color: #de0c47;
+  color: var(--color-amaranth-red);
   margin-top: 0.375rem;
   font-size: 0.75rem;
 `;
@@ -240,11 +241,11 @@ const AddButton = styled.button`
   :disabled {
     opacity: 0.5;
     border: none;
-    color: #19337a;
+    color: var(--color-indigo-blue);
     background: none;
   }
 
-  background-color: #19337a;
+  background-color: var(--color-indigo-blue);
   padding: 0.5rem 0;
   border-radius: 25px;
   cursor: pointer;
@@ -252,6 +253,6 @@ const AddButton = styled.button`
   span {
     display: block;
     font-size: 0.75rem;
-    color: ${props => (props.disabled ? '#19337a' : '#fff')};
+    color: ${props => (props.disabled ? 'var(--color-indigo-blue);' : '#fff')};
   }
 `;

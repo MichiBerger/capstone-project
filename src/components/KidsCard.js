@@ -3,13 +3,12 @@ import IconButton from './IconButton.js';
 import DeleteIcon from '../icons/DeleteIcon.js';
 
 export default function KidsCard({ name, birthDate, kidsId, handleDeleteKid }) {
-
   return (
     <KidsCardWrapper>
       <h2>{name}</h2>
       <p>Geburtstag: {birthDate}</p>
       <IconButton gridArea="delete" hoverAndActive onClick={() => handleDeleteKid(kidsId)}>
-        <DeleteIcon fill="#DE0C47" height="35" width="35" />
+        <DeleteIcon fill="var(--color-amaranth-red)" height="35" width="35" />
         <span className="sr-only">Delete</span>
       </IconButton>
     </KidsCardWrapper>
@@ -29,8 +28,8 @@ const KidsCardWrapper = styled.li`
   border-radius: 15px;
   padding: 1rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  background-color: #f9f9f9;
-  color: #19337a;
+  background-color: var(--color-alabaster-grey);
+  color: var(--color-indigo-blue);
 
   h2 {
     grid-area: kidsName;

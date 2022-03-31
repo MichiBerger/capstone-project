@@ -22,7 +22,7 @@ const HeaderWrapper = styled.header`
   top: 0px;
   z-index: 2;
   color: white;
-  background-color: #19337a;
+  background-color: var(--color-indigo-blue);
   color: #fff;
   display: flex;
   align-items: center;

@@ -10,6 +10,7 @@ import AddPhrases from './pages/AddPhrases.js';
 import CreateKidsPage from './pages/CreateKidsPage.js';
 import FavoritePhrases from './pages/FavoritePhrases.js';
 import breakpoint from './commons/breakpoints.js';
+import ScrollToTop from './components/ScrollToTop.js';
 
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -57,6 +58,7 @@ function App() {
     <AppGrid>
       <Header />
       <Main>
+        <ScrollToTop />
         <Routes>
           <Route
             path="/"
@@ -75,6 +77,7 @@ function App() {
               />
             }
           />
+
           <Route
             path="/favorites"
             element={
@@ -279,7 +282,7 @@ const AppGrid = styled.div`
   display: grid;
   grid-template-rows: 50px 1fr 60px;
   max-width: 1024px;
-  background-color: #efefef;
+  background-color: var(--color-gallery-grey);
   margin: 0 auto;
 
   @media only screen and (${breakpoint.device.sm}) {
@@ -288,13 +291,13 @@ const AppGrid = styled.div`
 `;
 
 const Main = styled.main`
-  height: 100vh;
-  overflow-y: scroll;
+  height: 85vh;
+  overflow-x: auto;
   padding: 1rem 0.5rem;
 `;
 
 const NavBar = styled(Navigation)`
-  position: sticky;
+  position: fixed;
   bottom: 0;
   z-index: 1;
 `;

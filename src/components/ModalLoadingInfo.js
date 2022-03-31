@@ -16,7 +16,7 @@ export default function LoadingInfo({ loadingStatus }) {
 }
 
 const Wrapper = styled.article`
-  border: 1px solid #19337a;
+  border: 1px solid var(--color-indigo-blue);
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,8 @@ const ProgressBarWrapper = styled.section`
   div {
     height: 100%;
     width: ${props => props.loadingStatus}%;
-    background-color: ${props => (props.loadingStatus === 100 ? '#9ad21c' : '#DE0C47')};
+    background-color: ${props =>
+      props.loadingStatus === 100 ? 'var(--color-atlantis-green)' : 'var(--color-amaranth-red)'};
     border-radius: inherit;
     padding: 5px 10px;
     display: flex;
