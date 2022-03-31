@@ -11,7 +11,6 @@ import CreateKidsPage from './pages/CreateKidsPage.js';
 import FavoritePhrases from './pages/FavoritePhrases.js';
 import breakpoint from './commons/breakpoints.js';
 
-
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
@@ -41,7 +40,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isPreviewLoading, setIsPreviewLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const [imagePublicId, setImagePublicId] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [filterButtons, setFilterButtons] = useState('Alle');
 
@@ -58,7 +56,6 @@ function App() {
     <AppGrid>
       <Header />
       <Main>
-
         <Routes>
           <Route
             path="/"
@@ -242,16 +239,12 @@ function App() {
         },
       })
       .then(response => {
-        handleImagePublicId(response.data.public_id);
         handleImageUrl(response.data.url);
         handlePreviewLoading(false);
       })
       .catch(error => console.error(error));
   }
 
-  function handleImagePublicId(response) {
-    setImagePublicId(response);
-  }
   function handleImageUrl(response) {
     setImageUrl(response);
   }
