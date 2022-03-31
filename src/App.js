@@ -16,20 +16,36 @@ const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
 
 const initialPhrase = [
   {
-    name: 'Max',
+    name: 'Hannah',
     date: '25. März 2022',
     id: 'PYaHT9ymtyVHW2tCollee',
     isBookmarked: false,
-    photo: 'https://source.unsplash.com/random',
-    text: 'ahh kackscheisse!',
+    photo: 'https://res.cloudinary.com/capstone-project-neuefische/image/upload/v1648733860/initial/A_Kind_bunt_c3noyf.jpg',
+    text: 'Mama ich will einen Godschilla haben...die sind sooo süß!',
+  },
+  {
+    name: 'Paula',
+    date: '15. März 2022',
+    id: 'PYaHT9ymtyVHW2tColler',
+    isBookmarked: false,
+    photo: 'https://res.cloudinary.com/capstone-project-neuefische/image/upload/v1648733861/initial/A_Kind_katze_dl9tvd.jpg',
+    text: 'Ich will kein Brüderchen! Ich will lieber ein kleines Kätzchen!',
+  },
+  {
+    name: 'Max',
+    date: '25. Februar 2022',
+    id: 'PYaHT9ymtyVHW2tCollerrr',
+    isBookmarked: false,
+    photo: 'https://res.cloudinary.com/capstone-project-neuefische/image/upload/v1648733860/initial/Essen_eis_yfonll.jpg',
+    text: 'Ihhh bääää! Das mag ich nicht! Das schmeckt eeeecklich!',
   },
   {
     name: 'Hannah',
-    date: '25. März 2022',
-    id: 'PYaHT9ymtyVHW2tColler',
+    date: '15. Februar 2022',
+    id: 'PYaHT9ymtyVHW2tCollerrrrrr',
     isBookmarked: false,
-    photo: 'https://source.unsplash.com/random',
-    text: 'Mama ich will einen Godschilla haben...die sind so süß!',
+    photo: 'https://res.cloudinary.com/capstone-project-neuefische/image/upload/v1648733860/initial/Badewanne_xerhkx.jpg',
+    text: 'Ach menno! Ich will nicht in die Badebanne!',
   },
 ];
 
@@ -217,7 +233,6 @@ function App() {
   }
 
   //Photo upload general
-
   function handleImageUploadInPhraseForm(event) {
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`;
 
