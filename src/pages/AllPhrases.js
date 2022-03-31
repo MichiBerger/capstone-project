@@ -23,7 +23,7 @@ export default function AllPhrases({
 
       {phrases.length === 0 ? (
         <AddButtonLink to="/addphrases">
-          <AddIcon fill="var(--color-indigo-blue);" height="40px" width="40px" />
+          <AddIcon fill="var(--color-indigo-blue)" height="40px" width="40px" />
           <p>Füge einen Spruch hinzu!</p>
         </AddButtonLink>
       ) : (

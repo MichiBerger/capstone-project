@@ -10,7 +10,7 @@ import AddPhrases from './pages/AddPhrases.js';
 import CreateKidsPage from './pages/CreateKidsPage.js';
 import FavoritePhrases from './pages/FavoritePhrases.js';
 import breakpoint from './commons/breakpoints.js';
-import ScrollToTop from './components/ScrollToTop.js';
+
 
 const PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 const CLOUDNAME = process.env.REACT_APP_CLOUDINARY_CLOUDNAME;
@@ -58,7 +58,7 @@ function App() {
     <AppGrid>
       <Header />
       <Main>
-        <ScrollToTop />
+
         <Routes>
           <Route
             path="/"
@@ -280,6 +280,7 @@ function App() {
 
 const AppGrid = styled.div`
   display: grid;
+  height: 100vh;
   grid-template-rows: 50px 1fr 60px;
   max-width: 1024px;
   background-color: var(--color-gallery-grey);
@@ -291,7 +292,6 @@ const AppGrid = styled.div`
 `;
 
 const Main = styled.main`
-  height: 85vh;
   overflow-x: auto;
   padding: 1rem 0.5rem;
 `;

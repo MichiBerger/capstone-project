@@ -99,7 +99,7 @@ export default function PhraseForm({
                 accept="image/*"
               />
               <PhotoUploadField>
-                <AddPhotoIcon height="24px" width="24px" fill="var(--color-indigo-blue);" />
+                <AddPhotoIcon height="24px" width="24px" fill="var(--color-indigo-blue)" />
                 <span className="sr-only">Fotoupload</span>
               </PhotoUploadField>
             </LabelImage>
@@ -108,7 +108,7 @@ export default function PhraseForm({
         {isPreviewLoading ? <p>Dein Bild wird hochgeladen: {loadingProcess}%</p> : null}
 
         <AddButton disabled={disabledButton}>
-          <AddIcon fill={disabledButton ? 'var(--color-indigo-blue);' : '#fff'} height="30px" width="30px" />
+          <AddIcon fill={disabledButton ? 'var(--color-indigo-blue)' : '#fff'} height="30px" width="30px" />
           <span>Füge einen Spruch hinzu!</span>
         </AddButton>
       </FormWrapper>
@@ -180,6 +180,7 @@ const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   height: calc(100% - 120px);
+  width: 100%;
 `;
 const LabelKid = styled.label`
   margin-bottom: 0.5rem;

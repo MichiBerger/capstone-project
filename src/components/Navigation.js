@@ -62,6 +62,8 @@ const StyledNavLink = styled(NavLink)`
   justify-self: center;
   opacity: 0.5;
   width: 50%;
+  display: flex;
+
   svg {
     fill: var(--color-indigo-blue-light);
   }
@@ -81,6 +83,7 @@ const NavItemWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 `;
 
 const NavItemText = styled.span`

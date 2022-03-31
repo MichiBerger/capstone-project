@@ -25,7 +25,7 @@ export default function FavoritePhrases({
 
       {emptyPhrases.length === 0 ? (
         <AddButtonLink to="/">
-          <HeartOutlinedIcon fill="var(--color-indigo-blue);" height="40px" width="40px" />
+          <HeartOutlinedIcon fill="var(--color-indigo-blue)" height="40px" width="40px" />
           <p>Markiere Deinen Lieblingsspruch!</p>
         </AddButtonLink>
       ) : (

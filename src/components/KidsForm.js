@@ -91,7 +91,7 @@ export default function KidsForm({ kidsData, handleShowMessage, handleKidSubmit 
         ) : null}
 
         <AddButton type="submit" disabled={disabledButton}>
-          <AddIcon fill={disabledButton ? 'var(--color-indigo-blue);' : '#fff'} height="30px" width="30px" />
+          <AddIcon fill={disabledButton ? 'var(--color-indigo-blue)' : '#fff'} height="30px" width="30px" />
           <span>Erstelle ein Kind</span>
         </AddButton>
       </FormWrapper>

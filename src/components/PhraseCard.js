@@ -48,7 +48,7 @@ export default function PhraseCard({
                     accept="image/*"
                   />
 
-                  <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue);" />
+                  <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue)" />
                   <span className="sr-only">Upload</span>
                 </label>
               </IconButton>
@@ -99,7 +99,7 @@ export default function PhraseCard({
                     className="sr-only"
                     accept="image/*"
                   />
-                  <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue);" />
+                  <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue)" />
                   <span className="sr-only">Upload</span>
                 </label>
               </IconButton>
@@ -145,7 +145,7 @@ export default function PhraseCard({
                       className="sr-only"
                       accept="image/*"
                     />
-                    <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue);" />
+                    <AddPhotoIcon height="30" width="30" fill="var(--color-indigo-blue)" />
                     <span className="sr-only">Upload</span>
                   </label>
                 </IconButton>
