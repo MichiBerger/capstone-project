@@ -31,7 +31,7 @@ export default function AddPhrases({
       ) : null}
       {kidsData.length === 0 ? (
         <StyledLinkEmptyKidsData to="/createkids" onClick={() => handleImageUrl('')}>
-          <AddKidsIcon fill="var(--color-indigo-blue);" height="40px" width="40px" />
+          <AddKidsIcon fill="var(--color-indigo-blue)" height="40px" width="40px" />
           <span>Füge ein Kind hinzu!</span>
         </StyledLinkEmptyKidsData>
       ) : (
