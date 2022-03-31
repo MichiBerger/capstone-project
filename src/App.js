@@ -233,7 +233,6 @@ function App() {
   }
 
   //Photo upload general
-
   function handleImageUploadInPhraseForm(event) {
     const url = `https://api.cloudinary.com/v1_1/${CLOUDNAME}/image/upload`;
 
