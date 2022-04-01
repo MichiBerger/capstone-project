@@ -2,6 +2,8 @@
 
 LittleSunshine makes it easy to keep the best phrases of your kids and save them as a memory. You can simple add a phrase and combine it with a nice picture. To keep track of your favorite phrases you can bookmark them or if you get rid of a phrase you can just delete it! With LittleSunshine you´ll never forget the best memories of your kid!
 
+<img src="https://user-images.githubusercontent.com/10044263/161130557-2e4aed54-dd6b-4621-8fed-b8f3f3514055.gif" alt="Screen of LittleSunshine App" width="250px" />
+
 ## About Me
 
 Hello my name is Michi and I´m currently studying webdevelopement at neuefische GmbH.
@@ -10,21 +12,18 @@ LittleSunshine is my final project after a 12 week bootcamp at neuefische GmbH.
 
 ## Demo
 
-You can find the hosted version on Vercel: [LittleSunshine - Vercel](https://capstone-project-ptsp735eh-michiberger.vercel.app/)
+You can find the hosted version on Vercel: [LittleSunshine - Vercel](https://capstone-project-michiberger.vercel.app/)
 Important: This demo is optimized for mobile screen.
 
 ## Tech Stack
 
-- Create React App
 - React
+- Create React App
 - React Router
-- React Testing Library / Jest
+- React Testing Library
 - React Datepicker
 - Storybook
 - Styled components
-- Npm
-- Nanoid
-- Vercel
 - Cloudinary
 - Axios
 

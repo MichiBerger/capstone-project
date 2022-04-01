@@ -23,7 +23,7 @@ body {
   font-family: sans-serif;
   font-size: 112.5%;
   line-height: 1.5;
-  color: var(--color-indigo-blue);;
+  color: var(--color-indigo-blue);
   margin: 0 auto;
 }
 
