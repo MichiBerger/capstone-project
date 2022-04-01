@@ -2,7 +2,7 @@
 
 LittleSunshine makes it easy to keep the best phrases of your kids and save them as a memory. You can simple add a phrase and combine it with a nice picture. To keep track of your favorite phrases you can bookmark them or if you get rid of a phrase you can just delete it! With LittleSunshine you´ll never forget the best memories of your kid!
 
-<img src="https://user-images.githubusercontent.com/10044263/161130557-2e4aed54-dd6b-4621-8fed-b8f3f3514055.gif" alt="Screen of LittleSunshine App" width="250px" />
+<img align="right"  src="https://user-images.githubusercontent.com/97166533/161248719-0275a6f6-3dda-4d73-938f-c8deb88e46aa.gif" alt="Screen of LittleSunshine App" width="250px" />
 
 ## About Me
 
