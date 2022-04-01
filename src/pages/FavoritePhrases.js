@@ -18,7 +18,9 @@ export default function FavoritePhrases({
   onUpload,
 }) {
   const emptyPhrases = phrases.filter(phrase => phrase.isBookmarked);
+  console.log(emptyPhrases)
 
+  console.log(filterButtons)
   return (
     <AllPhrasesWrapper>
       {isLoading && <ModalLoadingInfo loadingStatus={loadingStatus} />}

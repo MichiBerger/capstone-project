@@ -290,7 +290,7 @@ const AppGrid = styled.div`
   display: grid;
   height: 100vh;
   grid-template-rows: 50px 1fr 60px;
-  max-width: 1024px;
+  max-width: 800px;
   background-color: var(--color-gallery-grey);
   margin: 0 auto;
 
