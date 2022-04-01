@@ -15,10 +15,10 @@ LittleSunshine is my final project after a 12 week bootcamp at neuefische GmbH.
 You can find the hosted version on Vercel: [LittleSunshine - Vercel](https://capstone-project-michiberger.vercel.app/)
 Important: This demo is optimized for mobile screen.
 
-## Tech Stack
+## Tech Stack 
+Built with Create React App
 
 - React
-- Create React App
 - React Router
 - React Testing Library
 - React Datepicker
@@ -27,12 +27,22 @@ Important: This demo is optimized for mobile screen.
 - Cloudinary
 - Axios
 
+## Cloudinary Setup
+
+- Create an account on https://cloudinary.com/
+- Go to https://cloudinary.com/console/settings/upload#upload_presets
+- Click Enable unsigned uploading
+- Copy the preset name (the 8 character hash below name)
+- Add your cloudname and preset name to .env.local
+
 ## Project Setup
 
 - Clone this repository
-- You don't need an API key
 - Install all dependencies with $ npm install
-- Run app in dev mode with $ npm run dev
 - Server: http://localhost:3000/
 - Run tests via $ npm run test
 - Run Storybook with $ npm run storybook
+- Create .env.local file #please check if you have added env.local in your .gitignore
+
+
+
